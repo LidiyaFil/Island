@@ -7,7 +7,7 @@ import src.IslandLivingObject.Animals.Herbivorous.Sheep;
 import src.IslandLivingObject.Animals.Predators.Wolf;
 import src.IslandLivingObject.Plants.Plant;
 
-public class CreatorLivingObject {
+public class LivingObjectFactory {
 
     ObjectMapper mapper = new YAMLMapper();
 

@@ -23,10 +23,6 @@ public class Wolf extends AbstractAnimals {
 
     }
 
-    @Override
-    public void die() {
-
-    }
 
     @Override
     public void multiply(List<IslandEntity> entities) {

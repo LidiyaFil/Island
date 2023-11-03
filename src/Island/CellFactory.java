@@ -27,20 +27,15 @@ public class CellFactory {
         return cellLists;
     }
 
-    public CopyOnWriteArrayList<IslandEntity> createAnimals() {
+    public CopyOnWriteArrayList<IslandEntity> createAnimals() throws JsonProcessingException {
         CopyOnWriteArrayList<IslandEntity> entities = new CopyOnWriteArrayList<>();
+        LivingObjectFactory livingObjectFactory = new LivingObjectFactory();
 
         for (IslandEntityType type : IslandEntityType.values()) {
-            // TODO Когда мы прикрутим треды, объекты будут создаваться в многопоточной среде.
-            //  Или ты хочешь разделить первоначальное заполнение "карты" животными и создание новых объктов в ходе выполнения программы?
-            //  10 - ради примера из головы, потом это число можем предложить выбрать из диапазона при запуске программы юзером.
+            //  Число "10" предложим выбрать из диапазона при запуске программы юзером.
             int amountOfOneAnimal = ThreadLocalRandom.current().nextInt(0, 10);
-            // TODO Мне очень не нравилась эта чать кода - циклы в циклах и циклами погоняют.
-            //  Вынесла часть логики в отдельный метод, возможно нужно разбить на большее количество отдельных методов, как думаешь?.
             while (amountOfOneAnimal > 0) {
-                // TODO на обсуждение - метод createObject хочет быть статичным: "на нестатический метод нельзя ссылаться из статического контекста".
-                //  А где в этом классе статика - не понимаю.
-                IslandEntity entity = LivingObjectFactory.createObject(type);
+                IslandEntity entity = livingObjectFactory.createObject(type);
                 entities.add(entity);
                 amountOfOneAnimal--;
             }

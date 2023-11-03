@@ -57,6 +57,8 @@ public class Cell {
         });
     }
 
+    // добавить метод DIE()
+
     /**
      * Метод countOfEntityResolver выполняет подсчет количества объектов в списке entities,
      * которые являются экземплярами указанного класса targetClass.

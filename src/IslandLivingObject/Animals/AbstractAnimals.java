@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import src.IslandLivingObject.IslandEntity;
 
 import java.util.List;
+import java.util.Objects;
 
 public abstract class AbstractAnimals implements IslandEntity {
     private final int maxAmount;
@@ -17,6 +18,14 @@ public abstract class AbstractAnimals implements IslandEntity {
 
     protected abstract void eat(List<IslandEntity> entities);
 
-    protected abstract void move();
-    protected abstract void die();
+    public abstract void move();
+
+    public void multiply(List<IslandEntity> entities) {
+        for (IslandEntity entity : entities) {
+            int count;
+
+        }
+        ;
+
+    }
 }

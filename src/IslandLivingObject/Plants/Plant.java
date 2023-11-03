@@ -9,10 +9,6 @@ public class Plant extends AbstractPlants {
         super(maxAmount);
     }
 
-    @Override
-    public void multiply(List<IslandEntity> entities) {
-
-    }
 
     @Override
     public void grow() {

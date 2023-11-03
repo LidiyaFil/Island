@@ -40,8 +40,8 @@ public class CellFactory {
             while (amountOfOneAnimal > 0) {
                 // TODO на обсуждение - метод createObject хочет быть статичным: "на нестатический метод нельзя ссылаться из статического контекста".
                 //  А где в этом классе статика - не понимаю.
-//                IslandEntity entity = LivingObjectFactory.createObject(type);
-//                entities.add(entity);
+                IslandEntity entity = LivingObjectFactory.createObject(type);
+                entities.add(entity);
                 amountOfOneAnimal--;
             }
         }

@@ -48,9 +48,9 @@ public class Cell {
         entities.forEach(entity -> {
             if (entity instanceof Predators) {
                 //TODO надо добавить поле животным (только вот куда?) и геттер для количества шагов
-                ((Predators) entity).move(entity.getSteps(), X, Y);
+                ((Predators) entity).move(((Predators) entity).getMaxMove(), X, Y);
             } else if (entity instanceof Herbivorous) {
-                ((Herbivorous) entity).move(entity.getSteps(), X, Y);
+                ((Herbivorous) entity).move(((Herbivorous) entity).getMaxMove(), X, Y);
             }
         });
     }

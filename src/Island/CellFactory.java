@@ -8,7 +8,7 @@ import src.IslandLivingObject.IslandEntityType;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-
+@Deprecated
 public class CellFactory {
     public List<CopyOnWriteArrayList<Cell>> createCellLists(int numRows, int numCols) throws JsonProcessingException {
         List<CopyOnWriteArrayList<Cell>> cellLists = new CopyOnWriteArrayList<>();
@@ -37,11 +37,7 @@ public class CellFactory {
             while (amountOfOneAnimal > 0) {
 
                 IslandEntity entity = null;
-                try {
-                    entity = livingObjectFactory.createObject(type);
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
-                }
+                entity = livingObjectFactory.createObject(type);
                 entities.add(entity);
                 amountOfOneAnimal--;
             }

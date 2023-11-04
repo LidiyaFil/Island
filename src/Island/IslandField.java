@@ -3,11 +3,11 @@ package src.Island;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.List;
-
+@Deprecated
 public class IslandField {
-    private static List<CopyOnWriteArrayList<Cell>> cells;
+    public static List<CopyOnWriteArrayList<Cell>> cells;
     //это поле для ограничений поля, только я пока хз как и куда его вписать
-    private static int playingFieldWidth;
+    public static int playingFieldWidth;
 
 
     /**

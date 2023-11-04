@@ -1,31 +1,19 @@
 package src.IslandLivingObject.Animals.Predators;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import src.IslandLivingObject.Animals.AbstractAnimals;
-import src.IslandLivingObject.IslandEntity;
+import src.IslandLivingObject.IslandEntityType;
 
-import java.util.List;
-
-public class Wolf extends AbstractAnimals {
-
-    @JsonCreator
-    public Wolf(int maxAmount, int maxMove) {
-        super(maxAmount, maxMove);
+public class Wolf extends Predators {
+    public Wolf() {
+        super();
+        maxAmount = 30;
+        maxMove = 3;
+        weight = 50;
+        fullSaturation = 8;
     }
 
     @Override
-    public void eat(List<IslandEntity> entities) {
-
-    }
-
-    @Override
-    public void move() {
-
-    }
-
-
-    @Override
-    public void multiply(List<IslandEntity> entities) {
-
+    public IslandEntityType getType() {
+        return IslandEntityType.PLANT;
     }
 }

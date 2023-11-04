@@ -3,11 +3,30 @@ package src.IslandLivingObject.Plants;
 import src.IslandLivingObject.IslandEntity;
 
 public abstract class AbstractPlants implements IslandEntity {
+    protected int maxAmount;
+    protected int weight;
 
-    private final int maxAmount;
-    public AbstractPlants(int maxAmount) {
-        this.maxAmount = maxAmount;
+    private int X;
+    private int Y;
+
+    public int getX() {
+        return X;
     }
 
-    abstract protected void grow();
+    public void setX(int x) {
+        X = x;
+    }
+
+    public int getY() {
+        return Y;
+    }
+
+    public void setY(int y) {
+        Y = y;
+    }
+
+    public Plant grow() {
+        return new Plant();
+    }
 }
+

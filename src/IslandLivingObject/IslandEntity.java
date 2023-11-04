@@ -3,6 +3,9 @@ package src.IslandLivingObject;
 import java.util.List;
 
 public interface IslandEntity {
+    IslandEntityType getType();
 
-    int getSteps();
+    int getX();
+
+    int getY();
 }

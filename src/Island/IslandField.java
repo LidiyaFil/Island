@@ -5,19 +5,40 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.List;
 
 public class IslandField {
-    private final List<CopyOnWriteArrayList<Cell>> cells;
-    private final int y;
+    private static List<CopyOnWriteArrayList<Cell>> cells;
+    //это поле для ограничений поля, только я пока хз как и куда его вписать
+    private static int playingFieldWidth;
 
+
+    /**
+     * Создание игрового поля
+     */
     public IslandField(int x, int y, CellFactory cellFactory) throws JsonProcessingException {
-        this.y = y;
+        this.playingFieldWidth = y;
         cells = cellFactory.createCellLists(x, y);
     }
 
-    public List<CopyOnWriteArrayList<Cell>> getCells() {
+
+    /**
+     * Возвращает игровое поле
+     * TODO нужно ли убрать статический контекст?
+     */
+    public static List<CopyOnWriteArrayList<Cell>> getCells() {
         return cells;
     }
+    /**
+     * Возвращает ссылку на клетку по заданным координатам x и y
+     * TODO нужно ли убрать статический контекст?
+     */
+    public static Cell getCell(int x, int y) {
+        if (x >= 0 && x < cells.size() && y >= 0 && y < cells.get(x).size()) {
+            return cells.get(x).get(y);
+        } else {
+            return null; //если координаты находятся вне диапазона
+        }
+    }
 
-    public int getY() {
-        return y;
+    public static int getPlayingFieldWidth() {
+        return playingFieldWidth;
     }
 }

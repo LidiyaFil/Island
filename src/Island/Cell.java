@@ -8,16 +8,21 @@ import src.IslandLivingObject.Plants.Plant;
 import java.util.List;
 
 public class Cell {
+    public int X;
+
+    public int Y;
+
+    public List<IslandEntity> getEntities() {
+        return entities;
+    }
+
+    public List<IslandEntity> entities;
+
     public Cell(int x, int y, List<IslandEntity> entities) {
         X = x;
         Y = y;
         this.entities = entities;
     }
-
-    public int X;
-    public int Y;
-
-    public List<IslandEntity> entities;
 
     public void eating() {
         entities.forEach(entity -> {
@@ -42,9 +47,10 @@ public class Cell {
     public void moving() {
         entities.forEach(entity -> {
             if (entity instanceof Predators) {
-                ((Predators) entity).move();
+                //TODO надо добавить поле животным (только вот куда?) и геттер для количества шагов
+                ((Predators) entity).move(entity.getSteps(), X, Y);
             } else if (entity instanceof Herbivorous) {
-                ((Herbivorous) entity).move();
+                ((Herbivorous) entity).move(entity.getSteps(), X, Y);
             }
         });
     }

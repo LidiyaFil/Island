@@ -13,6 +13,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IslandFieldNew {
+    public int getNumRows() {
+        return numRows;
+    }
+
+    public int getNumColumns() {
+        return numColumns;
+    }
+
     private final int numRows;
     private final int numColumns;
     private final List[][] gameField;

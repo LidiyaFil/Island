@@ -1,10 +1,10 @@
 package src.Island;
 
+import src.IslandLivingObject.Animals.AnimalFactory;
+import src.IslandLivingObject.EntityFactory;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
-import src.IslandLivingObject.LivingObjectFactory;
-import src.IslandLivingObject.Plants.AbstractPlants;
-import src.IslandLivingObject.Plants.Plant;
+import src.IslandLivingObject.Plants.PlantFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +13,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IslandFieldNew {
+    private final int numRows;
+
+    private final int numColumns;
+    private final List[][] gameField;
+
     public int getNumRows() {
         return numRows;
     }
@@ -21,11 +26,8 @@ public class IslandFieldNew {
         return numColumns;
     }
 
-    private final int numRows;
-    private final int numColumns;
-    private final List[][] gameField;
-
-    LivingObjectFactory livingObjectFactory = new LivingObjectFactory();
+    AnimalFactory animalFactory = new AnimalFactory();
+    PlantFactory plantFactory = new PlantFactory();
 
     public IslandFieldNew(int numRows, int numColumns) {
         this.numRows = numRows;
@@ -38,30 +40,28 @@ public class IslandFieldNew {
             for (int y = 0; y < numColumns; y++) {
                 //TODO будет выбирать юзер из заданного диапазона
                 gameField[x][y] = new ArrayList<IslandEntity>();
-                createAnimals(x, y);
-                createPlants(x, y);
+                createAnimals(x, y, animalFactory);
+                createPlants(x, y, plantFactory);
             }
         }
     }
 
-    public void createAnimals(int x, int y) {
+    public void createAnimals(int x, int y, EntityFactory factory) {
         for (IslandEntityType type : IslandEntityType.values()) {
-            //TODO будет выбирать юзер из заданного диапазона
-            int amountOfOneAnimal = ThreadLocalRandom.current().nextInt(0, 10);
+            int amountOfOneAnimal = ThreadLocalRandom.current().nextInt(0, type.getMaxAmount() + 1);
             while (amountOfOneAnimal > 0) {
-                IslandEntity entity = livingObjectFactory.createObject(type);
-                gameField[x][y].add(entity);
+                gameField[x][y].add(factory.createEntity(type));
                 amountOfOneAnimal--;
             }
         }
     }
 
-    public void createPlants(int x, int y) {
-        //TODO будет выбирать юзер из заданного диапазона
-        int amountOfPlants = ThreadLocalRandom.current().nextInt(0, 5);
+    public void createPlants(int x, int y, EntityFactory factory) {
+        int amountOfPlants = ThreadLocalRandom.current().
+                nextInt(0, IslandEntityType.Plant.getMaxAmount());
         while (amountOfPlants > 0) {
-            AbstractPlants plant = new Plant();
-            gameField[x][y].add(plant);
+            gameField[x][y].add(factory.createEntity(IslandEntityType.Plant));
+            amountOfPlants--;
         }
     }
 
@@ -69,8 +69,10 @@ public class IslandFieldNew {
 //        return (int) entities.stream().filter(targetClass::isInstance).count();
 //    }
 
-    public int countOfEntityResolver(Class<?> targetClass) {
-        // подозреваю, тут подсчет идет по количеству конкретных животных всего поля, а не клетки
-        return (int) Arrays.stream(gameField).filter(targetClass::isInstance).count();
+    public int countOfEntityResolver(int x, int y, Class<?> targetClass) {
+        List<IslandEntity> entitiesInCell = gameField[x][y];
+        return (int) entitiesInCell.stream()
+                .filter(targetClass::isInstance)
+                .count();
     }
 }

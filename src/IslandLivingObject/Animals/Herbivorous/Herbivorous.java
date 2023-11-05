@@ -1,8 +1,8 @@
 package src.IslandLivingObject.Animals.Herbivorous;
 
-import src.IslandLivingObject.Animals.AbstractAnimals;
+import src.IslandLivingObject.Animals.AbstractAnimal;
 
-public abstract class Herbivorous extends AbstractAnimals {
+public abstract class Herbivorous extends AbstractAnimal {
 
     public Herbivorous(int maxAmount, int maxMove, int weight, int fullSaturation) {
         super(maxAmount, maxMove, weight, fullSaturation);

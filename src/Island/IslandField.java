@@ -14,7 +14,7 @@ public class IslandField {
      * Создание игрового поля
      */
     public IslandField(int x, int y, CellFactory cellFactory) throws JsonProcessingException {
-        this.playingFieldWidth = y;
+        playingFieldWidth = y;
         cells = cellFactory.createCellLists(x, y);
     }
 

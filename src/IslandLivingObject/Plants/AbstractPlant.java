@@ -2,7 +2,7 @@ package src.IslandLivingObject.Plants;
 
 import src.IslandLivingObject.IslandEntity;
 
-public abstract class AbstractPlants implements IslandEntity {
+public abstract class AbstractPlant implements IslandEntity {
     protected int maxAmount;
     protected int weight;
 
@@ -24,9 +24,9 @@ public abstract class AbstractPlants implements IslandEntity {
     public void setY(int y) {
         Y = y;
     }
-
-    public Plant grow() {
-        return new Plant();
-    }
+// этот метод не нужен, так как есть фабрика, которая возвращает расение. Это будет делать поток
+//    public Plant grow() {
+//        return new Plant();
+//    }
 }
 

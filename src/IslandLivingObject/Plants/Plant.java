@@ -1,11 +1,8 @@
 package src.IslandLivingObject.Plants;
 
-import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 
-import java.util.List;
-
-public class Plant extends AbstractPlants {
+public class Plant extends AbstractPlant {
     public Plant() {
         super();
         maxAmount = 200;
@@ -14,6 +11,6 @@ public class Plant extends AbstractPlants {
 
     @Override
     public IslandEntityType getType() {
-        return IslandEntityType.PLANT;
+        return IslandEntityType.Plant;
     }
 }

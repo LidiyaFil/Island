@@ -4,18 +4,25 @@ import src.IslandLivingObject.EntityFactory;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 
-
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AnimalFactory implements EntityFactory {
     @Override
-    public IslandEntity createEntity() {
+    public IslandEntity createEntity(IslandEntityType entityType) {
         IslandEntity entity = null;
         IslandEntityType type = getRandomAnimalType();
         if (type != null) {
-
-            //TODO переделать на абстрактное животное?
-            entity = new Animal(type);
+            entity = new AbstractAnimal(type) {
+                @Override
+                public Map<IslandEntityType, Integer> getEdibleSpecies() {
+                    return null;   //TODO вот тут надо обсудить что происходит
+                }
+                @Override
+                public IslandEntityType getType() {
+                    return type;
+                }
+            };
         }
         return entity;
     }
@@ -26,38 +33,24 @@ public class AnimalFactory implements EntityFactory {
         IslandEntityType randomType = IslandEntityType.values()[index];
         return mapAnimalTypeToIslandEntityType(randomType);
     }
-
-    //TODO добавить  классы. Подумать на счет того, где записать характеристики объектов
     public IslandEntityType mapAnimalTypeToIslandEntityType(IslandEntityType animalType) {
-        switch (animalType) {
-            case Wolf:
-                return IslandEntityType.WOLF;
-            case Python:
-                return IslandEntityType.SNAKE;
-            case Fox:
-                return IslandEntityType.FOX;
-            case Bear:
-                return IslandEntityType.BEAR;
-            case Eagle:
-                return IslandEntityType.EAGLE;
-            case Horse:
-                return IslandEntityType.HORSE;
-            case Deer:
-                return IslandEntityType.DEER;
-            case Rabbit:
-                return IslandEntityType.RABBIT;
-            case Mouse:
-                return IslandEntityType.MOUSE;
-            case Goat:
-                return IslandEntityType.GOAT;
-            case Sheep:
-                return IslandEntityType.SHEEP;
-            case WildBoar:
-                return IslandEntityType.WILD_BOAR;
-            case Buffalo:
-                return IslandEntityType.BUFFALO;
-            default:
-                throw new IllegalArgumentException("Unknown animal type");
-        }
+        return switch (animalType) {
+            case WOLF -> IslandEntityType.WOLF;
+            case PYTHON -> IslandEntityType.PYTHON;
+            case FOX -> IslandEntityType.FOX;
+            case Bear -> IslandEntityType.Bear;
+            case Eagle -> IslandEntityType.Eagle;
+            case Horse -> IslandEntityType.Horse;
+            case Deer -> IslandEntityType.Deer;
+            case Rabbit -> IslandEntityType.Rabbit;
+            case Mouse -> IslandEntityType.Mouse;
+            case Goat -> IslandEntityType.Goat;
+            case Sheep -> IslandEntityType.Sheep;
+            case WildBoar -> IslandEntityType.WildBoar;
+            case Buffalo -> IslandEntityType.Buffalo;
+            case Duck -> IslandEntityType.Duck;
+            case Caterpillar -> IslandEntityType.Caterpillar;
+            default -> throw new IllegalArgumentException("Unknown animal type");
+        };
     }
 }

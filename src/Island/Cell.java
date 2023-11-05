@@ -3,10 +3,9 @@ package src.Island;
 import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
-import src.IslandLivingObject.Plants.Plant;
 
 import java.util.List;
-
+@Deprecated
 public class Cell {
     public int X;
 
@@ -37,9 +36,9 @@ public class Cell {
     public void multiplying() {
         entities.forEach(entity -> {
             if (entity instanceof Predators) {
-                ((Predators) entity).multiply(entities);
+                ((Predators) entity).reproduce(entities);
             } else if (entity instanceof Herbivorous) {
-                ((Herbivorous) entity).multiply(entities);
+                ((Herbivorous) entity).reproduce(entities);
             }
         });
     }
@@ -55,13 +54,13 @@ public class Cell {
         });
     }
 
-    public void growing() {
+ /*   public void growing() {
         entities.forEach(entity -> {
             if (entity instanceof Plant) {
                 ((Plant) entity).grow();
             }
         });
-    }
+    }*/
 
     // добавить метод DIE()
 

@@ -3,6 +3,7 @@ package src.IslandLivingObject.Animals;
 import src.Island.Cell;
 import src.Island.IslandField;
 import src.Island.IslandFieldNew;
+import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
@@ -66,19 +67,23 @@ public abstract class AbstractAnimals implements IslandEntity {
                 for (IslandEntity lunch : entities) {
                     if (((Predators) eating).getEdibleSpecies().containsKey(lunch.getType())) {
                         // попытка покушать
-                        boolean result = tryToEatPredators((Predators) eating, lunch);
+                        boolean result = tryToEat((Predators) eating, lunch);
                         // если результат положительный
                         if (result == true) {
                             entities.remove(lunch);
                             lunch = null;
                         }
+                    } else ((Herbivorous) eating).getEdibleSpecies().containsKey(lunch.getType()) {
+                        entities.remove(lunch);
+                        lunch = null;
                     }
+
                 } break;
             }
         }
     }
 
-    public boolean tryToEatPredators(AbstractAnimals eating, IslandEntity lunch) {
+    public boolean tryToEat(AbstractAnimals eating, IslandEntity lunch) {
         boolean resultOfTryingToEat;
         int chance = ThreadLocalRandom.current().nextInt(100);
         if (chance >= eating.getEdibleSpecies().get(lunch.getType())) {

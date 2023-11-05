@@ -13,10 +13,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IslandFieldNew {
+    //TODO сделать singleton и реализовать метод getInstance
     private final int numRows;
 
     private final int numColumns;
-    private final List[][] gameField;
+    private static List[][] gameField;
 
     public int getNumRows() {
         return numRows;
@@ -69,7 +70,7 @@ public class IslandFieldNew {
 //        return (int) entities.stream().filter(targetClass::isInstance).count();
 //    }
 
-    public int countOfEntityResolver(int x, int y, Class<?> targetClass) {
+    public static int countOfEntityResolver(int x, int y, Class<?> targetClass) {
         List<IslandEntity> entitiesInCell = gameField[x][y];
         return (int) entitiesInCell.stream()
                 .filter(targetClass::isInstance)

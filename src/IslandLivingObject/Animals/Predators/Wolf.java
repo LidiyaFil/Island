@@ -7,8 +7,6 @@ import java.util.Map;
 public class Wolf extends Predators {
     public Wolf() {
         super();
-        weight = 50;
-        fullSaturation = 8;
     }
 
 

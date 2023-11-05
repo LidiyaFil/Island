@@ -11,12 +11,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static src.Island.IslandFieldNew.countOfEntityResolver;
+
 public abstract class AbstractAnimal implements IslandEntity {
 
     IslandFieldNew islandFieldNew = new IslandFieldNew(10, 10);
 
-    protected int weight;
-    protected int fullSaturation;
+    private boolean isReproduced;
+
+    public boolean isReproduced() {
+        return isReproduced;
+    }
+
+    public void setReproduced(boolean reproduced) {
+        isReproduced = reproduced;
+    }
     protected int daysUntilDeathFromStarvation = 3;
 
     private int X;
@@ -36,20 +45,8 @@ public abstract class AbstractAnimal implements IslandEntity {
 
     public abstract Map<IslandEntityType, Integer> getEdibleSpecies();
 
-    public AbstractAnimal(int maxAmount, int maxMove, int weight, int fullSaturation) {
-        this.maxAmount = maxAmount;
-        this.maxMove = maxMove;
-        this.weight = weight;
-        this.fullSaturation = fullSaturation;
+    public AbstractAnimal() {
         //TODO добавить поле голодание
-    }
-
-    public int getMaxMove() {
-        return maxMove;
-    }
-
-    public int getMaxCapacity() {
-        return maxAmount;
     }
 
     public int getWeight() {
@@ -78,12 +75,14 @@ public abstract class AbstractAnimal implements IslandEntity {
                             lunch = null;
                             //TODO добавить инкрементацию насыщения
                         }
-                    } else ((Herbivorous) eating).getEdibleSpecies().containsKey(lunch.getType()); {
+                    } else ((Herbivorous) eating).getEdibleSpecies().containsKey(lunch.getType());
+                    {
                         entities.remove(lunch);
                         lunch = null;
                     }
 
-                } break;
+                }
+                break;
             }
 
             //TODO вынести проверку на травоядное и на растение
@@ -136,7 +135,7 @@ public abstract class AbstractAnimal implements IslandEntity {
                     // Добавляем животное в новую клетку
                     newCellEntities.add(this);
                 }
-            // Если вышли за пределы игрового поля или достигнута максимальная вместимость на клетке , то остаемся на текущей позиции
+                // Если вышли за пределы игрового поля или достигнута максимальная вместимость на клетке , то остаемся на текущей позиции
             }
 
             // Если не осталось шагов, завершаем движение
@@ -148,6 +147,27 @@ public abstract class AbstractAnimal implements IslandEntity {
     }
 
     public void reproduce(List<IslandEntity> entities) {
-        //TODO
+        AnimalFactory animalFactory = new AnimalFactory();
+        //TODO понять как достать конкретное животное
+
+        for (IslandEntity entity : entities) {
+            int i = countOfEntityResolver(entity.getX(), entity.getY(), entity.getClass());
+
+            if (i > 1 && i < entity.getType().getMaxAmount()) {
+
+                for (IslandEntity reproducingAnimal : entities) {
+
+                    if (entity != reproducingAnimal) {
+                        if (entity.getType() == reproducingAnimal.getType()) {
+                            double v = Math.random() * 1;
+                            if (v > 0.5) {
+                                entities.add(animalFactory.createEntity(entity.getType()));
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -4,6 +4,6 @@ import src.IslandLivingObject.Animals.AbstractAnimal;
 
 public abstract class Predators extends AbstractAnimal {
     public Predators(int maxAmount, int maxMove, int weight, int fullSaturation) {
-        super(maxAmount, maxMove, weight, fullSaturation);
+        super();
     }
 }

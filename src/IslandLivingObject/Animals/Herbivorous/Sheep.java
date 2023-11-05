@@ -9,13 +9,14 @@ public class Sheep extends Herbivorous {
         super();
 
 
-    @Override
-    public IslandEntityType getType() {
-        return IslandEntityType.PLANT;
-    }
+        @Override
+        public IslandEntityType getType() {
+            return IslandEntityType.PLANT;
+        }
 
-    @Override
-    public Map<IslandEntityType, Integer> getEdibleSpecies() {
-        return null;
+        @Override
+        public Map<IslandEntityType, Integer> getEdibleSpecies () {
+            return null;
+        }
     }
 }

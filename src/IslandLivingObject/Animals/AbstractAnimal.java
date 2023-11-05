@@ -6,6 +6,7 @@ import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
+import src.IslandLivingObject.Plants.AbstractPlant;
 
 import java.util.List;
 import java.util.Map;
@@ -19,13 +20,7 @@ public abstract class AbstractAnimal implements IslandEntity {
 
     private boolean isReproduced;
 
-    public boolean isReproduced() {
-        return isReproduced;
-    }
 
-    public void setReproduced(boolean reproduced) {
-        isReproduced = reproduced;
-    }
     protected int daysUntilDeathFromStarvation = 3;
 
     private int X;
@@ -74,17 +69,19 @@ public abstract class AbstractAnimal implements IslandEntity {
                             //TODO нужно ли удалять ссылки или это лишнее?
                             lunch = null;
                             //TODO добавить инкрементацию насыщения
-                        }
-                    } else ((Herbivorous) eating).getEdibleSpecies().containsKey(lunch.getType());
-                    {
-                        entities.remove(lunch);
-                        lunch = null;
+                        } else break;
                     }
-
+                    break;
                 }
-                break;
-            }
+            } else if (eating instanceof Herbivorous) {
+                for (IslandEntity lunch : entities) {
+                    if (lunch instanceof AbstractPlant) {
+                        entities.remove(lunch);
+                        // TODO добавить инкрементацию насыщения
+                    }
+                }
 
+            }
             //TODO вынести проверку на травоядное и на растение
         }
     }

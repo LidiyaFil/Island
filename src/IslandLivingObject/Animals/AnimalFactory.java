@@ -18,9 +18,20 @@ public class AnimalFactory implements EntityFactory {
                 public Map<IslandEntityType, Integer> getEdibleSpecies() {
                     return null;   //TODO вот тут надо обсудить что происходит
                 }
+
                 @Override
                 public IslandEntityType getType() {
                     return type;
+                }
+
+                @Override
+                public boolean isReproduced() {
+                    return false;
+                }
+
+                @Override
+                public boolean setReproduced() {
+                    return false;
                 }
             };
         }
@@ -33,23 +44,24 @@ public class AnimalFactory implements EntityFactory {
         IslandEntityType randomType = IslandEntityType.values()[index];
         return mapAnimalTypeToIslandEntityType(randomType);
     }
+
     public IslandEntityType mapAnimalTypeToIslandEntityType(IslandEntityType animalType) {
         return switch (animalType) {
             case WOLF -> IslandEntityType.WOLF;
             case PYTHON -> IslandEntityType.PYTHON;
             case FOX -> IslandEntityType.FOX;
-            case Bear -> IslandEntityType.Bear;
-            case Eagle -> IslandEntityType.Eagle;
-            case Horse -> IslandEntityType.Horse;
-            case Deer -> IslandEntityType.Deer;
-            case Rabbit -> IslandEntityType.Rabbit;
-            case Mouse -> IslandEntityType.Mouse;
-            case Goat -> IslandEntityType.Goat;
-            case Sheep -> IslandEntityType.Sheep;
-            case WildBoar -> IslandEntityType.WildBoar;
-            case Buffalo -> IslandEntityType.Buffalo;
-            case Duck -> IslandEntityType.Duck;
-            case Caterpillar -> IslandEntityType.Caterpillar;
+            case BEAR -> IslandEntityType.BEAR;
+            case EAGLE -> IslandEntityType.EAGLE;
+            case HORSE -> IslandEntityType.HORSE;
+            case DEER -> IslandEntityType.DEER;
+            case RABBIT -> IslandEntityType.RABBIT;
+            case MOUSE -> IslandEntityType.MOUSE;
+            case GOAT -> IslandEntityType.GOAT;
+            case SHEEP -> IslandEntityType.SHEEP;
+            case WILDBOAR -> IslandEntityType.WILDBOAR;
+            case BUFFALO -> IslandEntityType.BUFFALO;
+            case DUCK -> IslandEntityType.DUCK;
+            case CATERPILLAR -> IslandEntityType.CATERPILLAR;
             default -> throw new IllegalArgumentException("Unknown animal type");
         };
     }

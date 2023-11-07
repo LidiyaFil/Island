@@ -11,6 +11,16 @@ public class Plant extends AbstractPlant {
 
     @Override
     public IslandEntityType getType() {
-        return IslandEntityType.Plant;
+        return IslandEntityType.PLANT;
+    }
+
+    @Override
+    public boolean isReproduced() {
+        return false;
+    }
+
+    @Override
+    public boolean setReproduced() {
+        return false;
     }
 }

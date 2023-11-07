@@ -20,6 +20,11 @@ public class Plant extends AbstractPlant {
     }
 
     @Override
+    public String toString() {
+        return "PLANT";
+    }
+
+    @Override
     public void setReproduced(boolean b) {
     }
 }

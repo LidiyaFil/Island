@@ -1,5 +1,6 @@
 package src.IslandLivingObject.Animals;
 
+import src.IslandLivingObject.Animals.Predators.Wolf;
 import src.IslandLivingObject.EntityFactory;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
@@ -44,9 +45,9 @@ public class AnimalFactory implements EntityFactory {
         return mapAnimalTypeToIslandEntityType(randomType);
     }
 
-    public IslandEntityType mapAnimalTypeToIslandEntityType(IslandEntityType animalType) {
+    public IslandEntity mapAnimalTypeToIslandEntityType(IslandEntityType animalType) {
         return switch (animalType) {
-            case WOLF -> IslandEntityType.WOLF;
+            case WOLF -> new Wolf();
             case PYTHON -> IslandEntityType.PYTHON;
             case FOX -> IslandEntityType.FOX;
             case BEAR -> IslandEntityType.BEAR;

@@ -4,21 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum IslandEntityType {
-    WOLF(3, 30, 8, 50, initEdibleSpecies()),
-    PYTHON(1, 30, 3, 15, initEdibleSpecies()),
-    FOX(2, 30, 2, 8, initEdibleSpecies()),
+    WOLF(3, 3, 8, 50, initEdibleSpecies()),
+    PYTHON(1, 3, 3, 15, initEdibleSpecies()),
+    FOX(2, 3, 2, 8, initEdibleSpecies()),
     BEAR(2, 5, 80, 500, initEdibleSpecies()),
-    EAGLE(3, 20, 1, 6, initEdibleSpecies()),
-    HORSE(4, 20, 60, 400, initEdibleSpecies()),
-    DEER(4, 20, 50, 300, initEdibleSpecies()),
-    RABBIT(2, 150, 0.45, 2, initEdibleSpecies()),
-    MOUSE(1, 500, 0.01, 0.05, initEdibleSpecies()),
-    GOAT(3, 140, 10, 60, initEdibleSpecies()),
-    SHEEP(3, 140, 15, 70, initEdibleSpecies()),
-    WILD_BOAR(2, 50, 50, 400, initEdibleSpecies()),
-    BUFFALO(3, 10, 100, 700, initEdibleSpecies()),
-    DUCK(4, 1000, 0.45, 1.0, initEdibleSpecies()),
-    CATERPILLAR(0, 1000, 0, 0, initEdibleSpecies());
+    EAGLE(3, 2, 1, 6, initEdibleSpecies()),
+    HORSE(4, 2, 60, 400, initEdibleSpecies()),
+    DEER(4, 2, 50, 300, initEdibleSpecies()),
+    RABBIT(2, 5, 0.45, 2, initEdibleSpecies()),
+    MOUSE(1, 5, 0.01, 0.05, initEdibleSpecies()),
+    GOAT(3, 5, 10, 60, initEdibleSpecies()),
+    SHEEP(3, 5, 15, 70, initEdibleSpecies()),
+    WILD_BOAR(2, 5, 50, 400, initEdibleSpecies()),
+    BUFFALO(3, 5, 100, 700, initEdibleSpecies()),
+    DUCK(4, 10, 0.45, 1.0, initEdibleSpecies()),
+    CATERPILLAR(0, 1, 0, 0, initEdibleSpecies());
+    //TODO добавить PLANT
 
     private final int maxMove;
     private final int maxAmount;
@@ -62,4 +63,5 @@ public enum IslandEntityType {
 
         return islandEntityTypeIntegerMap;
     }
+    
 }

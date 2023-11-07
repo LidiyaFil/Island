@@ -69,7 +69,8 @@ public class IslandFieldNew {
 
     public void createPlants(int x, int y, PlantFactory factory) {
         int amountOfPlants = ThreadLocalRandom.current().
-                nextInt(0, 200);
+                //TODO поменять magic digit
+                nextInt(0, 10);
         while (amountOfPlants > 0) {
             gameField[x][y].add(factory.createEntity());
             amountOfPlants--;

@@ -1,6 +1,5 @@
 package src.IslandLivingObject.Animals;
 
-import src.Island.IslandField;
 import src.Island.IslandFieldNew;
 import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.Animals.Predators.Predators;
@@ -17,7 +16,6 @@ import static src.Island.IslandFieldNew.getInstance;
 
 public abstract class AbstractAnimal implements IslandEntity {
 
-
     IslandFieldNew islandFieldNew = IslandFieldNew.getInstance();
 
     private int X;
@@ -26,6 +24,11 @@ public abstract class AbstractAnimal implements IslandEntity {
     private boolean reprodused = false;
 
     protected int daysUntilDeathFromStarvation = 3;
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.getType());
+    }
 
     public boolean isReproduced() {
         return reprodused;

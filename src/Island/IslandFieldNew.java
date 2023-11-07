@@ -31,6 +31,7 @@ public class IslandFieldNew {
         numRows = x;
         numColumns = y;
         gameField = new List[numRows][numColumns];
+        createField();
     }
 
     public int getNumColumns() {
@@ -66,11 +67,11 @@ public class IslandFieldNew {
         }
     }
 
-    public void createPlants(int x, int y, EntityFactory factory) {
+    public void createPlants(int x, int y, PlantFactory factory) {
         int amountOfPlants = ThreadLocalRandom.current().
-                nextInt(0, IslandEntityType.PLANT.getMaxAmount());
+                nextInt(0, 200);
         while (amountOfPlants > 0) {
-            gameField[x][y].add(factory.createEntity(IslandEntityType.PLANT));
+            gameField[x][y].add(factory.createEntity());
             amountOfPlants--;
         }
     }

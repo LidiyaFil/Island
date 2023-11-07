@@ -12,13 +12,10 @@ public class Sheep extends Herbivorous {
 
     public Sheep() {
         super();
-
-
-
     }
 
     @Override
     public IslandEntityType getType() {
-        return null;
+        return IslandEntityType.SHEEP;
     }
 }

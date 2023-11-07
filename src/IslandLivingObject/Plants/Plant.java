@@ -11,7 +11,7 @@ public class Plant extends AbstractPlant {
 
     @Override
     public IslandEntityType getType() {
-        return IslandEntityType.PLANT;
+        return null;
     }
 
     @Override

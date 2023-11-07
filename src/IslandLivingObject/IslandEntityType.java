@@ -18,8 +18,7 @@ public enum IslandEntityType {
     WILD_BOAR(2, 50, 50, 400, initEdibleSpecies()),
     BUFFALO(3, 10, 100, 700, initEdibleSpecies()),
     DUCK(4, 1000, 0.45, 1.0, initEdibleSpecies()),
-    CATERPILLAR(0, 1000, 0, 0, initEdibleSpecies()),
-    PLANT(0, 200, 0, 0, initEdibleSpecies());
+    CATERPILLAR(0, 1000, 0, 0, initEdibleSpecies());
 
     private final int maxMove;
     private final int maxAmount;

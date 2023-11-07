@@ -1,10 +1,10 @@
-package src.IslandLivingObject.Animals.Herbivorous;
+package src.IslandLivingObject.Animals.Predators;
 
 import src.IslandLivingObject.IslandEntityType;
 
 import java.util.Map;
 
-public class Sheep extends Herbivorous {
+public class Python extends Predators {
     @Override
     public Map<IslandEntityType, Integer> getEdibleSpecies() {
         return null;
@@ -12,6 +12,6 @@ public class Sheep extends Herbivorous {
 
     @Override
     public IslandEntityType getType() {
-        return IslandEntityType.SHEEP;
+        return IslandEntityType.PYTHON;
     }
 }

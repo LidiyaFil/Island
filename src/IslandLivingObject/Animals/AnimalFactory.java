@@ -1,6 +1,7 @@
 package src.IslandLivingObject.Animals;
 
-import src.IslandLivingObject.Animals.Predators.Wolf;
+import src.IslandLivingObject.Animals.Herbivorous.*;
+import src.IslandLivingObject.Animals.Predators.*;
 import src.IslandLivingObject.EntityFactory;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
@@ -42,26 +43,26 @@ public class AnimalFactory implements EntityFactory {
     public IslandEntityType getRandomAnimalType() {
         int index = ThreadLocalRandom.current().nextInt(IslandEntityType.values().length);
         IslandEntityType randomType = IslandEntityType.values()[index];
-        return mapAnimalTypeToIslandEntityType(randomType);
+        return mapAnimalTypeToIslandEntityType(randomType).getType();
     }
 
     public IslandEntity mapAnimalTypeToIslandEntityType(IslandEntityType animalType) {
         return switch (animalType) {
             case WOLF -> new Wolf();
-            case PYTHON -> IslandEntityType.PYTHON;
-            case FOX -> IslandEntityType.FOX;
-            case BEAR -> IslandEntityType.BEAR;
-            case EAGLE -> IslandEntityType.EAGLE;
-            case HORSE -> IslandEntityType.HORSE;
-            case DEER -> IslandEntityType.DEER;
-            case RABBIT -> IslandEntityType.RABBIT;
-            case MOUSE -> IslandEntityType.MOUSE;
-            case GOAT -> IslandEntityType.GOAT;
-            case SHEEP -> IslandEntityType.SHEEP;
-            case WILD_BOAR -> IslandEntityType.WILD_BOAR;
-            case BUFFALO -> IslandEntityType.BUFFALO;
-            case DUCK -> IslandEntityType.DUCK;
-            case CATERPILLAR -> IslandEntityType.CATERPILLAR;
+            case PYTHON -> new Python();
+            case FOX -> new Fox();
+            case BEAR -> new Bear();
+            case EAGLE -> new Eagle();
+            case HORSE -> new Horse();
+            case DEER -> new Deer();
+            case RABBIT -> new Rabbit();
+            case MOUSE -> new Mouse();
+            case GOAT -> new Goat();
+            case SHEEP -> new Sheep();
+            case WILD_BOAR -> new WildBoar();
+            case BUFFALO -> new Buffalo();
+            case DUCK -> new Duck();
+            case CATERPILLAR -> new Caterpillar();
             default -> throw new IllegalArgumentException("Unknown animal type");
         };
     }

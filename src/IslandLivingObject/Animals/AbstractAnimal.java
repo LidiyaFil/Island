@@ -1,6 +1,6 @@
 package src.IslandLivingObject.Animals;
 
-import src.Island.IslandFieldNew;
+import src.Island.IslandField;
 import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static src.Island.IslandFieldNew.countOfEntityResolver;
-import static src.Island.IslandFieldNew.getInstance;
+import static src.Island.IslandField.countOfEntityResolver;
+import static src.Island.IslandField.getInstance;
 
 public abstract class AbstractAnimal implements IslandEntity {
 
-    IslandFieldNew islandFieldNew = IslandFieldNew.getInstance();
+    IslandField islandField = IslandField.getInstance();
 
     private int X;
     private int Y;
@@ -100,7 +100,7 @@ public abstract class AbstractAnimal implements IslandEntity {
 
     public void move(int x, int y) {
 
-        IslandFieldNew gameField = getInstance();
+        IslandField gameField = getInstance();
 
         int current_X = x;
         int current_Y = y;
@@ -127,8 +127,8 @@ public abstract class AbstractAnimal implements IslandEntity {
             // Проверяем, остаемся ли в пределах игрового поля
             if (new_X >= 0 && new_X < gameField.getNumRows() && new_Y >= 0 && new_Y < gameField.getNumColumns()) {
 
-                List currentCellEntities = IslandFieldNew.getGameField()[current_X][current_Y];
-                List newCellEntities = IslandFieldNew.getGameField()[new_X][new_Y];
+                List currentCellEntities = IslandField.getGameField()[current_X][current_Y];
+                List newCellEntities = IslandField.getGameField()[new_X][new_Y];
 
                 if (countOfEntityResolver(current_X, current_Y, this.getClass()) < this.getType().getMaxAmount()) {
                     // Удаляем животное из текущей клетки

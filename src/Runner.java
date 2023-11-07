@@ -1,16 +1,15 @@
-package src.Island;
+package src;
 
-import java.util.Arrays;
+import src.Island.IslandField;
+
 import java.util.List;
-
-import static java.util.Arrays.*;
 
 public class Runner {
 
     public static void main(String[] args) {
-        IslandFieldNew islandFieldNew = IslandFieldNew.getInstance();
+        IslandField islandField = IslandField.getInstance();
 
-        for (List[] lists : IslandFieldNew.getGameField()) {
+        for (List[] lists : IslandField.getGameField()) {
             for (List list :lists) {
                 list.stream().forEach(System.out::println);
                 System.out.println("____________________________________________________");

@@ -4,7 +4,7 @@ import src.IslandLivingObject.IslandEntityType;
 
 import java.util.Map;
 
-public class Sheep extends Herbivorous {
+public class Caterpillar extends Herbivorous {
     @Override
     public Map<IslandEntityType, Integer> getEdibleSpecies() {
         return null;
@@ -12,6 +12,6 @@ public class Sheep extends Herbivorous {
 
     @Override
     public IslandEntityType getType() {
-        return IslandEntityType.SHEEP;
+        return IslandEntityType.CATERPILLAR;
     }
 }

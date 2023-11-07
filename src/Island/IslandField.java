@@ -7,15 +7,13 @@ import src.IslandLivingObject.IslandEntityType;
 import src.IslandLivingObject.Plants.PlantFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class IslandFieldNew {
+public class IslandField {
     // Экземпляр создается при загрузке класса
     //TODO надо сделать, чтобы пользователь мог установить размеры поля, пока по умолчанию 10х10
-    private static final IslandFieldNew instance = new IslandFieldNew(10,10);
+    private static final IslandField instance = new IslandField(10,10);
     private final int numRows;
     private final int numColumns;
 
@@ -27,7 +25,7 @@ public class IslandFieldNew {
         return numRows;
     }
 
-    private IslandFieldNew(int x, int y) {
+    private IslandField(int x, int y) {
         numRows = x;
         numColumns = y;
         gameField = new List[numRows][numColumns];
@@ -42,7 +40,7 @@ public class IslandFieldNew {
         return gameField;
     }
 
-    public static IslandFieldNew getInstance() {
+    public static IslandField getInstance() {
         return instance;
     }
 

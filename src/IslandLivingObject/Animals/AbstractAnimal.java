@@ -95,12 +95,14 @@ public abstract class AbstractAnimal implements IslandEntity {
         return resultOfTryingToEat;
     }
 
-    public void move(int steps, int x, int y) {
+    public void move(int x, int y) {
 
-
+        IslandFieldNew gameField = getInstance();
 
         int current_X = x;
         int current_Y = y;
+
+        int steps = this.getType().getMaxMove();
 
         for (int i = 0; i < steps; i++) {
             // Генерируем случайное направление
@@ -120,7 +122,7 @@ public abstract class AbstractAnimal implements IslandEntity {
             }
 
             // Проверяем, остаемся ли в пределах игрового поля
-            if (new_X >= 0 && new_X < IslandField.getPlayingFieldWidth() && new_Y >= 0 && new_Y < IslandField.getPlayingFieldWidth()) {
+            if (new_X >= 0 && new_X < gameField.getNumRows() && new_Y >= 0 && new_Y < gameField.getNumColumns()) {
 
                 List currentCellEntities = IslandFieldNew.getGameField()[current_X][current_Y];
                 List newCellEntities = IslandFieldNew.getGameField()[new_X][new_Y];
@@ -161,11 +163,11 @@ public abstract class AbstractAnimal implements IslandEntity {
             if (i > 1 && i < entity.getType().getMaxAmount()) {
 
                 for (IslandEntity reproducingAnimal : entities) {
-
-                    if (entity != reproducingAnimal) {
+                //TODO добавить проверку на repro
+                    if (entity != reproducingAnimal && !entity.isReproduced()) {
                         if (entity.getType() == reproducingAnimal.getType()) {
-                            double v = Math.random() * 1;
-                            if (v > 0.5) {
+                            double chanceToReproduce = Math.random() * 1;
+                            if (chanceToReproduce > 0.5) {
                                 IslandEntity newBornEntity = animalFactory.createEntity(entity.getType());
                                 //запрещаем всем причастным трогать друг друга
                                 newBornEntity.setReproduced(true);

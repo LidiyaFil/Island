@@ -1,15 +1,16 @@
 package src.IslandLivingObject.Animals.Herbivorous;
 
 import src.IslandLivingObject.Animals.AbstractAnimal;
+import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntityType;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Horse extends Herbivorous {
+public class Buffalo extends Predators {
     private Map<IslandEntityType, Integer> edibleSpecies;
 
-    public Horse() {
+    public Buffalo() {
         Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }
@@ -21,6 +22,6 @@ public class Horse extends Herbivorous {
 
     @Override
     public IslandEntityType getType() {
-        return IslandEntityType.HORSE;
+        return IslandEntityType.BUFFALO;
     }
 }

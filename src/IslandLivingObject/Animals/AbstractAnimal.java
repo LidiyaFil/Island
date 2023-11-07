@@ -30,6 +30,8 @@ public abstract class AbstractAnimal implements IslandEntity {
         return String.valueOf(this.getType());
     }
 
+    public abstract Map<IslandEntityType, Integer> getEdibleSpecies();
+
     public boolean isReproduced() {
         return reprodused;
     }
@@ -37,7 +39,6 @@ public abstract class AbstractAnimal implements IslandEntity {
     public void setReproduced(boolean reproduse) {
         this.reprodused = reproduse;
     }
-
 
     public AbstractAnimal(IslandEntityType type) {
 
@@ -51,8 +52,6 @@ public abstract class AbstractAnimal implements IslandEntity {
         return Y;
     }
 
-    public abstract Map<IslandEntityType, Integer> getEdibleSpecies();
-
     public AbstractAnimal() {
         //TODO добавить поле голодание
     }
@@ -65,7 +64,7 @@ public abstract class AbstractAnimal implements IslandEntity {
                 // если хищник, пробегаемся по списку ещё раз и пробуем скушать кого-то из списка getEdibleSpecies,
                 // определенного в классе животного
                 for (IslandEntity lunch : entities) {
-                    if (((Predators) eating).getEdibleSpecies().containsKey(lunch.getType())) {
+                    if (((Predators) eating).getEdibleSpecies((AbstractAnimal) eating).containsKey(lunch.getType())) {
                         // попытка покушать
                         boolean result = tryToEat((Predators) eating, lunch);
                         // если результат положительный
@@ -94,7 +93,7 @@ public abstract class AbstractAnimal implements IslandEntity {
     public boolean tryToEat(AbstractAnimal eating, IslandEntity lunch) {
         boolean resultOfTryingToEat;
         int chance = ThreadLocalRandom.current().nextInt(100);
-        resultOfTryingToEat = chance >= eating.getEdibleSpecies().get(lunch.getType());
+        resultOfTryingToEat = chance >= eating.getEdibleSpecies(eating).get(lunch.getType());
         return resultOfTryingToEat;
     }
 

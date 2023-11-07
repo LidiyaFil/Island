@@ -10,10 +10,11 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AnimalFactory implements EntityFactory {
+    IslandEntityType type = getRandomAnimalType();
+
     @Override
     public IslandEntity createEntity(IslandEntityType entityType) {
         IslandEntity entity = null;
-        IslandEntityType type = getRandomAnimalType();
         if (type != null) {
             entity = new AbstractAnimal(type) {
                 @Override
@@ -34,11 +35,15 @@ public class AnimalFactory implements EntityFactory {
                 @Override
                 public void setReproduced(boolean b) {
                 }
+
+                @Override
+                public Map<IslandEntityType, Integer> getEdibleSpecies(AbstractAnimal type) {
+                    return null;
+                }
             };
         }
         return entity;
     }
-
 
     public IslandEntityType getRandomAnimalType() {
         int index = ThreadLocalRandom.current().nextInt(IslandEntityType.values().length);

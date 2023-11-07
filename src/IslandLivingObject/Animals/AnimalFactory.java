@@ -30,8 +30,7 @@ public class AnimalFactory implements EntityFactory {
                 }
 
                 @Override
-                public boolean setReproduced() {
-                    return false;
+                public void setReproduced(boolean b) {
                 }
             };
         }
@@ -58,7 +57,7 @@ public class AnimalFactory implements EntityFactory {
             case MOUSE -> IslandEntityType.MOUSE;
             case GOAT -> IslandEntityType.GOAT;
             case SHEEP -> IslandEntityType.SHEEP;
-            case WILDBOAR -> IslandEntityType.WILDBOAR;
+            case WILD_BOAR -> IslandEntityType.WILD_BOAR;
             case BUFFALO -> IslandEntityType.BUFFALO;
             case DUCK -> IslandEntityType.DUCK;
             case CATERPILLAR -> IslandEntityType.CATERPILLAR;

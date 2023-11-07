@@ -13,27 +13,36 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IslandFieldNew {
-    //TODO сделать singleton и реализовать метод getInstance
+    // Экземпляр создается при загрузке класса
+    //TODO надо сделать, чтобы пользователь мог установить размеры поля, пока по умолчанию 10х10
+    private static final IslandFieldNew instance = new IslandFieldNew(10,10);
     private final int numRows;
-
     private final int numColumns;
+
     private static List[][] gameField;
 
+    AnimalFactory animalFactory = new AnimalFactory();
+    PlantFactory plantFactory = new PlantFactory();
     public int getNumRows() {
         return numRows;
+    }
+
+    private IslandFieldNew(int x, int y) {
+        numRows = x;
+        numColumns = y;
+        gameField = new List[numRows][numColumns];
     }
 
     public int getNumColumns() {
         return numColumns;
     }
 
-    AnimalFactory animalFactory = new AnimalFactory();
-    PlantFactory plantFactory = new PlantFactory();
+    public static List[][] getGameField() {
+        return gameField;
+    }
 
-    public IslandFieldNew(int numRows, int numColumns) {
-        this.numRows = numRows;
-        this.numColumns = numColumns;
-        gameField = new CopyOnWriteArrayList[numRows][numColumns];
+    public static IslandFieldNew getInstance() {
+        return instance;
     }
 
     public void createField() {

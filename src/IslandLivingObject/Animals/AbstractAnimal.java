@@ -13,18 +13,28 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static src.Island.IslandFieldNew.countOfEntityResolver;
+import static src.Island.IslandFieldNew.getInstance;
 
 public abstract class AbstractAnimal implements IslandEntity {
 
-    IslandFieldNew islandFieldNew = new IslandFieldNew(10, 10);
 
-    private boolean isReproduced;
-
-
-    protected int daysUntilDeathFromStarvation = 3;
+    IslandFieldNew islandFieldNew = IslandFieldNew.getInstance();
 
     private int X;
     private int Y;
+
+    private boolean reprodused = false;
+
+    protected int daysUntilDeathFromStarvation = 3;
+
+    public boolean isReproduced() {
+        return reprodused;
+    }
+
+    public void setReproduced(boolean reproduse) {
+        this.reprodused = reproduse;
+    }
+
 
     public AbstractAnimal(IslandEntityType type) {
 
@@ -42,14 +52,6 @@ public abstract class AbstractAnimal implements IslandEntity {
 
     public AbstractAnimal() {
         //TODO добавить поле голодание
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public int getFullSaturation() {
-        return fullSaturation;
     }
 
     public void eat(List<IslandEntity> entities) {
@@ -95,6 +97,8 @@ public abstract class AbstractAnimal implements IslandEntity {
 
     public void move(int steps, int x, int y) {
 
+
+
         int current_X = x;
         int current_Y = y;
 
@@ -118,10 +122,10 @@ public abstract class AbstractAnimal implements IslandEntity {
             // Проверяем, остаемся ли в пределах игрового поля
             if (new_X >= 0 && new_X < IslandField.getPlayingFieldWidth() && new_Y >= 0 && new_Y < IslandField.getPlayingFieldWidth()) {
 
-                List<IslandEntity> currentCellEntities = gameField[current_X][current_Y];
-                List<IslandEntity> newCellEntities = gameField[new_X][new_Y];
+                List currentCellEntities = IslandFieldNew.getGameField()[current_X][current_Y];
+                List newCellEntities = IslandFieldNew.getGameField()[new_X][new_Y];
 
-                if (countOfEntityResolver(current_X, current_Y, this.getClass()) < this.getMaxCapacity()) {
+                if (countOfEntityResolver(current_X, current_Y, this.getClass()) < this.getType().getMaxAmount()) {
                     // Удаляем животное из текущей клетки
                     currentCellEntities.remove(this);
 
@@ -140,16 +144,20 @@ public abstract class AbstractAnimal implements IslandEntity {
                 break;
             }
             //TODO декремент насыщения
+
+            //снова можно 18+
+            setReproduced(false);
         }
     }
 
     public void reproduce(List<IslandEntity> entities) {
         AnimalFactory animalFactory = new AnimalFactory();
-        //TODO понять как достать конкретное животное
+
 
         for (IslandEntity entity : entities) {
             int i = countOfEntityResolver(entity.getX(), entity.getY(), entity.getClass());
 
+            //если есть пара и достаточно места для данного типа животных
             if (i > 1 && i < entity.getType().getMaxAmount()) {
 
                 for (IslandEntity reproducingAnimal : entities) {
@@ -158,8 +166,14 @@ public abstract class AbstractAnimal implements IslandEntity {
                         if (entity.getType() == reproducingAnimal.getType()) {
                             double v = Math.random() * 1;
                             if (v > 0.5) {
-                                entities.add(animalFactory.createEntity(entity.getType()));
+                                IslandEntity newBornEntity = animalFactory.createEntity(entity.getType());
+                                //запрещаем всем причастным трогать друг друга
+                                newBornEntity.setReproduced(true);
+                                entity.setReproduced(true);
+                                reproducingAnimal.setReproduced(true);
 
+                                //добавляем новенького
+                                entities.add(newBornEntity);
                             }
                         }
                     }

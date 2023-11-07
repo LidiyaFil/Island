@@ -5,7 +5,7 @@ public interface IslandEntity {
 
     public boolean isReproduced();
 
-    public boolean setReproduced();
+    public void setReproduced(boolean b);
 
     int getX();
 

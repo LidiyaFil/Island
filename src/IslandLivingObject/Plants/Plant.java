@@ -20,7 +20,6 @@ public class Plant extends AbstractPlant {
     }
 
     @Override
-    public boolean setReproduced() {
-        return false;
+    public void setReproduced(boolean b) {
     }
 }

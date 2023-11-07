@@ -59,7 +59,7 @@ public enum IslandEntityType {
 
     public static Map<IslandEntityType, Integer> initEdibleSpecies() {
         Map<IslandEntityType, Integer> islandEntityTypeIntegerMap = new HashMap<>();
-
+        //вот тут TODO сделать что мы забили
 
         return islandEntityTypeIntegerMap;
     }

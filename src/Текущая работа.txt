@@ -73,5 +73,8 @@
 08.11.2023
 
 Сделано:
-1.Добавлен метод getEdibleSpecies() в интерфейс IslandEntity
-2.
+1. Добавлен метод getEdibleSpecies() в интерфейс IslandEntity
+2. Added saturation field in Abstract animal
+3. Changed some logic in eating()
+4. Refactored Plant.java
+5. Added die();

@@ -24,7 +24,7 @@ public class AnimalFactory implements EntityFactory {
             }
             @Override
             public IslandEntityType getType() {
-                return type;
+                return entityType;
             }
         };
     }

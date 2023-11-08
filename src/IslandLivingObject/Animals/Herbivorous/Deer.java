@@ -15,11 +15,6 @@ public class Deer extends Herbivorous {
     }
 
     @Override
-    public Map<IslandEntityType, Integer> getEdibleSpecies() {
-        return edibleSpecies;
-    }
-
-    @Override
     public IslandEntityType getType() {
         return IslandEntityType.DEER;
     }

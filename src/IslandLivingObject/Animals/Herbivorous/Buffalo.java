@@ -8,20 +8,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Buffalo extends Predators {
-    private Map<IslandEntityType, Integer> edibleSpecies;
+
 
     public Buffalo() {
         Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }
 
-    @Override
-    public Map<IslandEntityType, Integer> getEdibleSpecies() {
-        return edibleSpecies;
-    }
 
     @Override
     public IslandEntityType getType() {
         return IslandEntityType.BUFFALO;
     }
+
+
+
+
 }

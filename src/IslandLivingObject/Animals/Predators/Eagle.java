@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Eagle extends Predators {
-    private Map<IslandEntityType, Integer> edibleSpecies;
 
     public Eagle() {
         Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
@@ -17,9 +16,6 @@ public class Eagle extends Predators {
         edibleSpecies.put(IslandEntityType.DUCK, 80);
     }
 
-    public Map<IslandEntityType, Integer> getEdibleSpecies() {
-        return edibleSpecies;
-    }
 
     @Override
     public IslandEntityType getType() {

@@ -16,12 +16,7 @@ public class AnimalFactory implements EntityFactory {
     public IslandEntity createEntity(IslandEntityType entityType) {
         IslandEntity entity = null;
         if (type != null) {
-            entity = new AbstractAnimal(type) {
-                @Override
-                public Map<IslandEntityType, Integer> getEdibleSpecies() {
-                    return null;   //TODO вот тут надо обсудить что происходит
-                }
-
+            entity = new AbstractAnimal() {
                 @Override
                 public IslandEntityType getType() {
                     return type;
@@ -34,11 +29,6 @@ public class AnimalFactory implements EntityFactory {
 
                 @Override
                 public void setReproduced(boolean b) {
-                }
-
-                @Override
-                public Map<IslandEntityType, Integer> getEdibleSpecies(AbstractAnimal type) {
-                    return null;
                 }
             };
         }

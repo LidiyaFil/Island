@@ -25,25 +25,18 @@ public abstract class AbstractAnimal implements IslandEntity {
 
     protected int daysUntilDeathFromStarvation = 3;
 
-    @Override
-    public String toString() {
-        return String.valueOf(this.getType());
-    }
-
-    public abstract Map<IslandEntityType, Integer> getEdibleSpecies();
+    private Map<IslandEntityType, Integer> edibleSpecies;
 
     public boolean isReproduced() {
         return reprodused;
     }
-
     public void setReproduced(boolean reproduse) {
         this.reprodused = reproduse;
     }
 
-    public AbstractAnimal(IslandEntityType type) {
-
+    public AbstractAnimal() {
+        //TODO добавить поле голодание
     }
-
     public int getX() {
         return X;
     }
@@ -52,8 +45,14 @@ public abstract class AbstractAnimal implements IslandEntity {
         return Y;
     }
 
-    public AbstractAnimal() {
-        //TODO добавить поле голодание
+    @Override
+    public String toString() {
+        return String.valueOf(this.getType());
+    }
+
+    @Override
+    public Map<IslandEntityType, Integer> getEdibleSpecies() {
+        return edibleSpecies;
     }
 
     public void eat(List<IslandEntity> entities) {
@@ -64,7 +63,7 @@ public abstract class AbstractAnimal implements IslandEntity {
                 // если хищник, пробегаемся по списку ещё раз и пробуем скушать кого-то из списка getEdibleSpecies,
                 // определенного в классе животного
                 for (IslandEntity lunch : entities) {
-                    if (((Predators) eating).getEdibleSpecies((AbstractAnimal) eating).containsKey(lunch.getType())) {
+                    if ((eating).getEdibleSpecies().containsKey(lunch.getType())) {
                         // попытка покушать
                         boolean result = tryToEat((Predators) eating, lunch);
                         // если результат положительный
@@ -93,7 +92,7 @@ public abstract class AbstractAnimal implements IslandEntity {
     public boolean tryToEat(AbstractAnimal eating, IslandEntity lunch) {
         boolean resultOfTryingToEat;
         int chance = ThreadLocalRandom.current().nextInt(100);
-        resultOfTryingToEat = chance >= eating.getEdibleSpecies(eating).get(lunch.getType());
+        resultOfTryingToEat = chance >= eating.getEdibleSpecies().get(lunch.getType());
         return resultOfTryingToEat;
     }
 

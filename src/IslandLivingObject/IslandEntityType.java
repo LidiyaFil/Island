@@ -23,10 +23,10 @@ public enum IslandEntityType {
     BUFFALO(3, 5, 100, 700),
     DUCK(4, 10, 0.45, 1.0),
     CATERPILLAR(0, 1, 0, 0),
+
     PLANT(0, 200, 0, 0);
 
-    private final int maxMove;
-    private final int maxAmount;
+    private final int maxMove;   private final int maxAmount;
     private final double fullSaturation;
     private final double weight;
 

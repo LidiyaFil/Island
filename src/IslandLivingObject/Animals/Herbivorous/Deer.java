@@ -10,7 +10,7 @@ public class Deer extends Herbivorous {
     private Map<IslandEntityType, Integer> edibleSpecies;
 
     public Deer() {
-        Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }
 

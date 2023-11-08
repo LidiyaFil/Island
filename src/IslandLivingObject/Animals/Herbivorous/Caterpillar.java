@@ -11,7 +11,7 @@ public class Caterpillar extends Herbivorous {
     private Map<IslandEntityType, Integer> edibleSpecies;
 
     public Caterpillar() {
-        Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }
 

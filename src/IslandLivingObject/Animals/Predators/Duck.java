@@ -11,7 +11,7 @@ public class Duck extends Herbivorous {
 
 
     public Duck() {
-        Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.CATERPILLAR, 90);
         edibleSpecies.put(IslandEntityType.PLANT, 40);
     }

@@ -11,7 +11,7 @@ public class Buffalo extends Predators {
 
 
     public Buffalo() {
-        Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }
 

@@ -9,7 +9,7 @@ import java.util.Map;
 public class Horse extends Herbivorous {
 
     public Horse() {
-        Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }
 

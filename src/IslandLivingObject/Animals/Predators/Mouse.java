@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Mouse extends Predators {
     public Mouse() {
-        Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.CATERPILLAR, 90);
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }

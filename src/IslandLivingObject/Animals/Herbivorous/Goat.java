@@ -10,7 +10,7 @@ public class Goat extends Herbivorous {
     private Map<IslandEntityType, Integer> edibleSpecies;
 
     public Goat() {
-        Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }
 

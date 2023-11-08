@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Rabbit extends Herbivorous {
     public Rabbit() {
-        Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }
     @Override

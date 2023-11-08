@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Wolf extends Predators {
     public Wolf() {
-        Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.HORSE, 10);
         edibleSpecies.put(IslandEntityType.DEER, 15);
         edibleSpecies.put(IslandEntityType.RABBIT, 60);

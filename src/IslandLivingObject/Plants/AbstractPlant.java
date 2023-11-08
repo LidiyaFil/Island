@@ -11,6 +11,11 @@ public abstract class AbstractPlant implements IslandEntity {
     private int X;
     private int Y;
 
+    public AbstractPlant(int x, int y) {
+        this.X = x;
+        this.Y = y;
+    }
+
     @Override
     public IslandEntityType getType() {
         return this.getType();
@@ -43,12 +48,12 @@ public abstract class AbstractPlant implements IslandEntity {
         return Y;
     }
 
+    public void setY(int y) {
+        Y = y;
+    }
+
     @Override
     public void die() {
         IslandField.getGameField()[this.getX()][this.getY()].remove(this);
-    }
-
-    public void setY(int y) {
-        Y = y;
     }
 }

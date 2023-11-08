@@ -16,11 +16,12 @@ import static src.Island.IslandField.countOfEntityResolver;
 import static src.Island.IslandField.getInstance;
 
 public abstract class AbstractAnimal implements IslandEntity {
-    private int X;
-    private int Y;
+    protected int X;
+
+    protected int Y;
+
     private boolean reprodused = false;
 
-    //инициализируем заполненность желудка 50% от максимально вместимости
     private double saturation;
     private final Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
 
@@ -49,18 +50,29 @@ public abstract class AbstractAnimal implements IslandEntity {
     public boolean isReproduced() {
         return reprodused;
     }
+
     public void setReproduced(boolean reproduse) {
         this.reprodused = reproduse;
     }
-
-    public AbstractAnimal() {
+    public AbstractAnimal(int x, int y) {
+        //инициализируем заполненность желудка 50% от максимально вместимости
         this.saturation = this.getType().getFullSaturation() / 2;
+        this.X = x;
+        this.Y = y;
     }
+
     public int getX() {
         return X;
     }
     public int getY() {
         return Y;
+    }
+    public void setX(int x) {
+        X = x;
+    }
+
+    public void setY(int y) {
+        Y = y;
     }
 
     @Override
@@ -165,11 +177,12 @@ public abstract class AbstractAnimal implements IslandEntity {
                     // Обновляем текущие координаты
                     current_X = new_X;
                     current_Y = new_Y;
-
+                    this.setX(new_X);
+                    this.setY(new_Y);
                     // Добавляем животное в новую клетку
                     newCellEntities.add(this);
                 }
-                // Если вышли за пределы игрового поля или достигнута максимальная вместимость на клетке , то остаемся на текущей позиции
+                // Если вышли за пределы игрового поля или достигнута максимальная вместимость на клетке, то остаемся на текущей позиции
             }
 
             // Если не осталось шагов, завершаем движение
@@ -199,7 +212,7 @@ public abstract class AbstractAnimal implements IslandEntity {
                         if (entity.getType() == reproducingAnimal.getType()) {
                             double chanceToReproduce = Math.random() * 1;
                             if (chanceToReproduce > 0.5) {
-                                IslandEntity newBornEntity = animalFactory.createEntity(entity.getType());
+                                IslandEntity newBornEntity = animalFactory.createEntity(getX(), getY(), entity.getType());
                                 //запрещаем всем причастным трогать друг друга
                                 newBornEntity.setReproduced(true);
                                 entity.setReproduced(true);

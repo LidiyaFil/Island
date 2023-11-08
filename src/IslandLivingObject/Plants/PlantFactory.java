@@ -4,9 +4,10 @@ import src.IslandLivingObject.EntityFactory;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 
-public class PlantFactory {
+public class PlantFactory implements EntityFactory {
 
-    public IslandEntity createEntity() {
-        return new Plant();
+    @Override
+    public IslandEntity createEntity(int x, int y, IslandEntityType entityType) {
+        return new Plant(x, y);
     }
 }

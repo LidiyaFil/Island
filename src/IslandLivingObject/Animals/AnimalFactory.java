@@ -13,26 +13,23 @@ public class AnimalFactory implements EntityFactory {
     IslandEntityType type = getRandomAnimalType();
 
     @Override
-    public IslandEntity createEntity(IslandEntityType entityType) {
-        IslandEntity entity = null;
-        if (type != null) {
-            entity = new AbstractAnimal() {
-                @Override
-                public IslandEntityType getType() {
-                    return type;
-                }
+    public IslandEntity createEntity(int x, int y, IslandEntityType entityType) {
+        return new AbstractAnimal(x, y) {
+            @Override
+            public IslandEntityType getType() {
+                return type;
+            }
 
-                @Override
-                public boolean isReproduced() {
-                    return false;
-                }
+            @Override
+            public void setX(int x) {
+                this.X = x;
+            }
 
-                @Override
-                public void setReproduced(boolean b) {
-                }
-            };
-        }
-        return entity;
+            @Override
+            public void setY(int y) {
+                this.Y = y;
+            }
+        };
     }
 
     public IslandEntityType getRandomAnimalType() {

@@ -1,5 +1,5 @@
 package src.IslandLivingObject;
 
 public interface EntityFactory {
-    IslandEntity createEntity(IslandEntityType entityType);
+    IslandEntity createEntity(int x, int y, IslandEntityType entityType);
 }

@@ -20,4 +20,5 @@ public class Eagle extends Predators {
     public IslandEntityType getType() {
         return IslandEntityType.EAGLE;
     }
+
 }

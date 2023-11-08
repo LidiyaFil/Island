@@ -1,9 +1,6 @@
 package src.IslandLivingObject.Animals.Herbivorous;
 
-import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslandEntityType;
-
-import java.util.HashMap;
 import java.util.Map;
 
 public class Goat extends Herbivorous {

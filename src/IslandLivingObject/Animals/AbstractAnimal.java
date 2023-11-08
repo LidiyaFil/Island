@@ -187,10 +187,10 @@ public abstract class AbstractAnimal implements IslandEntity {
             if (i == steps - 1) {
                 break;
             }
-            //TODO декремент насыщения
-
             //снова можно 18+
             setReproduced(false);
+            //убавляем сытость на 25%
+            doStarvation();
         }
     }
 
@@ -205,7 +205,6 @@ public abstract class AbstractAnimal implements IslandEntity {
             if (i > 1 && i < entity.getType().getMaxAmount()) {
 
                 for (IslandEntity reproducingAnimal : entities) {
-                //TODO добавить проверку на repro
                     if (entity != reproducingAnimal && !entity.isReproduced()) {
                         if (entity.getType() == reproducingAnimal.getType()) {
                             double chanceToReproduce = Math.random() * 1;

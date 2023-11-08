@@ -1,10 +1,8 @@
 package src.IslandLivingObject.Animals.Predators;
 
-import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.IslandEntityType;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Duck extends Herbivorous {

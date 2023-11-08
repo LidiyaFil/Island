@@ -1,9 +1,6 @@
 package src.IslandLivingObject.Animals.Predators;
 
-import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslandEntityType;
-
-import java.util.HashMap;
 import java.util.Map;
 
 public class Bear extends Predators {

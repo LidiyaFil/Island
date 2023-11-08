@@ -1,12 +1,5 @@
 package src.IslandLivingObject;
 
-import src.IslandLivingObject.Animals.AbstractAnimal;
-import src.IslandLivingObject.Animals.Predators.Wolf;
-import src.IslandLivingObject.Plants.*;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public enum IslandEntityType {
     WOLF(3, 3, 8, 50),
     PYTHON(1, 3, 3, 15),

@@ -1,11 +1,9 @@
 package src.Island;
 
-import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.Animals.AnimalFactory;
 import src.IslandLivingObject.EntityFactory;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
-import src.IslandLivingObject.Plants.Plant;
 import src.IslandLivingObject.Plants.PlantFactory;
 
 import java.util.ArrayList;

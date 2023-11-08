@@ -6,7 +6,6 @@ import src.IslandLivingObject.EntityFactory;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AnimalFactory implements EntityFactory {
@@ -14,20 +13,10 @@ public class AnimalFactory implements EntityFactory {
 
     @Override
     public IslandEntity createEntity(int x, int y, IslandEntityType entityType) {
-        return new AbstractAnimal(x, y) {
+        return new AbstractAnimal() {
             @Override
             public IslandEntityType getType() {
                 return type;
-            }
-
-            @Override
-            public void setX(int x) {
-                this.X = x;
-            }
-
-            @Override
-            public void setY(int y) {
-                this.Y = y;
             }
         };
     }

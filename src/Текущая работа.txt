@@ -78,3 +78,6 @@
 3. Changed some logic in eating()
 4. Refactored Plant.java
 5. Added die();
+
+
+TODO где-то косяк с конструкторами, наверное в ходе тестов вылезет

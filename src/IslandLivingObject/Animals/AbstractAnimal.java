@@ -54,11 +54,9 @@ public abstract class AbstractAnimal implements IslandEntity {
     public void setReproduced(boolean reproduse) {
         this.reprodused = reproduse;
     }
-    public AbstractAnimal(int x, int y) {
+    public AbstractAnimal() {
         //инициализируем заполненность желудка 50% от максимально вместимости
         this.saturation = this.getType().getFullSaturation() / 2;
-        this.X = x;
-        this.Y = y;
     }
 
     public int getX() {

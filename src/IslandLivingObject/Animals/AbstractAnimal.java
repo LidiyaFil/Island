@@ -7,6 +7,7 @@ import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 import src.IslandLivingObject.Plants.AbstractPlant;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -15,17 +16,35 @@ import static src.Island.IslandField.countOfEntityResolver;
 import static src.Island.IslandField.getInstance;
 
 public abstract class AbstractAnimal implements IslandEntity {
-
-    IslandField islandField = IslandField.getInstance();
-
     private int X;
     private int Y;
-
     private boolean reprodused = false;
 
-    protected int daysUntilDeathFromStarvation = 3;
+    //инициализируем заполненность желудка 50% от максимально вместимости
+    private double saturation;
+    private final Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
 
-    private Map<IslandEntityType, Integer> edibleSpecies;
+    public double getSaturation() {
+        return saturation;
+    }
+
+    public void setSaturation(double saturation) {
+        this.saturation = saturation;
+    }
+
+    private void doStarvation() {
+        //отнимаем по 25% от максимальной вместимости желудка
+        if (getSaturation() > 0) {
+            this.saturation = getSaturation() - this.getType().getFullSaturation() / 4;
+        } else {
+            //удаляем объект с игрового поля, если животное голодает в начале хода
+            die();
+        }
+    }
+
+    public void die() {
+        IslandField.getGameField()[this.getX()][this.getY()].remove(this);
+    }
 
     public boolean isReproduced() {
         return reprodused;
@@ -35,12 +54,11 @@ public abstract class AbstractAnimal implements IslandEntity {
     }
 
     public AbstractAnimal() {
-        //TODO добавить поле голодание
+        this.saturation = this.getType().getFullSaturation() / 2;
     }
     public int getX() {
         return X;
     }
-
     public int getY() {
         return Y;
     }
@@ -58,34 +76,46 @@ public abstract class AbstractAnimal implements IslandEntity {
     public void eat(List<IslandEntity> entities) {
         // пробегаемся по списку и проверяем животное на принадлежность к классу хищник
         for (IslandEntity eating : entities) {
-
             if (eating instanceof Predators) {
                 // если хищник, пробегаемся по списку ещё раз и пробуем скушать кого-то из списка getEdibleSpecies,
                 // определенного в классе животного
+
                 for (IslandEntity lunch : entities) {
-                    if ((eating).getEdibleSpecies().containsKey(lunch.getType())) {
-                        // попытка покушать
-                        boolean result = tryToEat((Predators) eating, lunch);
-                        // если результат положительный
-                        if (result) {
-                            entities.remove(lunch);
-                            //TODO нужно ли удалять ссылки или это лишнее?
-                            lunch = null;
-                            //TODO добавить инкрементацию насыщения
-                        } else break;
+                    //если животное голодное (есть место для заполнения желудка)
+                    if (((Predators) eating).getSaturation() < eating.getType().getFullSaturation()) {
+                        //если животное может съесть такой тип объектов
+                        if ((eating).getEdibleSpecies().containsKey(lunch.getType())) {
+                            // попытка покушать
+                            boolean result = tryToEat((Predators) eating, lunch);
+
+                            // если результат положительный
+                            if (result) {
+                                double eaterSaturation = eating.getType().getFullSaturation();
+                                double lunchWeight = lunch.getType().getWeight();
+                                if (lunchWeight > eaterSaturation) {
+                                    //если вес съеденного объекта превышает размер желудка, то ставим полное насыщение
+                                    setSaturation(eaterSaturation);
+                                } else {
+                                    //если вес съеденного объекта не превышает размер желудка, то прибавляем насыщение
+                                    setSaturation(getSaturation() + lunchWeight);
+                                }
+                                //удаляем съеденного из списка
+                                entities.remove(lunch);
+                            }
+                        }
                     }
-                    break;
                 }
             } else if (eating instanceof Herbivorous) {
                 for (IslandEntity lunch : entities) {
-                    if (lunch instanceof AbstractPlant) {
-                        entities.remove(lunch);
-                        // TODO добавить инкрементацию насыщения
+                    //если животное голодное (есть место для заполнения желудка)
+                    if (((Herbivorous) eating).getSaturation() < eating.getType().getFullSaturation()) {
+                        if (lunch instanceof AbstractPlant) {
+                            ((Herbivorous) eating).setSaturation(lunch.getType().getWeight());
+                            entities.remove(lunch);
+                        }
                     }
                 }
-
             }
-            //TODO вынести проверку на травоядное и на растение
         }
     }
 

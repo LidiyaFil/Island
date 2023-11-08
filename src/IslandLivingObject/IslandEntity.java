@@ -1,7 +1,5 @@
 package src.IslandLivingObject;
 
-import src.IslandLivingObject.Animals.AbstractAnimal;
-
 import java.util.Map;
 
 public interface IslandEntity {
@@ -16,4 +14,6 @@ public interface IslandEntity {
     int getX();
 
     int getY();
+
+    void die();
 }

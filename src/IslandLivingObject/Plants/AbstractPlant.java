@@ -1,13 +1,35 @@
 package src.IslandLivingObject.Plants;
 
+import src.Island.IslandField;
 import src.IslandLivingObject.IslandEntity;
+import src.IslandLivingObject.IslandEntityType;
+
+import java.util.Map;
 
 public abstract class AbstractPlant implements IslandEntity {
-    protected int maxAmount;
-    protected int weight;
 
     private int X;
     private int Y;
+
+    @Override
+    public IslandEntityType getType() {
+        return this.getType();
+    }
+
+    @Override
+    public boolean isReproduced() {
+        return false;
+    }
+
+    @Override
+    public void setReproduced(boolean b) {
+
+    }
+
+    @Override
+    public Map<IslandEntityType, Integer> getEdibleSpecies() {
+        return null;
+    }
 
     public int getX() {
         return X;
@@ -21,12 +43,12 @@ public abstract class AbstractPlant implements IslandEntity {
         return Y;
     }
 
+    @Override
+    public void die() {
+        IslandField.getGameField()[this.getX()][this.getY()].remove(this);
+    }
+
     public void setY(int y) {
         Y = y;
     }
-// этот метод не нужен, так как есть фабрика, которая возвращает расение. Это будет делать поток
-//    public Plant grow() {
-//        return new Plant();
-//    }
 }
-

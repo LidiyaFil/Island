@@ -23,7 +23,6 @@ public abstract class AbstractPlant implements IslandEntity {
 
     @Override
     public void setReproduced(boolean b) {
-
     }
 
     @Override

@@ -77,10 +77,6 @@ public class IslandField {
         }
     }
 
-//    public int countOfEntityResolver(Class<?> targetClass) {
-//        return (int) entities.stream().filter(targetClass::isInstance).count();
-//    }
-
     public static int countOfEntityResolver(int x, int y, Class<?> targetClass) {
         List<IslandEntity> entitiesInCell = gameField[x][y];
         return (int) entitiesInCell.stream().filter(targetClass::isInstance).count();

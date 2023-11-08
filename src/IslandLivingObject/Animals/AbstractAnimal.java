@@ -75,7 +75,10 @@ public abstract class AbstractAnimal implements IslandEntity {
 
     @Override
     public String toString() {
-        return String.valueOf(this.getType());
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.valueOf(this.getType()));
+        builder.append(" (").append(getX()).append(", ").append(getY()).append(")");
+        return  builder.toString();
     }
 
     @Override

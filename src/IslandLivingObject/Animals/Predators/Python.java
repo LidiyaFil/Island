@@ -2,8 +2,6 @@ package src.IslandLivingObject.Animals.Predators;
 
 
 import src.IslandLivingObject.IslandEntityType;
-
-import java.util.HashMap;
 import java.util.Map;
 
 public class Python extends Predators {

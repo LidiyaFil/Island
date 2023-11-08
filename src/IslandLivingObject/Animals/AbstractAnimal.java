@@ -158,15 +158,15 @@ public abstract class AbstractAnimal implements IslandEntity {
                 new_X--; // Запад
             } else if (direction == 2) {
                 new_Y++; // Юг
-            } else if (direction == 3) {
+            } else {
                 new_Y--; // Север
             }
 
             // Проверяем, остаемся ли в пределах игрового поля
             if (new_X >= 0 && new_X < gameField.getNumRows() && new_Y >= 0 && new_Y < gameField.getNumColumns()) {
 
-                List currentCellEntities = IslandField.getGameField()[current_X][current_Y];
-                List newCellEntities = IslandField.getGameField()[new_X][new_Y];
+                var currentCellEntities = IslandField.getGameField()[current_X][current_Y];
+                var newCellEntities = IslandField.getGameField()[new_X][new_Y];
 
                 if (countOfEntityResolver(current_X, current_Y, this.getClass()) < this.getType().getMaxAmount()) {
                     // Удаляем животное из текущей клетки

@@ -17,11 +17,6 @@ public abstract class AbstractPlant implements IslandEntity {
     }
 
     @Override
-    public IslandEntityType getType() {
-        return this.getType();
-    }
-
-    @Override
     public boolean isReproduced() {
         return false;
     }

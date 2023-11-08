@@ -16,7 +16,6 @@ public class Eagle extends Predators {
         edibleSpecies.put(IslandEntityType.DUCK, 80);
     }
 
-
     @Override
     public IslandEntityType getType() {
         return IslandEntityType.EAGLE;

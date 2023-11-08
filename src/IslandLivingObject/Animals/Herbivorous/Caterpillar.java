@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Caterpillar extends Herbivorous {
-    private Map<IslandEntityType, Integer> edibleSpecies;
-
     public Caterpillar() {
         Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.PLANT, 100);

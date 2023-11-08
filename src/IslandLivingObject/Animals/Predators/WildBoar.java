@@ -14,7 +14,6 @@ public class WildBoar extends Predators {
         edibleSpecies.put(IslandEntityType.CATERPILLAR, 90);
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }
-
     @Override
     public IslandEntityType getType() {
         return IslandEntityType.WILD_BOAR;

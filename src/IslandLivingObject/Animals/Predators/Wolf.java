@@ -20,7 +20,6 @@ public class Wolf extends Predators {
         edibleSpecies.put(IslandEntityType.DUCK, 40);
     }
 
-
     @Override
     public IslandEntityType getType() {
         return IslandEntityType.WOLF;

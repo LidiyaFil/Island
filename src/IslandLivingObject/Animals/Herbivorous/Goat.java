@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Goat extends Herbivorous {
-    private Map<IslandEntityType, Integer> edibleSpecies;
 
     public Goat() {
         Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();

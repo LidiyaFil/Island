@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class NutritionService {
+    //TODO этого здесь быть не должно - переменной и конструктора, переделать
     private IslandEntity islandEntity;
 
     public NutritionService(IslandEntity islandEntity) {

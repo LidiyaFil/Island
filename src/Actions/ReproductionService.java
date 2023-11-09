@@ -1,22 +1,22 @@
 package src.Actions;
 
-import src.Coordinator;
 import src.Island.IslandField;
-import src.IslandLivingObject.Animals.AnimalFactory;
+import src.IslandLivingObject.AbstractFactory;
 import src.IslandLivingObject.IslandEntity;
 
 import java.util.List;
 
 public class ReproductionService {
-    private IslandEntity islandEntity;
     IslandField islandField = IslandField.getInstance();
 
+    //TODO этого здесь быть не должно - переменной и конструктора, переделать
+    private IslandEntity islandEntity;
     public ReproductionService(IslandEntity islandEntity) {
         this.islandEntity = islandEntity;
     }
 
     public void reproduce(List<IslandEntity> entities) {
-        AnimalFactory animalFactory = new AnimalFactory();
+        AbstractFactory animalFactory = new AbstractFactory();
 // пробегаемся по списку всех животных поля
         for (IslandEntity entity : entities) {
             // находим их общее количество на карте

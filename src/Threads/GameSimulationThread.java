@@ -1,4 +1,4 @@
-package src;
+package src.Threads;
 
 import src.Actions.MovingService;
 import src.Actions.NutritionService;
@@ -33,12 +33,12 @@ public class GameSimulationThread extends Thread {
                     System.out.println("успешно поели");
                     //запуск статистики для сравнения
                     Coordinator coordinator = new Coordinator();
-                    coordinator.start();
+//                    coordinator.start();
                     // затем пробуют размножиться
                     System.out.println("пытаемся размножиться");
                     list.stream().forEach(entity -> new ReproductionService((IslandEntity) entity).reproduce(list));
                     System.out.println("успешно размножились");
-                    coordinator.start();
+//                    coordinator.start();
                     // затем пробуют переместиться
                     System.out.println("пытаемся пойти");
                     list.stream().forEach(entity -> new MovingService((IslandEntity) entity).move((IslandEntity) entity));

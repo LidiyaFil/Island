@@ -11,11 +11,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MovingService {
     IslandField islandField = IslandField.getInstance();
-    private IslandEntity islandEntity;
-
-    public MovingService(IslandEntity islandEntity) {
-        this.islandEntity = islandEntity;
-    }
 
     public void move(IslandEntity islandEntity) {
         int current_X = islandEntity.getX();

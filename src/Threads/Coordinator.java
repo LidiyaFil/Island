@@ -1,8 +1,9 @@
-package src;
+package src.Threads;
 
 import src.Island.IslandField;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
+import src.Threads.PlantGenerationThread;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,13 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Coordinator {
+public class Coordinator extends Thread {
     IslandField islandField = IslandField.getInstance();
     IslandEntityType array[] = IslandEntityType.values();
     private boolean isGameFieldExsist;
 
-    // TODO добавить статиску животных по всему острову
-    public void start() {
+    // TODO добавить статистику животных по всему острову
+    public void run() {
         List[][] gameField = islandField.getGameField();
 
         //даем проинициализироваться всем обектам

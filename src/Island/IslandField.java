@@ -1,11 +1,9 @@
 package src.Island;
 
 import src.IslandLivingObject.AbstractFactory;
-import src.IslandLivingObject.Animals.AnimalFactory;
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
-import src.IslandLivingObject.Plants.PlantFactory;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

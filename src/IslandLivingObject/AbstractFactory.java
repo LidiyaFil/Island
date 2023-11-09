@@ -6,24 +6,23 @@ import src.IslandLivingObject.Plants.Plant;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AbstractFactory implements EntityFactory{
+public class AbstractFactory {
     private int x;
     private int y;
 
-    @Override
     public IslandEntity createEntity(int x, int y, IslandEntityType entityType) {
         this.x = x;
         this.y = y;
-        return mapType(entityType);
+        return mapAnimalTypeToIslandEntityType(entityType);
     }
 
     public IslandEntityType getRandomEntityType() {
         int index = ThreadLocalRandom.current().nextInt(IslandEntityType.values().length);
         IslandEntityType randomType = IslandEntityType.values()[index];
-        return mapType(randomType).getType();
+        return mapAnimalTypeToIslandEntityType(randomType).getType();
     }
 
-    public IslandEntity mapType(IslandEntityType entityType) {
+    public IslandEntity mapAnimalTypeToIslandEntityType(IslandEntityType entityType) {
 
         return switch (entityType) {
             case WOLF -> new Wolf();

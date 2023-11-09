@@ -1,42 +1,58 @@
 package src;
 
-import src.Actions.Moving;
-import src.Actions.Nutrition;
-import src.Actions.Reproduction;
+import src.Actions.MovingService;
+import src.Actions.NutritionService;
+import src.Actions.ReproductionService;
 import src.Island.IslandField;
-import src.IslandLivingObject.Animals.AbstractAnimal;
+import src.IslandLivingObject.IslandEntity;
 
 import java.util.List;
 
 public class GameSimulationThread extends Thread {
     IslandField islandField = IslandField.getInstance();
-    Nutrition nutrition = new Nutrition();
-    Reproduction reproduction = new Reproduction();
-    Moving moving = new Moving();
+    NutritionService nutrition;
+    ReproductionService reproduction;
+    MovingService moving;
     private boolean running;
 
-    public GameSimulationThread(IslandField islandField) {
-        this.islandField = islandField;
-        this.running = true;
-    }
+    private int coreCount;
 
+    public GameSimulationThread() {
+        this.running = true;
+        this.coreCount = Runtime.getRuntime().availableProcessors();
+    }
+//TODO надо сделать такски, которые будут делаться посписочно, взависимоти от того, сколько процессоров в системе
     @Override
     public void run() {
         while (running) {
             for (List[] lists : IslandField.getGameField()) {
+                System.out.println("зашли в цикл");
                 for (List list : lists) {
+                    System.out.println("зашли во 2 цикл");
                     // cначала все питаются
-                    list.stream().forEach(nutrition.eat(list));
+                    System.out.println("пытаемся поесть");
+                    for (int i = 0; i < list.size(); i++) {
+                        Object o = list.get(i);
+                        IslandEntity entity = (IslandEntity) o;
+                        nutrition = new NutritionService(entity);
+                        nutrition.eat(list);
+                    }
+                    System.out.println("успешно поели");
+                    Coordinator coordinator = new Coordinator();
+                    coordinator.start();
                     // затем пробуют размножиться
-                    list.stream().forEach(reproduction.reproduce(list));
+                    System.out.println("пытаемся размножиться");
+                    list.stream().forEach(rep -> reproduction.reproduce(list));
                     // затем пробуют переместиться
-                    list.stream().forEach(moving.move());
+                    System.out.println("пытаемся пойти");
+                    list.stream().forEach(move -> moving.move());
                 }
             }
             if (checkEndCondition()) {
                 running = false;
             }
         }
+        System.out.println("нить отработала");
     }
 
     public void stopSimulation() {

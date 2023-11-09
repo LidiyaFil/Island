@@ -1,6 +1,7 @@
 package src.Actions;
 
 import src.Island.IslandField;
+import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 
 import java.util.HashMap;
@@ -10,45 +11,20 @@ import java.util.concurrent.ThreadLocalRandom;
 import static src.Island.IslandField.countOfEntityResolver;
 import static src.Island.IslandField.getInstance;
 
-public class Moving {
-    protected int X;
-    protected int Y;
-    private boolean reprodused = false;
-    private double saturation;
-    private final Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+public class MovingService {
 
-    public double getSaturation() {
-        return saturation;
-    }
-    public void setSaturation(double saturation) {
-        this.saturation = saturation;
-    }
-    public boolean isReproduced() {
-        return reprodused;
-    }
-    public void setReproduced(boolean reproduse) {
-        this.reprodused = reproduse;
-    }
-    public int getX() {
-        return X;
-    }
-    public int getY() {
-        return Y;
-    }
-    public void setX(int x) {
-        X = x;
-    }
-    public void setY(int y) {
-        Y = y;
+    private IslandEntity islandEntity;
+
+    public MovingService(IslandEntity islandEntity) {
+        this.islandEntity = islandEntity;
     }
 
-    public void move(int x, int y) {
-        IslandField gameField = getInstance();
+    public void move() {
 
-        int current_X = x;
-        int current_Y = y;
+        int current_X = islandEntity.getX();
+        int current_Y = islandEntity.getY();
 
-        int steps = this.getType().getMaxMove();
+        int steps = islandEntity.getType().getMaxMove();
 
         for (int i = 0; i < steps; i++) {
             // Генерируем случайное направление
@@ -68,20 +44,24 @@ public class Moving {
             }
 
             // Проверяем, остаемся ли в пределах игрового поля
-            if (new_X >= 0 && new_X < gameField.getNumRows() && new_Y >= 0 && new_Y < gameField.getNumColumns()) {
+            if (new_X >= 0
+                    && new_X < IslandField.getInstance().getNumRows()
+                    && new_Y >= 0
+                    && new_Y < IslandField.getInstance().getNumColumns()) {
 
+                //хз почему var IDE так подсказывает
                 var currentCellEntities = IslandField.getGameField()[current_X][current_Y];
                 var newCellEntities = IslandField.getGameField()[new_X][new_Y];
 
-                if (countOfEntityResolver(current_X, current_Y, this.getClass()) < this.getType().getMaxAmount()) {
+                if (countOfEntityResolver(current_X, current_Y, this.getClass()) < islandEntity.getType().getMaxAmount()) {
                     // Удаляем животное из текущей клетки
                     currentCellEntities.remove(this);
 
                     // Обновляем текущие координаты
                     current_X = new_X;
                     current_Y = new_Y;
-                    this.setX(new_X);
-                    this.setY(new_Y);
+                    islandEntity.setX(new_X);
+                    islandEntity.setY(new_Y);
                     // Добавляем животное в новую клетку
                     newCellEntities.add(this);
                 }
@@ -93,7 +73,7 @@ public class Moving {
                 break;
             }
             //снова можно 18+
-            setReproduced(false);
+            islandEntity.setReproduced(false);
             //убавляем сытость на 25%
             doStarvation();
         }
@@ -101,8 +81,8 @@ public class Moving {
 
     private void doStarvation() {
         //отнимаем по 25% от максимальной вместимости желудка
-        if (getSaturation() > 0) {
-            this.saturation = getSaturation() - this.getType().getFullSaturation() / 4;
+        if (islandEntity.getSaturation() > 0) {
+            islandEntity.setSaturation(islandEntity.getSaturation() - islandEntity.getType().getFullSaturation() / 4);
         } else {
             //удаляем объект с игрового поля, если животное голодает в начале хода
             die();
@@ -110,6 +90,6 @@ public class Moving {
     }
 
     public void die() {
-        IslandField.getGameField()[this.getX()][this.getY()].remove(this);
+        IslandField.getGameField()[islandEntity.getX()][islandEntity.getY()].remove(this);
     }
 }

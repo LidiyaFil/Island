@@ -20,4 +20,8 @@ public interface IslandEntity {
     void setY(int y);
 
     void die();
+
+    double getSaturation();
+
+    void setSaturation(double v);
 }

@@ -9,20 +9,18 @@ import src.IslandLivingObject.Plants.AbstractPlant;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Nutrition {
-    private double saturation;
+public class NutritionService {
 
-    public double getSaturation() {
-        return saturation;
-    }
+    private IslandEntity islandEntity;
 
-    public void setSaturation(double saturation) {
-        this.saturation = saturation;
+    public NutritionService(IslandEntity islandEntity) {
+        this.islandEntity = islandEntity;
     }
 
     public void eat(List<IslandEntity> entities) {
         // пробегаемся по списку и проверяем животное на принадлежность к классу хищник
         for (IslandEntity eating : entities) {
+            System.out.println(eating.getClass());
             if (eating instanceof Predators) {
                 // если хищник, пробегаемся по списку ещё раз и пробуем скушать кого-то из списка getEdibleSpecies,
                 // определенного в классе животного
@@ -40,10 +38,10 @@ public class Nutrition {
                                 double lunchWeight = lunch.getType().getWeight();
                                 if (lunchWeight > eaterSaturation) {
                                     //если вес съеденного объекта превышает размер желудка, то ставим полное насыщение
-                                    setSaturation(eaterSaturation);
+                                    islandEntity.setSaturation(eaterSaturation);
                                 } else {
                                     //если вес съеденного объекта не превышает размер желудка, то прибавляем насыщение
-                                    setSaturation(getSaturation() + lunchWeight);
+                                    islandEntity.setSaturation(islandEntity.getSaturation() + lunchWeight);
                                 }
                                 //удаляем съеденного из списка
                                 entities.remove(lunch);

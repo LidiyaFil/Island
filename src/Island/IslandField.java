@@ -9,6 +9,7 @@ import src.IslandLivingObject.Plants.PlantFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IslandField {
@@ -49,7 +50,7 @@ public class IslandField {
         for (int x = 0; x < numRows; x++) {
             for (int y = 0; y < numColumns; y++) {
                 //TODO будет выбирать юзер из заданного диапазона
-                gameField[x][y] = new ArrayList<IslandEntity>();
+                gameField[x][y] = new CopyOnWriteArrayList<IslandEntity>();
                 createAnimals(x, y, animalFactory);
                 createPlants(x, y, plantFactory);
             }

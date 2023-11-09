@@ -11,4 +11,15 @@ public class Plant extends AbstractPlant {
     public IslandEntityType getType() {
         return IslandEntityType.PLANT;
     }
+
+    @Override
+    public double getSaturation() {
+        return 0;
+    }
+
+    @Override
+    public void setSaturation(double v) {
+        //ignore
+        System.out.println("trying to feed plant, are you ok?");
+    }
 }

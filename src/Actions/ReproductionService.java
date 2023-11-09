@@ -1,6 +1,5 @@
 package src.Actions;
 
-import src.Island.IslandField;
 import src.IslandLivingObject.Animals.AnimalFactory;
 import src.IslandLivingObject.IslandEntity;
 
@@ -8,15 +7,11 @@ import java.util.List;
 
 import static src.Island.IslandField.countOfEntityResolver;
 
-public class Reproduction {
-    protected int X;
-    protected int Y;
+public class ReproductionService {
+    private IslandEntity islandEntity;
 
-    public int getX() {
-        return X;
-    }
-    public int getY() {
-        return Y;
+    public ReproductionService(IslandEntity islandEntity) {
+        this.islandEntity = islandEntity;
     }
 
     public void reproduce(List<IslandEntity> entities) {
@@ -34,7 +29,8 @@ public class Reproduction {
                         if (entity.getType() == reproducingAnimal.getType()) {
                             double chanceToReproduce = Math.random() * 1;
                             if (chanceToReproduce > 0.5) {
-                                IslandEntity newBornEntity = animalFactory.createEntity(getX(), getY(), entity.getType());
+                                IslandEntity newBornEntity = animalFactory
+                                        .createEntity(islandEntity.getX(), islandEntity.getY(), entity.getType());
                                 //запрещаем всем причастным трогать друг друга
                                 newBornEntity.setReproduced(true);
                                 entity.setReproduced(true);

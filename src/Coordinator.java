@@ -28,7 +28,7 @@ public class Coordinator {
                 throw new RuntimeException(e);
             }
         }
-        for (int i = 0; i < islandField.getNumColumns(); i++) {
+       /* for (int i = 0; i < islandField.getNumColumns(); i++) {
             for (int j = 0; j < islandField.getNumRows(); j++) {
                 System.out.println("\n" + "Counts in cell (" + i + ", " + j + "):" + "\n");
                 for (IslandEntityType entityType : array) {
@@ -36,9 +36,22 @@ public class Coordinator {
                     System.out.println(entityType + ": " + count);
                 }
             }
-        }
+        }*/
+      /*  while (true) {
+            System.out.println(countEntitiesInGameField(islandField));
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }*/
 
         System.out.println(countEntitiesInGameField(islandField));
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private long countEntitiesInCell(List<IslandEntity> entities, IslandEntityType type) {

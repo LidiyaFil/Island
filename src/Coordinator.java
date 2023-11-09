@@ -22,7 +22,7 @@ public class Coordinator {
         //даем проинициализироваться всем обектам
         if (!isGameFieldExsist) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
                 isGameFieldExsist = true;
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -48,7 +48,7 @@ public class Coordinator {
 
         System.out.println(countEntitiesInGameField(islandField));
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

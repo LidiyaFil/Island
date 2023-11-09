@@ -26,27 +26,23 @@ public class GameSimulationThread extends Thread {
     public void run() {
         while (running) {
             for (List[] lists : IslandField.getGameField()) {
-                System.out.println("зашли в цикл");
                 for (List list : lists) {
-                    System.out.println("зашли во 2 цикл");
                     // cначала все питаются
                     System.out.println("пытаемся поесть");
-                   /* for (int i = 0; i < list.size(); i++) {
-                        Object o = list.get(i);
-                        IslandEntity entity = (IslandEntity) o;
-                        nutrition = new NutritionService(entity);
-                        nutrition.eat(list);
-                    }*/
                     list.stream().forEach(entity -> new NutritionService((IslandEntity) entity).eat(list));
                     System.out.println("успешно поели");
+                    //запуск статистики для сравнения
                     Coordinator coordinator = new Coordinator();
                     coordinator.start();
                     // затем пробуют размножиться
                     System.out.println("пытаемся размножиться");
-                    list.stream().forEach(rep -> reproduction.reproduce(list));
+                    list.stream().forEach(entity -> new ReproductionService((IslandEntity) entity).reproduce(list));
+                    System.out.println("успешно размножились");
+                    coordinator.start();
                     // затем пробуют переместиться
                     System.out.println("пытаемся пойти");
-                    list.stream().forEach(move -> moving.move());
+                    list.stream().forEach(entity -> new MovingService((IslandEntity) entity).move());
+                    System.out.println("успешно сделали ход");
                 }
             }
             if (checkEndCondition()) {

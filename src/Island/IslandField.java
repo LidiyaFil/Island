@@ -1,6 +1,7 @@
 package src.Island;
 
 import src.IslandLivingObject.Animals.AnimalFactory;
+import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.EntityFactory;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
@@ -16,7 +17,6 @@ public class IslandField {
     private static final IslandField instance = new IslandField(10, 10);
     private final int numRows;
     private final int numColumns;
-
     private static List[][] gameField;
 
     AnimalFactory animalFactory = new AnimalFactory();
@@ -26,7 +26,7 @@ public class IslandField {
         return numRows;
     }
 
-    private IslandField(int x, int y) {
+    public IslandField(int x, int y) {
         numRows = x;
         numColumns = y;
         gameField = new List[numRows][numColumns];
@@ -45,7 +45,7 @@ public class IslandField {
         return instance;
     }
 
-    public void createField() {
+    private void createField() {
         for (int x = 0; x < numRows; x++) {
             for (int y = 0; y < numColumns; y++) {
                 //TODO будет выбирать юзер из заданного диапазона
@@ -56,29 +56,53 @@ public class IslandField {
         }
     }
 
-    public void createAnimals(int x, int y, EntityFactory factory) {
+    private void createAnimals(int x, int y, AnimalFactory factory) {
         for (IslandEntityType type : IslandEntityType.values()) {
             int amountOfOneAnimal = ThreadLocalRandom.current().nextInt(0, type.getMaxAmount() + 1);
             while (amountOfOneAnimal > 0) {
                 IslandEntity entity = factory.createEntity(x, y, type);
+                // установить новой сущности поля X и Y
+                entity.setX(x);
+                entity.setY(y);
                 gameField[x][y].add(entity);
                 amountOfOneAnimal--;
             }
         }
     }
 
-    public void createPlants(int x, int y, PlantFactory factory) {
+    private void createPlants(int x, int y, PlantFactory factory) {
         //TODO поменять magic digit
         int amountOfPlants = ThreadLocalRandom.current().nextInt(0, 10);
-
         while (amountOfPlants > 0) {
-            gameField[x][y].add(factory.createEntity(x, y, IslandEntityType.PLANT));
+            IslandEntity entity = factory.createEntity(x, y, IslandEntityType.PLANT);
+            // по аналогии с созданием животных
+            entity.setX(x);
+            entity.setY(y);
+            gameField[x][y].add(entity);
             amountOfPlants--;
         }
     }
 
+    // TODO перенести в другой класс, здесь не должно быть этого метода
     public static int countOfEntityResolver(int x, int y, Class<?> targetClass) {
         List<IslandEntity> entitiesInCell = gameField[x][y];
         return (int) entitiesInCell.stream().filter(targetClass::isInstance).count();
+    }
+
+    public boolean areAllPredatorsDead() {
+        List[][] gameField = IslandField.getGameField();
+        for (int i = 0; i < numColumns; i++) {
+            for (int j = 0; j < numRows; j++) {
+                List<IslandEntity> entities = gameField[i][j];
+                for (IslandEntity entity : entities) {
+                    if (entity instanceof Predators) {
+                        // Если найден живой хищник, вернуть false
+                        return false;
+                    }
+                }
+            }
+        }
+        // Вернуть true, если все хищники мертвы
+        return true;
     }
 }

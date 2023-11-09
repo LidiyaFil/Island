@@ -4,7 +4,6 @@ import src.IslandLivingObject.IslandEntityType;
 import java.util.Map;
 
 public class Horse extends Herbivorous {
-
     public Horse() {
         Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.PLANT, 100);

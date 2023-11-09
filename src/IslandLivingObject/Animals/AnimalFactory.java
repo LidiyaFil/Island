@@ -15,14 +15,6 @@ public class AnimalFactory implements EntityFactory {
     public IslandEntity createEntity(int x, int y, IslandEntityType entityType) {
         return new AbstractAnimal() {
             @Override
-            public void setX(int x) {
-                super.setX(x);
-            }
-            @Override
-            public void setY(int y) {
-                super.setY(y);
-            }
-            @Override
             public IslandEntityType getType() {
                 return entityType;
             }

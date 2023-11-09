@@ -1,5 +1,7 @@
 package src.IslandLivingObject;
 
+import java.util.function.Predicate;
+
 public enum IslandEntityType {
     WOLF(3, 3, 8, 50),
     PYTHON(1, 3, 3, 15),
@@ -19,7 +21,8 @@ public enum IslandEntityType {
 
     PLANT(0, 3, 0, 1);
 
-    private final int maxMove;   private final int maxAmount;
+    private final int maxMove;
+    private final int maxAmount;
     private final double fullSaturation;
     private final double weight;
 
@@ -45,4 +48,5 @@ public enum IslandEntityType {
     public double getWeight() {
         return weight;
     }
+
 }

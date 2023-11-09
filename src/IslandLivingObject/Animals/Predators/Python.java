@@ -5,7 +5,6 @@ import src.IslandLivingObject.IslandEntityType;
 import java.util.Map;
 
 public class Python extends Predators {
-
     public Python() {
         Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.FOX, 14);

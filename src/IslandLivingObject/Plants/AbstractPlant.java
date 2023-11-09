@@ -7,7 +7,6 @@ import src.IslandLivingObject.IslandEntityType;
 import java.util.Map;
 
 public abstract class AbstractPlant implements IslandEntity {
-
     private int X;
     private int Y;
 

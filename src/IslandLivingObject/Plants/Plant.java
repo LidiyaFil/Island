@@ -9,6 +9,6 @@ public class Plant extends AbstractPlant {
 
     @Override
     public IslandEntityType getType() {
-        return this.getType();
+        return IslandEntityType.PLANT;
     }
 }

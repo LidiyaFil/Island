@@ -17,11 +17,8 @@ import static src.Island.IslandField.getInstance;
 
 public abstract class AbstractAnimal implements IslandEntity {
     protected int X;
-
     protected int Y;
-
     private boolean reprodused = false;
-
     private double saturation;
     private final Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
 
@@ -68,7 +65,6 @@ public abstract class AbstractAnimal implements IslandEntity {
     public void setX(int x) {
         X = x;
     }
-
     public void setY(int y) {
         Y = y;
     }
@@ -140,7 +136,6 @@ public abstract class AbstractAnimal implements IslandEntity {
     }
 
     public void move(int x, int y) {
-
         IslandField gameField = getInstance();
 
         int current_X = x;

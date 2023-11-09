@@ -20,7 +20,6 @@ public class NutritionService {
     public void eat(List<IslandEntity> entities) {
         // пробегаемся по списку и проверяем животное на принадлежность к классу хищник
         for (IslandEntity eating : entities) {
-            System.out.println(eating.getClass());
             if (eating instanceof Predators) {
                 // если хищник, пробегаемся по списку ещё раз и пробуем скушать кого-то из списка getEdibleSpecies,
                 // определенного в классе животного

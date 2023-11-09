@@ -31,12 +31,13 @@ public class GameSimulationThread extends Thread {
                     System.out.println("зашли во 2 цикл");
                     // cначала все питаются
                     System.out.println("пытаемся поесть");
-                    for (int i = 0; i < list.size(); i++) {
+                   /* for (int i = 0; i < list.size(); i++) {
                         Object o = list.get(i);
                         IslandEntity entity = (IslandEntity) o;
                         nutrition = new NutritionService(entity);
                         nutrition.eat(list);
-                    }
+                    }*/
+                    list.stream().forEach(entity -> new NutritionService((IslandEntity) entity).eat(list));
                     System.out.println("успешно поели");
                     Coordinator coordinator = new Coordinator();
                     coordinator.start();

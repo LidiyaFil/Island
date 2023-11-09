@@ -9,7 +9,7 @@ import src.IslandLivingObject.Plants.Plant;
 
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
-
+@Deprecated
 public class AnimalFactory implements EntityFactory {
 
     private int x;

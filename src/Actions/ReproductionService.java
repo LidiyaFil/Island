@@ -1,49 +1,44 @@
 package src.Actions;
 
 import src.Island.IslandField;
-import src.IslandLivingObject.AbstractFactory;
+import src.IslandLivingObject.IslantEntityFactory;
 import src.IslandLivingObject.IslandEntity;
 
 import java.util.List;
 
 public class ReproductionService {
-    IslandField islandField = IslandField.getInstance();
+    private final IslandEntity islandEntity;
 
-    //TODO этого здесь быть не должно - переменной и конструктора, переделать
-    private IslandEntity islandEntity;
     public ReproductionService(IslandEntity islandEntity) {
         this.islandEntity = islandEntity;
     }
 
     public void reproduce(List<IslandEntity> entities) {
-        AbstractFactory animalFactory = new AbstractFactory();
-// пробегаемся по списку всех животных поля
-        for (IslandEntity entity : entities) {
-            // находим их общее количество на карте
-            int i = islandField.countOfEntityResolver(entity.getX(), entity.getY(), entity.getClass());
-
-            //если есть пара и достаточно места для данного типа животных
-            if (i > 1 && i < entity.getType().getMaxAmount()) {
-
-                for (IslandEntity reproducingAnimal : entities) {
-                    if (entity != reproducingAnimal && !entity.isReproduced()) {
-                        if (entity.getType() == reproducingAnimal.getType()) {
-                            double chanceToReproduce = Math.random() * 1;
+        IslandField islandField = IslandField.getInstance();
+        IslantEntityFactory islantEntityFactory = new IslantEntityFactory();
+        // пробегаемся по списку всех животных поля
+        entities.stream()
+                // находим их общее количество на карте
+                .filter(entity -> islandField.countOfEntityResolver(entity.getX(), entity.getY(), entity.getClass()) > 1
+                        // если есть пара и достаточно места для данного типа животных
+                        && islandField.countOfEntityResolver(entity.getX(), entity.getY(), entity.getClass()) < entity.getType().getMaxAmount()
+                        // если ещё не размножалось
+                        && !entity.isReproduced())
+                .forEach(entity -> entities.stream()
+                        .filter(reproducingAnimal -> entity != reproducingAnimal && entity.getType() == reproducingAnimal.getType() && !reproducingAnimal.isReproduced())
+                        // находим первого везунчика
+                        .findFirst()
+                        .ifPresent(reproducingAnimal -> {
+                            // великий рандом вычисляет шанс на зачатие
+                            double chanceToReproduce = Math.random();
                             if (chanceToReproduce > 0.5) {
-                                IslandEntity newBornEntity = animalFactory
-                                        .createEntity(islandEntity.getX(), islandEntity.getY(), entity.getType());
-                                //запрещаем всем причастным трогать друг друга
+                                IslandEntity newBornEntity = islantEntityFactory.createEntity(entity.getX(), entity.getY(), entity.getType());
+                                //запрещаем всем участникам процесса трогать друг друга
                                 newBornEntity.setReproduced(true);
                                 entity.setReproduced(true);
                                 reproducingAnimal.setReproduced(true);
-
-                                //добавляем новенького
                                 entities.add(newBornEntity);
                             }
-                        }
-                    }
-                }
-            }
-        }
+                        }));
     }
 }

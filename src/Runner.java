@@ -10,11 +10,10 @@ public class Runner {
     public static void main(String[] args) {
         IslandField islandField = IslandField.getInstance();
         Coordinator coordinator = new Coordinator();
-//        coordinator.start();
+        coordinator.start();
         Thread thread = new GameSimulationThread();
-//        thread.start();
+        thread.start();
         PlantGenerationThread plantThread = new PlantGenerationThread(islandField);
-//        coordinator.start();
         plantThread.start();
     }
 }

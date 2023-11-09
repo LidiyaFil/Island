@@ -1,14 +1,16 @@
 package src.Threads;
 
 import src.Island.IslandField;
-import src.IslandLivingObject.AbstractFactory;
+import src.IslandLivingObject.IslantEntityFactory;
 import src.IslandLivingObject.IslandEntityType;
-import src.IslandLivingObject.Plants.Plant;
+
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PlantGenerationThread extends Thread {
     private IslandField islandField;
     private boolean running;
-    AbstractFactory abstractFactory = new AbstractFactory();
+    IslantEntityFactory abstractFactory = new IslantEntityFactory();
 
     public PlantGenerationThread(IslandField islandField) {
         this.islandField = islandField;
@@ -21,8 +23,13 @@ public class PlantGenerationThread extends Thread {
             // Генерируем новые растения на каждой клетке
             for (int x = 0; x < islandField.getNumRows(); x++) {
                 for (int y = 0; y < islandField.getNumColumns(); y++) {
-                    abstractFactory.createEntity(x, y, IslandEntityType.PLANT);
-                    System.out.println("Выросло новое растение на клетке " + x + " " + y);
+                    int countOfNewPlants = ThreadLocalRandom.current().nextInt(0, 10);
+                    while (countOfNewPlants > 0) {
+                        abstractFactory.createEntity(x, y, IslandEntityType.PLANT);
+                        System.out.println("Выросло новое растение на клетке " + x + " " + y);
+                        countOfNewPlants--;
+                    }
+
                 }
             }
             // Задержка между генерациями

@@ -6,7 +6,7 @@ import src.IslandLivingObject.Plants.Plant;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AbstractFactory {
+public class IslantEntityFactory {
     private int x;
     private int y;
 
@@ -40,6 +40,7 @@ public class AbstractFactory {
             case BUFFALO -> new Buffalo();
             case DUCK -> new Duck();
             case CATERPILLAR -> new Caterpillar();
+            // TODO не уверена, что растения должны создаваться здесь. На подумать
             case PLANT -> new Plant(x, y);
             default -> throw new IllegalArgumentException("Unknown entity type");
         };

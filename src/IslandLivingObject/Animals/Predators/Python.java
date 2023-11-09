@@ -12,6 +12,7 @@ public class Python extends Predators {
         edibleSpecies.put(IslandEntityType.MOUSE, 40);
         edibleSpecies.put(IslandEntityType.DUCK, 10);
     }
+
     @Override
     public IslandEntityType getType() {
         return IslandEntityType.PYTHON;

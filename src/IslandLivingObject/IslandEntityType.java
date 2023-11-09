@@ -32,21 +32,4 @@ public enum IslandEntityType {
         this.fullSaturation = fullSaturation;
         this.weight = weight;
     }
-
-    public int getMaxMove() {
-        return maxMove;
-    }
-
-    public int getMaxAmount() {
-        return maxAmount;
-    }
-
-    public double getFullSaturation() {
-        return fullSaturation;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
 }

@@ -14,57 +14,61 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class AbstractAnimal implements IslandEntity {
     IslandField islandField = IslandField.getInstance();
-    protected int X;
-    protected int Y;
+    private int x;
+    private int y;
     private boolean reprodused = false;
     private double saturation;
-    private final Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+    private Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
 
-    public double getSaturation() {
-        return saturation;
+    public AbstractAnimal() {
+        //инициализируем заполненность желудка 50% от максимально вместимости
+        this.saturation = this.getSaturation() / 2;
     }
 
-    public void setSaturation(double saturation) {
-        this.saturation = saturation;
+    public int getX() {
+        return x;
     }
 
-    private void doStarvation() {
-        //отнимаем по 25% от максимальной вместимости желудка
-        if (getSaturation() > 0) {
-            this.saturation = getSaturation() - this.getType().getFullSaturation() / 4;
-        } else {
-            //удаляем объект с игрового поля, если животное голодает в начале хода
-            die();
-        }
+    public int getY() {
+        return y;
     }
 
-    public void die() {
-        islandField.getGameField()[this.getX()][this.getY()].remove(this);
+    public void setX(int x) {
+        x = x;
+    }
+
+    public void setY(int y) {
+        y = y;
     }
 
     public boolean isReproduced() {
         return reprodused;
     }
 
-    public void setReproduced(boolean reproduse) {
-        this.reprodused = reproduse;
-    }
-    public AbstractAnimal() {
-        //инициализируем заполненность желудка 50% от максимально вместимости
-        this.saturation = this.getType().getFullSaturation() / 2;
+    public void setReproduced(boolean b) {
+        this.reprodused = reprodused;
     }
 
-    public int getX() {
-        return X;
+    public double getSaturation() {
+        return saturation;
     }
-    public int getY() {
-        return Y;
+
+    private void setSaturation(AbstractAnimal abstractAnimal) {
+        //отнимаем по 25% от максимальной вместимости желудка
+        if (getSaturation() > 0) {
+            this.saturation = getSaturation() - abstractAnimal.getSaturation() / 4;
+        } else {
+            //удаляем объект с игрового поля, если животное голодает в начале хода
+            die();
+        }
     }
-    public void setX(int x) {
-        X = x;
+
+    protected Map<IslandEntityType, Integer> getEdibleSpecies() {
+        return this.edibleSpecies = edibleSpecies;
     }
-    public void setY(int y) {
-        Y = y;
+
+    public void die() {
+        islandField.getGameField()[this.getX()][this.getY()].remove(this);
     }
 
     @Override
@@ -72,65 +76,6 @@ public abstract class AbstractAnimal implements IslandEntity {
         StringBuilder builder = new StringBuilder();
         builder.append(String.valueOf(this.getType()));
         builder.append(" (").append(getX()).append(", ").append(getY()).append(")");
-        return  builder.toString();
+        return builder.toString();
     }
-
-    @Override
-    public Map<IslandEntityType, Integer> getEdibleSpecies() {
-        return edibleSpecies;
-    }
-
-    public void eat(List<IslandEntity> entities) {
-        // пробегаемся по списку и проверяем животное на принадлежность к классу хищник
-        for (IslandEntity eating : entities) {
-            if (eating instanceof Predators) {
-                // если хищник, пробегаемся по списку ещё раз и пробуем скушать кого-то из списка getEdibleSpecies,
-                // определенного в классе животного
-
-                for (IslandEntity lunch : entities) {
-                    //если животное голодное (есть место для заполнения желудка)
-                    if (((Predators) eating).getSaturation() < eating.getType().getFullSaturation()) {
-                        //если животное может съесть такой тип объектов
-                        if ((eating).getEdibleSpecies().containsKey(lunch.getType())) {
-                            // попытка покушать
-                            boolean result = tryToEat((Predators) eating, lunch);
-
-                            // если результат положительный
-                            if (result) {
-                                double eaterSaturation = eating.getType().getFullSaturation();
-                                double lunchWeight = lunch.getType().getWeight();
-                                if (lunchWeight > eaterSaturation) {
-                                    //если вес съеденного объекта превышает размер желудка, то ставим полное насыщение
-                                    setSaturation(eaterSaturation);
-                                } else {
-                                    //если вес съеденного объекта не превышает размер желудка, то прибавляем насыщение
-                                    setSaturation(getSaturation() + lunchWeight);
-                                }
-                                //удаляем съеденного из списка
-                                entities.remove(lunch);
-                            }
-                        }
-                    }
-                }
-            } else if (eating instanceof Herbivorous) {
-                for (IslandEntity lunch : entities) {
-                    //если животное голодное (есть место для заполнения желудка)
-                    if (((Herbivorous) eating).getSaturation() < eating.getType().getFullSaturation()) {
-                        if (lunch instanceof AbstractPlant) {
-                            ((Herbivorous) eating).setSaturation(lunch.getType().getWeight());
-                            entities.remove(lunch);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public boolean tryToEat(AbstractAnimal eating, IslandEntity lunch) {
-        boolean resultOfTryingToEat;
-        int chance = ThreadLocalRandom.current().nextInt(100);
-        resultOfTryingToEat = chance >= eating.getEdibleSpecies().get(lunch.getType());
-        return resultOfTryingToEat;
-    }
-
 }

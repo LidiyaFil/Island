@@ -1,6 +1,6 @@
 package src.Island;
 
-import src.IslandLivingObject.AbstractFactory;
+import src.IslandLivingObject.IslantEntityFactory;
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
@@ -17,7 +17,7 @@ public class IslandField {
     private final int numColumns;
     private List[][] gameField;
 
-    private AbstractFactory factory = new AbstractFactory();
+    private IslantEntityFactory factory = new IslantEntityFactory();
 
   /*  AnimalFactory animalFactory = new AnimalFactory();
     PlantFactory plantFactory = new PlantFactory();*/
@@ -57,7 +57,7 @@ public class IslandField {
         }
     }
 
-    private void createEntity(int x, int y, AbstractFactory factory) {
+    private void createEntity(int x, int y, IslantEntityFactory factory) {
         for (IslandEntityType type : IslandEntityType.values()) {
             int amountOfOneTypeOfEntity = ThreadLocalRandom.current().nextInt(0, type.getMaxAmount() + 1);
             while (amountOfOneTypeOfEntity > 0) {

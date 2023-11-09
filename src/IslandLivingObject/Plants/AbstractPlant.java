@@ -8,42 +8,36 @@ import java.util.Map;
 
 public abstract class AbstractPlant implements IslandEntity {
     IslandField islandField = IslandField.getInstance();
-    private int X;
-    private int Y;
+    private int x;
+    private int y;
 
     public AbstractPlant(int x, int y) {
-        this.X = x;
-        this.Y = y;
-    }
-
-    @Override
-    public boolean isReproduced() {
-        return false;
-    }
-
-    @Override
-    public void setReproduced(boolean b) {
-    }
-
-    @Override
-    public Map<IslandEntityType, Integer> getEdibleSpecies() {
-        return null;
+        this.x = x;
+        this.y = y;
     }
 
     public int getX() {
-        return X;
+        return x;
     }
 
     public void setX(int x) {
-        X = x;
+        x = x;
     }
 
     public int getY() {
-        return Y;
+        return y;
     }
 
     public void setY(int y) {
-        Y = y;
+        y = y;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.valueOf(this.getType()));
+        builder.append(" (").append(getX()).append(", ").append(getY()).append(")");
+        return builder.toString();
     }
 
     @Override

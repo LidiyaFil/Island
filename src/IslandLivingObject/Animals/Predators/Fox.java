@@ -10,6 +10,7 @@ public class Fox extends Predators {
         edibleSpecies.put(IslandEntityType.MOUSE, 90);
         edibleSpecies.put(IslandEntityType.CATERPILLAR, 40);
     }
+
     @Override
     public IslandEntityType getType() {
         return IslandEntityType.FOX;

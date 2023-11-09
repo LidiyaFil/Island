@@ -8,6 +8,7 @@ public class Rabbit extends Herbivorous {
         Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }
+
     @Override
     public IslandEntityType getType() {
         return IslandEntityType.RABBIT;

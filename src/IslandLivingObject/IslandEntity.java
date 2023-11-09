@@ -3,13 +3,10 @@ package src.IslandLivingObject;
 import java.util.Map;
 
 public interface IslandEntity {
-    boolean isReproduced();
-
-    void setReproduced(boolean b);
 
     IslandEntityType getType();
 
-    Map<IslandEntityType, Integer> getEdibleSpecies();
+
 
     int getX();
 
@@ -21,7 +18,5 @@ public interface IslandEntity {
 
     void die();
 
-    double getSaturation();
 
-    void setSaturation(double v);
 }

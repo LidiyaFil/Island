@@ -5,11 +5,11 @@ import src.IslandLivingObject.IslandEntityType;
 import java.util.Map;
 
 public class Buffalo extends Predators {
-
     public Buffalo() {
         Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.PLANT, 100);
     }
+
     @Override
     public IslandEntityType getType() {
         return IslandEntityType.BUFFALO;

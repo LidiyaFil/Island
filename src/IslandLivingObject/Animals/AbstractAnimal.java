@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class AbstractAnimal implements IslandEntity {
+    IslandField islandField = IslandField.getInstance();
     protected int X;
     protected int Y;
     private boolean reprodused = false;
@@ -38,7 +39,7 @@ public abstract class AbstractAnimal implements IslandEntity {
     }
 
     public void die() {
-        IslandField.getGameField()[this.getX()][this.getY()].remove(this);
+        islandField.getGameField()[this.getX()][this.getY()].remove(this);
     }
 
     public boolean isReproduced() {

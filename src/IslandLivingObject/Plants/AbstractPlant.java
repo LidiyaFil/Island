@@ -7,6 +7,7 @@ import src.IslandLivingObject.IslandEntityType;
 import java.util.Map;
 
 public abstract class AbstractPlant implements IslandEntity {
+    IslandField islandField = IslandField.getInstance();
     private int X;
     private int Y;
 
@@ -47,6 +48,6 @@ public abstract class AbstractPlant implements IslandEntity {
 
     @Override
     public void die() {
-        IslandField.getGameField()[this.getX()][this.getY()].remove(this);
+        islandField.getGameField()[this.getX()][this.getY()].remove(this);
     }
 }

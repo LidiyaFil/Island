@@ -1,15 +1,15 @@
 package src.Actions;
 
 import src.Coordinator;
+import src.Island.IslandField;
 import src.IslandLivingObject.Animals.AnimalFactory;
 import src.IslandLivingObject.IslandEntity;
 
 import java.util.List;
 
-import static src.Island.IslandField.countOfEntityResolver;
-
 public class ReproductionService {
     private IslandEntity islandEntity;
+    IslandField islandField = IslandField.getInstance();
 
     public ReproductionService(IslandEntity islandEntity) {
         this.islandEntity = islandEntity;
@@ -20,7 +20,7 @@ public class ReproductionService {
 // пробегаемся по списку всех животных поля
         for (IslandEntity entity : entities) {
             // находим их общее количество на карте
-            int i = countOfEntityResolver(entity.getX(), entity.getY(), entity.getClass());
+            int i = islandField.countOfEntityResolver(entity.getX(), entity.getY(), entity.getClass());
 
             //если есть пара и достаточно места для данного типа животных
             if (i > 1 && i < entity.getType().getMaxAmount()) {

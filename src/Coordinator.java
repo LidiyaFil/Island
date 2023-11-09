@@ -17,7 +17,7 @@ public class Coordinator {
 
     // TODO добавить статиску животных по всему острову
     public void start() {
-        List[][] gameField = IslandField.getGameField();
+        List[][] gameField = islandField.getGameField();
 
         //даем проинициализироваться всем обектам
         if (!isGameFieldExsist) {
@@ -70,7 +70,7 @@ public class Coordinator {
         for (int i = 0; i < IslandField.getInstance().getNumRows() - 1; i++) {
             for (int j = 0; j < IslandField.getInstance().getNumRows() - 1; j++) {
                 for (IslandEntityType type : array) {
-                    long entitiesInCell = countEntitiesInCell(IslandField.getGameField()[i][j], type);
+                    long entitiesInCell = countEntitiesInCell(islandField.getGameField()[i][j], type);
                     int entitiesInMap = countOfEntityInGameField.get(type);
                     countOfEntityInGameField.put(type, (int) (entitiesInMap + entitiesInCell));
                 }

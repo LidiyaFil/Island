@@ -5,13 +5,12 @@ import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static src.Island.IslandField.countOfEntityResolver;
-import static src.Island.IslandField.getInstance;
-
 public class MovingService {
+    IslandField islandField = IslandField.getInstance();
     private IslandEntity islandEntity;
 
     public MovingService(IslandEntity islandEntity) {
@@ -47,13 +46,12 @@ public class MovingService {
                     && new_Y >= 0
                     && new_Y < IslandField.getInstance().getNumColumns()) {
 
-                //хз почему var IDE так подсказывает
-                var currentCellEntities = IslandField.getGameField()[current_X][current_Y];
-                var newCellEntities = IslandField.getGameField()[new_X][new_Y];
+                List currentCellEntities = islandField.getGameField()[current_X][current_Y];
+                List newCellEntities = islandField.getGameField()[new_X][new_Y];
 
-                if (countOfEntityResolver(current_X, current_Y, islandEntity.getClass()) < islandEntity.getType().getMaxAmount()) {
+                if (islandField.countOfEntityResolver(current_X, current_Y, islandEntity.getClass()) < islandEntity.getType().getMaxAmount()) {
                     // Удаляем животное из текущей клетки
-                    currentCellEntities.remove(this);
+                    currentCellEntities.remove(islandEntity);
 
                     // Обновляем текущие координаты
                     current_X = new_X;
@@ -61,7 +59,7 @@ public class MovingService {
                     islandEntity.setX(new_X);
                     islandEntity.setY(new_Y);
                     // Добавляем животное в новую клетку
-                    newCellEntities.add(this);
+                    newCellEntities.add(islandEntity);
                 }
                 // Если вышли за пределы игрового поля или достигнута максимальная вместимость на клетке, то остаемся на текущей позиции
             }
@@ -88,6 +86,6 @@ public class MovingService {
     }
 
     public void die(IslandEntity islandEntity) {
-        IslandField.getGameField()[islandEntity.getX()][islandEntity.getY()].remove(this);
+        islandField.getGameField()[islandEntity.getX()][islandEntity.getY()].remove(this);
     }
 }

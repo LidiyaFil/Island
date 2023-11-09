@@ -17,7 +17,7 @@ public class IslandField {
     private static final IslandField instance = new IslandField(10, 10);
     private final int numRows;
     private final int numColumns;
-    private static List[][] gameField;
+    private List[][] gameField;
 
     private AbstractFactory factory = new AbstractFactory();
 
@@ -39,7 +39,7 @@ public class IslandField {
         return numColumns;
     }
 
-    public static List[][] getGameField() {
+    public List[][] getGameField() {
         return gameField;
     }
 
@@ -101,16 +101,19 @@ public class IslandField {
     }*/
 
     // TODO перенести в другой класс, здесь не должно быть этого метода
-    public static int countOfEntityResolver(int x, int y, Class<? extends IslandEntity> targetClass) {
+    public int countOfEntityResolver(int x, int y, Class<?> targetClass) {
         List<IslandEntity> entitiesInCell = gameField[x][y];
-//        return (int) entitiesInCell.stream().filter(targetClass::isInstance).count();
-        return (int) entitiesInCell.stream()
-                .filter(entity -> targetClass.isAssignableFrom(entity.getClass()))
-                .count();
+        int count = 0;
+        for (IslandEntity entity: entitiesInCell) {
+            if (targetClass.isInstance(entity)) {
+                count++;
+            }
+        }
+        return count;
+//        return (int) entitiesInCell.stream().filter(islandEntities.get()::isInstance).count();
     }
 
     public boolean areAllPredatorsDead() {
-        List[][] gameField = IslandField.getGameField();
         for (int i = 0; i < numColumns; i++) {
             for (int j = 0; j < numRows; j++) {
                 List<IslandEntity> entities = gameField[i][j];

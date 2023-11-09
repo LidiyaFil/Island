@@ -25,7 +25,7 @@ public class GameSimulationThread extends Thread {
     @Override
     public void run() {
         while (running) {
-            for (List[] lists : IslandField.getGameField()) {
+            for (List[] lists : islandField.getGameField()) {
                 for (List list : lists) {
                     // cначала все питаются
                     System.out.println("пытаемся поесть");

@@ -1,5 +1,6 @@
 package src.Actions;
 
+import src.Coordinator;
 import src.IslandLivingObject.Animals.AnimalFactory;
 import src.IslandLivingObject.IslandEntity;
 
@@ -16,9 +17,9 @@ public class ReproductionService {
 
     public void reproduce(List<IslandEntity> entities) {
         AnimalFactory animalFactory = new AnimalFactory();
-
-
+// пробегаемся по списку всех животных поля
         for (IslandEntity entity : entities) {
+            // находим их общее количество на карте
             int i = countOfEntityResolver(entity.getX(), entity.getY(), entity.getClass());
 
             //если есть пара и достаточно места для данного типа животных

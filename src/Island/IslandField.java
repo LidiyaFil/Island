@@ -101,9 +101,12 @@ public class IslandField {
     }*/
 
     // TODO перенести в другой класс, здесь не должно быть этого метода
-    public static int countOfEntityResolver(int x, int y, Class<?> targetClass) {
+    public static int countOfEntityResolver(int x, int y, Class<? extends IslandEntity> targetClass) {
         List<IslandEntity> entitiesInCell = gameField[x][y];
-        return (int) entitiesInCell.stream().filter(targetClass::isInstance).count();
+//        return (int) entitiesInCell.stream().filter(targetClass::isInstance).count();
+        return (int) entitiesInCell.stream()
+                .filter(entity -> targetClass.isAssignableFrom(entity.getClass()))
+                .count();
     }
 
     public boolean areAllPredatorsDead() {

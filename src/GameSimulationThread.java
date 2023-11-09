@@ -41,10 +41,11 @@ public class GameSimulationThread extends Thread {
                     coordinator.start();
                     // затем пробуют переместиться
                     System.out.println("пытаемся пойти");
-                    list.stream().forEach(entity -> new MovingService((IslandEntity) entity).move());
+                    list.stream().forEach(entity -> new MovingService((IslandEntity) entity).move((IslandEntity) entity));
                     System.out.println("успешно сделали ход");
                 }
             }
+
             if (checkEndCondition()) {
                 running = false;
             }

@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class NutritionService {
-
     private IslandEntity islandEntity;
 
     public NutritionService(IslandEntity islandEntity) {

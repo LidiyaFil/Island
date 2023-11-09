@@ -12,15 +12,13 @@ import static src.Island.IslandField.countOfEntityResolver;
 import static src.Island.IslandField.getInstance;
 
 public class MovingService {
-
     private IslandEntity islandEntity;
 
     public MovingService(IslandEntity islandEntity) {
         this.islandEntity = islandEntity;
     }
 
-    public void move() {
-
+    public void move(IslandEntity islandEntity) {
         int current_X = islandEntity.getX();
         int current_Y = islandEntity.getY();
 
@@ -53,7 +51,7 @@ public class MovingService {
                 var currentCellEntities = IslandField.getGameField()[current_X][current_Y];
                 var newCellEntities = IslandField.getGameField()[new_X][new_Y];
 
-                if (countOfEntityResolver(current_X, current_Y, this.getClass()) < islandEntity.getType().getMaxAmount()) {
+                if (countOfEntityResolver(current_X, current_Y, islandEntity.getClass()) < islandEntity.getType().getMaxAmount()) {
                     // Удаляем животное из текущей клетки
                     currentCellEntities.remove(this);
 
@@ -75,21 +73,21 @@ public class MovingService {
             //снова можно 18+
             islandEntity.setReproduced(false);
             //убавляем сытость на 25%
-            doStarvation();
+            doStarvation(islandEntity);
         }
     }
 
-    private void doStarvation() {
+    private void doStarvation(IslandEntity islandEntity) {
         //отнимаем по 25% от максимальной вместимости желудка
         if (islandEntity.getSaturation() > 0) {
             islandEntity.setSaturation(islandEntity.getSaturation() - islandEntity.getType().getFullSaturation() / 4);
         } else {
             //удаляем объект с игрового поля, если животное голодает в начале хода
-            die();
+            die(islandEntity);
         }
     }
 
-    public void die() {
+    public void die(IslandEntity islandEntity) {
         IslandField.getGameField()[islandEntity.getX()][islandEntity.getY()].remove(this);
     }
 }

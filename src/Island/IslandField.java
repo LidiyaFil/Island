@@ -1,13 +1,12 @@
 package src.Island;
 
+import src.IslandLivingObject.AbstractFactory;
 import src.IslandLivingObject.Animals.AnimalFactory;
 import src.IslandLivingObject.Animals.Predators.Predators;
-import src.IslandLivingObject.EntityFactory;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 import src.IslandLivingObject.Plants.PlantFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -20,8 +19,10 @@ public class IslandField {
     private final int numColumns;
     private static List[][] gameField;
 
-    AnimalFactory animalFactory = new AnimalFactory();
-    PlantFactory plantFactory = new PlantFactory();
+    private AbstractFactory factory = new AbstractFactory();
+
+  /*  AnimalFactory animalFactory = new AnimalFactory();
+    PlantFactory plantFactory = new PlantFactory();*/
 
     public int getNumRows() {
         return numRows;
@@ -51,13 +52,28 @@ public class IslandField {
             for (int y = 0; y < numColumns; y++) {
                 //TODO будет выбирать юзер из заданного диапазона
                 gameField[x][y] = new CopyOnWriteArrayList<IslandEntity>();
-                createAnimals(x, y, animalFactory);
-                createPlants(x, y, plantFactory);
+              /*  createAnimals(x, y, animalFactory);
+                createPlants(x, y, plantFactory);*/
+                createEntity(x, y, factory);
             }
         }
     }
 
-    private void createAnimals(int x, int y, AnimalFactory factory) {
+    private void createEntity(int x, int y, AbstractFactory factory) {
+        for (IslandEntityType type : IslandEntityType.values()) {
+            int amountOfOneTypeOfEntity = ThreadLocalRandom.current().nextInt(0, type.getMaxAmount() + 1);
+            while (amountOfOneTypeOfEntity > 0) {
+                IslandEntity entity = factory.createEntity(x, y, type);
+                // установить новой сущности поля X и Y
+                entity.setX(x);
+                entity.setY(y);
+                gameField[x][y].add(entity);
+                amountOfOneTypeOfEntity--;
+            }
+        }
+    }
+ /*
+    private void createEntity(int x, int y, AnimalFactory factory) {
         for (IslandEntityType type : IslandEntityType.values()) {
             int amountOfOneAnimal = ThreadLocalRandom.current().nextInt(0, type.getMaxAmount() + 1);
             while (amountOfOneAnimal > 0) {
@@ -82,7 +98,7 @@ public class IslandField {
             gameField[x][y].add(entity);
             amountOfPlants--;
         }
-    }
+    }*/
 
     // TODO перенести в другой класс, здесь не должно быть этого метода
     public static int countOfEntityResolver(int x, int y, Class<?> targetClass) {

@@ -20,6 +20,6 @@ public class Plant extends AbstractPlant {
     @Override
     public void setSaturation(double v) {
         //ignore
-        System.out.println("trying to feed plant, are you ok?");
+        System.out.println("trying to feed plant");
     }
 }

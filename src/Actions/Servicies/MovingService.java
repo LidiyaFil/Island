@@ -78,14 +78,14 @@ public class MovingService {
         }
     }
 
+    // TODO переместить метод в причастный класс
     private void doStarvation(AbstractAnimal abstractAnimal) {
         //отнимаем по 25% от максимальной вместимости желудка
         if (abstractAnimal.getSaturation() > 0) {
-            abstractAnimal.setSaturation(abstractAnimal.getSaturation() - abstractAnimal.getSaturation() / 4);
+            abstractAnimal.setSaturation(abstractAnimal.getSaturation() - abstractAnimal.getType().getFullSaturation() / 2);
         } else {
             //удаляем объект с игрового поля, если животное голодает в начале хода
             abstractAnimal.die();
         }
     }
-
 }

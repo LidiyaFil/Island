@@ -90,12 +90,9 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
 
     @Override
     public void die() {
-        if (this.getSaturation() <= 0.5) {
-            System.out.println("умер бедный " + this.toString());
-            islandField.getGameField()[this.getX()][this.getY()].remove(this);
-        }
+//            System.out.println("умер бедный " + this.toString());
+        IslandField.getInstance().getGameField()[this.getX()][this.getY()].remove(this);
     }
-
 
     @Override
     public String toString() {

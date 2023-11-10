@@ -62,7 +62,7 @@ public class ReproductionService {
             if (reproducingAnimal != entity
                     && reproducingAnimal.getClass() == entity.getClass()
                     && !((AbstractAnimal) reproducingAnimal).isReproduced()
-                    && Math.random() > 0.5) {
+                    && Math.random() > 0.75) {
                 AbstractAnimal newBornEntity =
                         (AbstractAnimal) animalFactory.createEntity(animal.getX(), animal.getY(), animal.getType());
                 newBornEntity.setReproduced(true);

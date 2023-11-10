@@ -4,23 +4,22 @@ import java.util.function.Predicate;
 
 public enum IslandEntityType {
     // TODO изменить максимальное количество животных на клетке в соответствии с заданием
-    WOLF(3, 3, 8, 50),
-    PYTHON(1, 3, 3, 15),
-    FOX(2, 3, 2, 8),
-    BEAR(2, 2, 80, 500),
-    EAGLE(3, 3, 1, 6),
-    HORSE(4, 3, 60, 400),
-    DEER(4, 3, 50, 300),
-    RABBIT(2, 3, 0.45, 2),
-    MOUSE(1, 3, 0.01, 0.05),
-    GOAT(3, 3, 10, 60),
-    SHEEP(3, 3, 15, 70),
-    WILD_BOAR(2, 3, 50, 400),
-    BUFFALO(3, 3, 100, 700),
-    DUCK(4, 3, 0.45, 1.0),
-    CATERPILLAR(0, 3, 0.05, 0.1),
-
-    PLANT(0, 10, 0, 1);
+    WOLF(3, 30, 8, 50),
+    PYTHON(1, 30, 3, 15),
+    FOX(2, 30, 2, 8),
+    BEAR(2, 5, 80, 500),
+    EAGLE(3, 20, 1, 6),
+    HORSE(4, 20, 60, 400),
+    DEER(4, 20, 50, 300),
+    RABBIT(2, 150, 0.45, 2),
+    MOUSE(1, 500, 0.01, 0.05),
+    GOAT(3, 140, 10, 60),
+    SHEEP(3, 140, 15, 70),
+    WILD_BOAR(2, 50, 50, 400),
+    BUFFALO(3, 10, 100, 700),
+    DUCK(4, 200, 0.45, 1.0),
+    CATERPILLAR(0, 1000, 0.05, 0.1),
+    PLANT(0, 200, 0, 1);
 
     private final int maxMove;
     private final int maxAmount;

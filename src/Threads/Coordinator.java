@@ -23,17 +23,17 @@ public class Coordinator extends Thread {
         //даем проинициализироваться всем обектам
         if (!isGameFieldExsist) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(5000);
                 isGameFieldExsist = true;
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-
+// TODO убрать бесконечный цикл (когда все растения или хищники мертвы
         while (true) {
             System.out.println(countEntitiesInGameField(islandField));
             try {
-                Thread.sleep(1500);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

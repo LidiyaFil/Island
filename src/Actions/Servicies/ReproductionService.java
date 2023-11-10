@@ -11,8 +11,8 @@ import java.util.List;
 public class ReproductionService {
     private AbstractAnimal abstractAnimal;
 
-    public ReproductionService(Reproducible islandEntity) {
-        this.abstractAnimal = (AbstractAnimal) islandEntity;
+    public ReproductionService(AbstractAnimal abstractAnimal) {
+        this.abstractAnimal = abstractAnimal;
     }
 
     public void reproduce(List<AbstractAnimal> entities) {

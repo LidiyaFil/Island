@@ -1,5 +1,6 @@
 package src.Actions.Servicies;
 
+import src.Actions.Moveable;
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslandEntity;
@@ -11,8 +12,8 @@ public class MovingService {
     IslandField islandField = IslandField.getInstance();
     private AbstractAnimal abstractAnimal;
 
-    public MovingService(IslandEntity islandEntity) {
-        this.abstractAnimal = (AbstractAnimal) islandEntity;
+    public MovingService(Moveable moveable) {
+        this.abstractAnimal = (AbstractAnimal) moveable;
     }
 
     public void move(AbstractAnimal abstractAnimal) {

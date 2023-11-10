@@ -13,7 +13,7 @@ public class Runner {
         coordinator.start();
         Thread thread = new GameSimulationThread();
         thread.start();
-        PlantGenerationThread plantThread = new PlantGenerationThread(islandField);
-        plantThread.start();
+      /*  PlantGenerationThread plantThread = new PlantGenerationThread(islandField);
+        plantThread.start();*/
     }
 }

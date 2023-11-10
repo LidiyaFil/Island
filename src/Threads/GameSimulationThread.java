@@ -9,8 +9,12 @@ import src.Island.IslandField;
 import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
+import src.IslandLivingObject.Plants.AbstractPlant;
+import src.IslandLivingObject.Plants.Plant;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameSimulationThread extends Thread {
     IslandField islandField = IslandField.getInstance();
@@ -32,23 +36,51 @@ public class GameSimulationThread extends Thread {
     public void run() {
 
         while (running) {
+            //попытка сделать все через 1 стрим :))
+            /*Arrays.stream(islandField.getGameField()).
+                    forEach(lists -> Arrays.stream(lists).
+                            forEach(list -> list.stream().
+                                    forEach(e-> actEntity((IslandEntity) e, list))));*/
+//            Coordinator coordinator = new Coordinator();
             for (List[] lists : islandField.getGameField()) {
                 for (List list : lists) {
                     // cначала все питаются
+
                     System.out.println("пытаемся поесть");
-                    list.forEach(entity -> new NutritionService((Eateble) entity).eat(list));
+                    for (Object entity : list) {
+                        if (entity instanceof AbstractPlant) {
+                            continue;
+                        } else {
+                            new NutritionService((Eateble) entity).eat(list);
+                        }
+                    }
+//                    list.forEach(entity -> new NutritionService((Eateble) entity).eat(list));
                     System.out.println("успешно поели");
 
-                    Coordinator coordinator = new Coordinator();
-                    // coordinator.start();
-
+//                     coordinator.start();
                     System.out.println("пытаемся размножиться");
-                    list.forEach(entity -> new ReproductionService((Reproducible) entity).reproduce(list));
-                    System.out.println("успешно размножились");
-                    // coordinator.start();
+                    for (Object entity : list) {
+                        if (entity instanceof AbstractPlant) {
+                            continue;
+                        } else {
+                            new ReproductionService((AbstractAnimal) entity).reproduce(list);
+                        }
+                    }
 
-                   /* System.out.println("пытаемся пойти");*/
-                    list.forEach(entity -> new MovingService((AbstractAnimal) entity).move((AbstractAnimal) entity));
+                    System.out.println("успешно размножились");
+//                     coordinator.start();
+//                    list.forEach(entity -> new ReproductionService((AbstractAnimal) entity).reproduce(list));
+
+
+                    System.out.println("пытаемся пойти");
+                    for (Object entity : list) {
+                        if (!(entity instanceof AbstractPlant)) {
+                            new MovingService((AbstractAnimal) entity).move((AbstractAnimal) entity);
+                        } else {
+                            continue;
+                        }
+                    }
+//                    list.forEach(entity -> new MovingService((AbstractAnimal) entity).move((AbstractAnimal) entity));
                     System.out.println("успешно сделали ход");
                 }
             }
@@ -67,6 +99,21 @@ public class GameSimulationThread extends Thread {
     private boolean checkEndCondition() {
         return areAllPredatorsDead();
     }
+
+/*    private void actEntity(IslandEntity entity, List<AbstractAnimal> list) {
+        CopyOnWriteArrayList<IslandEntity> islandEntities = new CopyOnWriteArrayList<>(list);
+        Coordinator coordinator = new Coordinator();
+
+        new NutritionService((Eateble) entity).eat(islandEntities);
+        System.out.println("успешно поели");
+        coordinator.start();
+        new ReproductionService((Reproducible) entity).reproduce(list);
+        System.out.println("успешно размножились");
+        coordinator.start();
+        new MovingService((AbstractAnimal) entity).move((AbstractAnimal) entity);
+        System.out.println("успешно сделали ход");
+        coordinator.start();
+    }*/
 
     //    одно из возможных условий выхода из симуляции
     public boolean areAllPredatorsDead() {

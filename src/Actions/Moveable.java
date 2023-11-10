@@ -1,4 +1,6 @@
 package src.Actions;
 
-public interface Moveable {
+import src.IslandLivingObject.IslandEntity;
+
+public interface Moveable extends IslandEntity {
 }

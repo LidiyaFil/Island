@@ -1,6 +1,8 @@
 package src.Actions;
 
-public interface Reproducible {
+import src.IslandLivingObject.IslandEntity;
+
+public interface Reproducible extends IslandEntity {
     boolean isReproduced();
     void setReproduced(boolean reproduced);
 }

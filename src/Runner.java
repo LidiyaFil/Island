@@ -27,15 +27,17 @@ public class Runner {
             throw new RuntimeException(e);
         }
         for (List[] lists : IslandField.getInstance().getGameField()) {
+
             HashMap<IslandEntity, Integer> islandEntityIntegerHashMap = new HashMap<>();
 
             for (int i = 0, listsLength = lists.length; i < listsLength; i++) {
                 List list = lists[i];
-
-                if (islandEntityIntegerHashMap.containsKey(list.get(i))) {
-                    islandEntityIntegerHashMap.put((IslandEntity) list.get(i), islandEntityIntegerHashMap.get(list.get(i)) + 1);
-                } else {
-                    islandEntityIntegerHashMap.put((IslandEntity) list.get(i), 0);
+                for (int j = 0; j < list.size(); j++) {
+                    if (islandEntityIntegerHashMap.containsKey(list.get(j))) {
+                        islandEntityIntegerHashMap.put((IslandEntity) list.get(j), islandEntityIntegerHashMap.get(list.get(j)) + 1);
+                    } else {
+                        islandEntityIntegerHashMap.put((IslandEntity) list.get(j), 1);
+                    }
                 }
             }
             System.out.println(islandEntityIntegerHashMap);

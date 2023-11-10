@@ -66,8 +66,8 @@ public class IslandField {
                     ((AbstractAnimal) entity).setSaturation(entity.getType().getFullSaturation() / 2);
                 }
                 if ((x > 4) && (y > 5)) {
-                    System.out.println("Попытка добавить сущность на клетку " + x + " " + y);
-                    System.out.println("добавляем животное " + entity.getType() + " на клетку " + entity.getX() + " " + entity.getY());
+//                    System.out.println("Попытка добавить сущность на клетку " + x + " " + y);
+//                    System.out.println("добавляем животное " + entity.getType() + " на клетку " + entity.getX() + " " + entity.getY());
                 }
                 gameField[x][y].add(entity);
                 amountOfOneTypeOfEntity--;

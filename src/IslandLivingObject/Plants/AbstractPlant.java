@@ -5,6 +5,7 @@ import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 
 import java.util.Map;
+import java.util.Objects;
 
 public abstract class AbstractPlant implements IslandEntity {
     IslandField islandField = IslandField.getInstance();
@@ -25,6 +26,19 @@ public abstract class AbstractPlant implements IslandEntity {
     @Override
     public void setX(int x) {
         x = x;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractPlant that = (AbstractPlant) o;
+        return x == that.x && y == that.y && Objects.equals(islandField, that.islandField);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(islandField, x, y);
     }
 
     @Override

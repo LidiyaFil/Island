@@ -9,6 +9,7 @@ import src.IslandLivingObject.IslandEntityType;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproducible, Moveable {
     IslandField islandField = IslandField.getInstance();
@@ -58,6 +59,19 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
     @Override
     public double getSaturation() {
         return saturation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractAnimal that = (AbstractAnimal) o;
+        return x == that.x && y == that.y && reprodused == that.reprodused && Double.compare(saturation, that.saturation) == 0 && Objects.equals(islandField, that.islandField) && Objects.equals(edibleSpecies, that.edibleSpecies);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(islandField, x, y, reprodused, saturation, edibleSpecies);
     }
 
     public void setSaturation(double newSaturation) {

@@ -5,10 +5,7 @@ import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 import src.Threads.PlantGenerationThread;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Coordinator extends Thread {
@@ -32,6 +29,7 @@ public class Coordinator extends Thread {
 // TODO убрать бесконечный цикл (когда все растения или хищники мертвы
         while (true) {
             System.out.println(countEntitiesInGameField(islandField));
+
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
@@ -47,18 +45,18 @@ public class Coordinator extends Thread {
     }
 
     private HashMap countEntitiesInGameField(IslandField field) {
-        HashMap<IslandEntityType, Integer> countOfEntityInGameField = new HashMap<>();
+        HashMap<String, Integer> countOfEntityInGameField = new HashMap<>();
 
         for (IslandEntityType type : array) {
-            countOfEntityInGameField.put(type, 0);
+            countOfEntityInGameField.put(type.getIcon(), 0);
         }
 
         for (int i = 0; i < IslandField.getInstance().getNumRows() - 1; i++) {
             for (int j = 0; j < IslandField.getInstance().getNumRows() - 1; j++) {
                 for (IslandEntityType type : array) {
                     long entitiesInCell = countEntitiesInCell(islandField.getGameField()[i][j], type);
-                    int entitiesInMap = countOfEntityInGameField.get(type);
-                    countOfEntityInGameField.put(type, (int) (entitiesInMap + entitiesInCell));
+                    int entitiesInMap = countOfEntityInGameField.get(type.getIcon());
+                    countOfEntityInGameField.put(type.getIcon(), (int) (entitiesInMap + entitiesInCell));
                 }
             }
         }

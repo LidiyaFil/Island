@@ -96,8 +96,8 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
 
     @Override
     public String toString() {
-        String builder = this.getType() +
-                " (" + getX() + ", " + getY() + ")";
+        String builder = String.valueOf(this.getType()); /*+
+                " (" + getX() + ", " + getY() + ")";*/
         return builder;
     }
 }

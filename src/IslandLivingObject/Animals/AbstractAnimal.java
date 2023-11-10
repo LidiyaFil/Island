@@ -64,7 +64,7 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
     }
 
     public void setSaturation(double newSaturation) {
-        if (saturation <= 0) {
+        if (this.getSaturation() <= 0) {
             die();
         }
         this.saturation = newSaturation;

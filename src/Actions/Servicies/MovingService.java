@@ -4,6 +4,7 @@ import src.Actions.Moveable;
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslandEntity;
+import java.util.stream.IntStream;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;

@@ -27,7 +27,7 @@ public class PlantGenerationThread extends Thread {
                     int countOfNewPlants = ThreadLocalRandom.current().nextInt(0, 10);
                     while (countOfNewPlants > 0) {
                         abstractFactory.createEntity(x, y, IslandEntityType.PLANT);
-                        System.out.println("Выросло новое растение на клетке " + x + " " + y);
+//                        System.out.println("Выросло новое растение на клетке " + x + " " + y);
                         countOfNewPlants--;
                     }
 
@@ -35,7 +35,7 @@ public class PlantGenerationThread extends Thread {
             }
             // Задержка между генерациями
             try {
-                Thread.sleep(1000); // например, 1000 миллисекунд (1 секунда)
+                Thread.sleep(3000); // например, 1000 миллисекунд (1 секунда)
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

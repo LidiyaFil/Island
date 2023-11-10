@@ -23,7 +23,7 @@ public class IslandField {
     private IslandField(int x, int y) {
         numRows = x;
         numColumns = y;
-        gameField = new List[numRows][numColumns];
+        gameField = new CopyOnWriteArrayList[numRows][numColumns];
         createField();
     }
 

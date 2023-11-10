@@ -11,6 +11,7 @@ public abstract class AbstractPlant implements IslandEntity {
     private int x;
     private int y;
 
+    // зачем нам этот конструктор?
     public AbstractPlant(int x, int y) {
         this.x = x;
         this.y = y;

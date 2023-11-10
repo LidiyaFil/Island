@@ -20,10 +20,10 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
     private Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
 
     public AbstractAnimal(int x, int y) {
-        //инициализируем заполненность желудка 50% от максимально вместимости
         this.x = x;
         this.y = y;
-        this.saturation = this.getType().getFullSaturation() / 2;
+        //инициализируем заполненность желудка 61% от максимально вместимости
+        this.saturation = this.getType().getFullSaturation() * 0.61;
     }
 
     @Override
@@ -96,8 +96,17 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
 
     @Override
     public String toString() {
-        String builder = String.valueOf(this.getType()); /*+
-                " (" + getX() + ", " + getY() + ")";*/
+        String builder = String.valueOf(this.getType());
         return builder;
+    }
+
+    public void doStarvation() {
+        //отнимаем по 25% от максимальной вместимости желудка
+        if (this.getSaturation() > 0) {
+            this.setSaturation(this.getSaturation() - this.getType().getFullSaturation() / 2);
+        } else {
+            //удаляем объект с игрового поля, если животное голодает в начале хода
+            this.die();
+        }
     }
 }

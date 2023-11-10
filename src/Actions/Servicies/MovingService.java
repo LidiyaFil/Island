@@ -45,8 +45,9 @@ public class MovingService {
 
             //снова можно 18+
             abstractAnimal.setReproduced(false);
+
             //убавляем сытость на 25%
-            doStarvation(abstractAnimal);
+            abstractAnimal.doStarvation();
 
             // уменьшаем счетчик шагов
             steps--;
@@ -75,17 +76,6 @@ public class MovingService {
 //            System.out.println("удалили " + islandEntity.toString());
             currentCellEntities.remove(islandEntity);
 //            System.out.println(" переместили животное на клетку " + islandEntity.getX() + " " + islandEntity.getY());
-        }
-    }
-
-    // TODO переместить метод в причастный класс
-    private void doStarvation(AbstractAnimal abstractAnimal) {
-        //отнимаем по 25% от максимальной вместимости желудка
-        if (abstractAnimal.getSaturation() > 0) {
-            abstractAnimal.setSaturation(abstractAnimal.getSaturation() - abstractAnimal.getType().getFullSaturation() / 2);
-        } else {
-            //удаляем объект с игрового поля, если животное голодает в начале хода
-            abstractAnimal.die();
         }
     }
 }

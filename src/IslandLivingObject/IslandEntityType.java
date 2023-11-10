@@ -23,7 +23,6 @@ public enum IslandEntityType {
     private final int maxAmount;
     private final double fullSaturation;
     private final double weight;
-
     private final String icon;
 
     IslandEntityType(int maxMove, int maxAmount, double fullSaturation, double weight, String icon) {

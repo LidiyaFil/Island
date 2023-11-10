@@ -61,24 +61,26 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
         return saturation;
     }
 
+    public void setSaturation(double newSaturation) {
+        this.saturation = newSaturation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AbstractAnimal that = (AbstractAnimal) o;
-        return x == that.x && y == that.y && reprodused == that.reprodused && Double.compare(saturation, that.saturation) == 0 && Objects.equals(islandField, that.islandField) && Objects.equals(edibleSpecies, that.edibleSpecies);
+        return x == that.x
+                && y == that.y
+                && reprodused == that.reprodused
+                && Double.compare(saturation, that.saturation) == 0
+                && Objects.equals(islandField, that.islandField)
+                && Objects.equals(edibleSpecies, that.edibleSpecies);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(islandField, x, y, reprodused, saturation, edibleSpecies);
-    }
-
-    public void setSaturation(double newSaturation) {
-        if (this.getSaturation() <= 0) {
-            die();
-        }
-        this.saturation = newSaturation;
     }
 
     @Override
@@ -88,8 +90,12 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
 
     @Override
     public void die() {
-        islandField.getGameField()[this.getX()][this.getY()].remove(this);
+        if (this.getSaturation() <= 0.5) {
+            System.out.println("умер бедный " + this.toString());
+            islandField.getGameField()[this.getX()][this.getY()].remove(this);
+        }
     }
+
 
     @Override
     public String toString() {

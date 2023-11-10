@@ -21,6 +21,15 @@ public class GameSimulationThread extends Thread {
     NutritionService nutrition;
     ReproductionService reproduction;
     MovingService moving;
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
     private boolean running;
 
     private int coreCount;
@@ -38,12 +47,13 @@ public class GameSimulationThread extends Thread {
         while (running) {
 
             actEntity();
-            System.out.println("проверяем живы ли хищники");
+//            System.out.println("проверяем живы ли хищники");
             if (checkEndCondition()) {
-                running = false;
+                System.out.println("Все хищники мертвы");
+                this.setRunning(false);
             }
         }
-        System.out.println("Все хищники мертвы");
+        System.out.println("Игра закончена, все хищники погибли");
     }
 
     public void stopSimulation() {
@@ -58,7 +68,7 @@ public class GameSimulationThread extends Thread {
 
         for (List[] lists : islandField.getGameField()) {
             for (List list : lists) {
-                System.out.println("пытаемся поесть");
+//                System.out.println("пытаемся поесть");
                 for (Object entity : list) {
                     if (entity instanceof AbstractPlant) {
                         continue;
@@ -66,8 +76,8 @@ public class GameSimulationThread extends Thread {
                         new NutritionService((Eateble) entity).eat(list);
                     }
                 }
-                System.out.println("успешно поели");
-                System.out.println("пытаемся размножиться");
+//                System.out.println("успешно поели");
+//                System.out.println("пытаемся размножиться");
                 for (Object entity : list) {
                     if (entity instanceof AbstractPlant) {
                         continue;
@@ -75,8 +85,8 @@ public class GameSimulationThread extends Thread {
                         new ReproductionService((AbstractAnimal) entity).reproduce(list);
                     }
                 }
-                System.out.println("успешно размножились");
-                System.out.println("пытаемся пойти");
+//                System.out.println("успешно размножились");
+//                System.out.println("пытаемся пойти");
                 for (Object entity : list) {
                     if (!(entity instanceof AbstractPlant)) {
                         new MovingService((AbstractAnimal) entity).move((AbstractAnimal) entity);
@@ -84,10 +94,10 @@ public class GameSimulationThread extends Thread {
                         continue;
                     }
                 }
-                System.out.println("успешно сделали ход");
+//                System.out.println("успешно сделали ход");
             }
         }
-        System.out.println("close method actios");
+//        System.out.println("close method actios");
     }
 
     //    одно из возможных условий выхода из симуляции
@@ -96,10 +106,10 @@ public class GameSimulationThread extends Thread {
             for (int j = 0; j < islandField.getNumColumns(); j++) {
                 List<IslandEntity> entities = islandField.getGameField()[i][j];
                 for (IslandEntity entity : entities) {
-                    System.out.println("Хищники живы?");
+//                    System.out.println("Хищники живы?");
                     if (entity instanceof Predators) {
                         // Если найден живой хищник, вернуть false
-                        System.out.println("хищники мертвы");
+//                        System.out.println("хищники мертвы");
                         return false;
                     }
                 }

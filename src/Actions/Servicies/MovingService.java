@@ -72,7 +72,7 @@ public class MovingService {
             islandEntity.setX(x);
             islandEntity.setY(y);
             // Удаляем животное из текущей клетки
-            System.out.println("удалили " + islandEntity.toString());
+//            System.out.println("удалили " + islandEntity.toString());
             currentCellEntities.remove(islandEntity);
 //            System.out.println(" переместили животное на клетку " + islandEntity.getX() + " " + islandEntity.getY());
         }
@@ -84,11 +84,8 @@ public class MovingService {
             abstractAnimal.setSaturation(abstractAnimal.getSaturation() - abstractAnimal.getSaturation() / 4);
         } else {
             //удаляем объект с игрового поля, если животное голодает в начале хода
-            die(abstractAnimal);
+            abstractAnimal.die();
         }
     }
 
-    public void die(AbstractAnimal abstractAnimal) {
-        islandField.getGameField()[abstractAnimal.getX()][abstractAnimal.getY()].remove(abstractAnimal);
-    }
 }

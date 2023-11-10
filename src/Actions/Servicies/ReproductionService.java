@@ -32,14 +32,14 @@ public class ReproductionService {
         if (!(entity instanceof AbstractAnimal)) {
             return false;
         }
-
+        //приводим к энимал
         AbstractAnimal animal = (AbstractAnimal) entity;
         // само животное уже размножалось
         if (animal.isReproduced()) {
             return false;
         }
 
-        //есть ли место на клетке
+        //есть ли место на клетке (сколько их на клетке)
         int count = countSameTypeAnimals(entity, entities);
         return count > 1 && count < entity.getType().getMaxAmount();
     }
@@ -69,6 +69,7 @@ public class ReproductionService {
                 animal.setReproduced(true);
                 ((AbstractAnimal) reproducingAnimal).setReproduced(true);
                 //добавляем новенького
+//                System.out.println("добавили новое животное " + newBornEntity.toString());
                 entities.add(newBornEntity);
                 break;  // если найдено подходящее животное, переходим к следующему
             }

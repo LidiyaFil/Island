@@ -13,19 +13,20 @@ public class Runner {
 
     public static void main(String[] args) {
         IslandField islandField = IslandField.getInstance();
-//        Coordinator coordinator = new Coordinator();
-//        coordinator.start();
+        Coordinator coordinator = new Coordinator();
+        coordinator.start();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Thread thread = new GameSimulationThread();
         thread.start();
 
-       /* PlantGenerationThread plantThread = new PlantGenerationThread(islandField);
-        plantThread.start();*/
+        PlantGenerationThread plantThread = new PlantGenerationThread(islandField);
+        plantThread.start();
 
-        /*try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }*/
+
         /*for (List[] lists : IslandField.getInstance().getGameField()) {
 
             HashMap<IslandEntity, Integer> islandEntityIntegerHashMap = new HashMap<>();
@@ -44,3 +45,5 @@ public class Runner {
         }*/
     }
 }
+
+

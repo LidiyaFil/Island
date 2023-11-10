@@ -61,6 +61,6 @@ public abstract class AbstractPlant implements IslandEntity {
 
     @Override
     public void die() {
-        islandField.getGameField()[this.getX()][this.getY()].remove(this);
+
     }
 }

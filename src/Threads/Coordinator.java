@@ -23,7 +23,7 @@ public class Coordinator extends Thread {
         //даем проинициализироваться всем обектам
         if (!isGameFieldExsist) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(1000);
                 isGameFieldExsist = true;
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -33,7 +33,7 @@ public class Coordinator extends Thread {
         while (true) {
             System.out.println(countEntitiesInGameField(islandField));
             try {
-                Thread.sleep(3000);
+                Thread.sleep(1500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

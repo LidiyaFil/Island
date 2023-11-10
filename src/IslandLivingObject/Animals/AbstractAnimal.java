@@ -25,7 +25,7 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
 
     public AbstractAnimal() {
         //инициализируем заполненность желудка 50% от максимально вместимости
-        this.saturation = this.getSaturation() / 2;
+        this.saturation = this.getType().getFullSaturation() / 2;
     }
 
     @Override
@@ -64,12 +64,10 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
     }
 
     public void setSaturation(double newSaturation) {
-        if (getSaturation() > 0) {
-            this.saturation = newSaturation;
-        } else {
-            //удаляем объект с игрового поля, если животное голодает в начале хода
+        if (saturation <= 0) {
             die();
         }
+        this.saturation = newSaturation;
     }
 
     @Override

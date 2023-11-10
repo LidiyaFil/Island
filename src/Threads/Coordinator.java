@@ -29,29 +29,14 @@ public class Coordinator extends Thread {
                 throw new RuntimeException(e);
             }
         }
-       /* for (int i = 0; i < islandField.getNumColumns(); i++) {
-            for (int j = 0; j < islandField.getNumRows(); j++) {
-                System.out.println("\n" + "Counts in cell (" + i + ", " + j + "):" + "\n");
-                for (IslandEntityType entityType : array) {
-                    long count = countEntitiesInCell(gameField[i][j], entityType);
-                    System.out.println(entityType + ": " + count);
-                }
-            }
-        }*/
-      /*  while (true) {
+
+        while (true) {
             System.out.println(countEntitiesInGameField(islandField));
             try {
-                Thread.sleep(2000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }*/
-
-        System.out.println(countEntitiesInGameField(islandField));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 

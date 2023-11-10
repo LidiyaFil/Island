@@ -17,8 +17,8 @@ public enum IslandEntityType {
     SHEEP(3, 5, 15, 70),
     WILD_BOAR(2, 5, 50, 400),
     BUFFALO(3, 5, 100, 700),
-    DUCK(4, 10, 0.45, 1.0),
-    CATERPILLAR(0, 1, 0, 0),
+    DUCK(4, 5, 0.45, 1.0),
+    CATERPILLAR(0, 5, 0.1, 0),
 
     PLANT(0, 5, 0, 1);
 

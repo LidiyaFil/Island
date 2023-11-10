@@ -1,5 +1,6 @@
 package src.Island;
 
+import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslantEntityFactory;
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
@@ -19,21 +20,25 @@ public class IslandField {
 
     private IslantEntityFactory factory = new IslantEntityFactory();
 
-    public IslandField(int x, int y) {
+    private IslandField(int x, int y) {
         numRows = x;
         numColumns = y;
         gameField = new List[numRows][numColumns];
         createField();
     }
+
     public int getNumRows() {
         return numRows;
     }
+
     public int getNumColumns() {
         return numColumns;
     }
+
     public List[][] getGameField() {
         return gameField;
     }
+
     public static IslandField getInstance() {
         return instance;
     }
@@ -57,6 +62,9 @@ public class IslandField {
                 // установить новой сущности поля X и Y
                 entity.setX(x);
                 entity.setY(y);
+                if (entity instanceof AbstractAnimal) {
+                    ((AbstractAnimal) entity).setSaturation(entity.getType().getFullSaturation() / 2);
+                }
                 gameField[x][y].add(entity);
                 amountOfOneTypeOfEntity--;
             }

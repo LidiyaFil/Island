@@ -3,6 +3,7 @@ package src.IslandLivingObject;
 import java.util.function.Predicate;
 
 public enum IslandEntityType {
+    // TODO изменить максимальное количество животных на клетке в соответствии с заданием
     WOLF(3, 3, 8, 50),
     PYTHON(1, 3, 3, 15),
     FOX(2, 3, 2, 8),
@@ -31,5 +32,21 @@ public enum IslandEntityType {
         this.maxAmount = maxAmount;
         this.fullSaturation = fullSaturation;
         this.weight = weight;
+    }
+
+    public int getMaxMove() {
+        return this.maxMove;
+    }
+
+    public int getMaxAmount() {
+        return this.maxAmount;
+    }
+
+    public double getFullSaturation() {
+        return this.fullSaturation;
+    }
+
+    public double getWeight() {
+        return this.weight;
     }
 }

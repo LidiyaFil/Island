@@ -4,6 +4,8 @@ import src.Actions.MovingService;
 import src.Actions.NutritionService;
 import src.Actions.ReproductionService;
 import src.Island.IslandField;
+import src.IslandLivingObject.Animals.AbstractAnimal;
+import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
 
 import java.util.List;
@@ -19,29 +21,32 @@ public class GameSimulationThread extends Thread {
 
     public GameSimulationThread() {
         this.running = true;
+        // подсчет количества процессоров, для задания необходимого пула потоков
         this.coreCount = Runtime.getRuntime().availableProcessors();
     }
-//TODO надо сделать такски, которые будут делаться посписочно, взависимоти от того, сколько процессоров в системе
+
+    // TODO надо сделать таски, которые будут делаться посписочно, взависимоти от того, сколько процессоров в системе
     @Override
     public void run() {
+
         while (running) {
             for (List[] lists : islandField.getGameField()) {
                 for (List list : lists) {
                     // cначала все питаются
                     System.out.println("пытаемся поесть");
-                    list.stream().forEach(entity -> new NutritionService((IslandEntity) entity).eat(list));
+                    list.forEach(entity -> new NutritionService((AbstractAnimal)entity.eat(list)));
                     System.out.println("успешно поели");
-                    //запуск статистики для сравнения
+
                     Coordinator coordinator = new Coordinator();
-//                    coordinator.start();
-                    // затем пробуют размножиться
+                    // coordinator.start();
+
                     System.out.println("пытаемся размножиться");
-                    list.stream().forEach(entity -> new ReproductionService((IslandEntity) entity).reproduce(list));
+                    list.forEach(entity -> new ReproductionService(AbstractAnimal.reproduce(list)));
                     System.out.println("успешно размножились");
-//                    coordinator.start();
-                    // затем пробуют переместиться
+                    // coordinator.start();
+
                     System.out.println("пытаемся пойти");
-                    list.stream().forEach(entity -> new MovingService((IslandEntity) entity).move((IslandEntity) entity));
+                    list.forEach(entity -> new MovingService(AbstractAnimal.move((AbstractAnimal) entity)));
                     System.out.println("успешно сделали ход");
                 }
             }
@@ -58,6 +63,23 @@ public class GameSimulationThread extends Thread {
     }
 
     private boolean checkEndCondition() {
-        return islandField.areAllPredatorsDead();
+        return areAllPredatorsDead();
+    }
+
+    //    одно из возможных условий выхода из симуляции
+    public boolean areAllPredatorsDead() {
+        for (int i = 0; i < islandField.getNumRows(); i++) {
+            for (int j = 0; j < islandField.getNumColumns(); j++) {
+                List<IslandEntity> entities = islandField.getGameField()[i][j];
+                for (IslandEntity entity : entities) {
+                    if (entity instanceof Predators) {
+                        // Если найден живой хищник, вернуть false
+                        return false;
+                    }
+                }
+            }
+        }
+        // Вернуть true, если все хищники мертвы
+        return true;
     }
 }

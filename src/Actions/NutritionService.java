@@ -10,44 +10,45 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class NutritionService {
-    private IslandEntity islandEntity;
+    private AbstractAnimal abstractAnimal;
 
-    public NutritionService(IslandEntity islandEntity) {
-        this.islandEntity = islandEntity;
+    public NutritionService(List<AbstractAnimal> abstractAnimal) {
+        this.abstractAnimal = (AbstractAnimal) abstractAnimal;
     }
 
     public void eat(List<IslandEntity> entities) {
-        // пробегаемся по списку и проверяем животное на принадлежность к классу хищник
-        entities.stream().
-                filter(eating -> eating instanceof Predators && ((Predators) eating).getSaturation() < eating.getSaturation())
-                // если да, пробегаемся по списку ещё раз и пробуем скушать кого-то из списка getEdibleSpecies,
-                // определенного в классе животного
-                .forEach(eating -> entities.stream()
-                        .filter(lunch -> eating.getEdibleSpecies().containsKey(lunch.getType()))
-                        //если животное голодное (есть место для заполнения желудка) и если животное может съесть такой тип объектов
-                        .forEach(lunch -> {
-                            // попытка покушать
-                            boolean result = tryToEat((Predators) eating, lunch);
-                            // если результат положительный
-                            if (result) {
-                                double eaterSaturation = eating.getSaturation();
-                                double lunchWeight = lunch.getType().getWeight();
-                                //если вес съеденного объекта превышает размер желудка, то ставим полное насыщение
-                                //если вес съеденного объекта не превышает размер желудка, то прибавляем насыщение
-                                islandEntity.setSaturation(islandEntity.getSaturation() + Math.min(eaterSaturation, lunchWeight));
-                                //удаляем съеденного из списка
-                                entities.remove(lunch);
-                            }
-                        }));
-        // пробегаемся по списку и проверяем животное на принадлежность к классу травоядное
         entities.stream()
-                .filter(eating -> eating instanceof Herbivorous && ((Herbivorous) eating).getSaturation() < eating.getSaturation())
-                .forEach(eating -> entities.stream()
-                        .filter(lunch -> lunch instanceof AbstractPlant)
-                        .forEach(lunch -> {
-                            ((Herbivorous) eating).setSaturation(lunch.getType().getWeight());
-                            entities.remove(lunch);
-                        }));
+                .filter(entity -> entity instanceof AbstractAnimal)
+                .forEach(eating -> {
+                    if (eating instanceof Predators && ((Predators) eating).getSaturation() < eating.getSaturation()) {
+                        feedPredator((Predators) eating, entities);
+                    } else if (eating instanceof Herbivorous && ((Herbivorous) eating).getSaturation() < eating.getSaturation()) {
+                        feedHerbivorous((Herbivorous) eating, entities);
+                    }
+                });
+    }
+
+    private void feedPredator(Predators predator, List<IslandEntity> entities) {
+        entities.stream()
+                .filter(lunch -> lunch instanceof AbstractAnimal && predator.getEdibleSpecies().containsKey(lunch.getType()))
+                .forEach(lunch -> {
+                    boolean result = tryToEat(predator, lunch);
+                    if (result) {
+                        double eaterSaturation = predator.getSaturation();
+                        double lunchWeight = lunch.getType().getWeight();
+                        abstractAnimal.setSaturation(abstractAnimal.getSaturation() + Math.min(eaterSaturation, lunchWeight));
+                        entities.remove(lunch);
+                    }
+                });
+    }
+
+    private void feedHerbivorous(Herbivorous herbivorous, List<IslandEntity> entities) {
+        entities.stream()
+                .filter(lunch -> lunch instanceof AbstractPlant)
+                .forEach(lunch -> {
+                    herbivorous.setSaturation(lunch.getType().getWeight());
+                    entities.remove(lunch);
+                });
     }
 
     public boolean tryToEat(AbstractAnimal eating, IslandEntity lunch) {

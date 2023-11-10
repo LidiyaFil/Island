@@ -19,28 +19,21 @@ public class IslandField {
 
     private IslantEntityFactory factory = new IslantEntityFactory();
 
-  /*  AnimalFactory animalFactory = new AnimalFactory();
-    PlantFactory plantFactory = new PlantFactory();*/
-
-    public int getNumRows() {
-        return numRows;
-    }
-
     public IslandField(int x, int y) {
         numRows = x;
         numColumns = y;
         gameField = new List[numRows][numColumns];
         createField();
     }
-
+    public int getNumRows() {
+        return numRows;
+    }
     public int getNumColumns() {
         return numColumns;
     }
-
     public List[][] getGameField() {
         return gameField;
     }
-
     public static IslandField getInstance() {
         return instance;
     }
@@ -50,13 +43,12 @@ public class IslandField {
             for (int y = 0; y < numColumns; y++) {
                 //TODO будет выбирать юзер из заданного диапазона
                 gameField[x][y] = new CopyOnWriteArrayList<IslandEntity>();
-              /*  createAnimals(x, y, animalFactory);
-                createPlants(x, y, plantFactory);*/
                 createEntity(x, y, factory);
             }
         }
     }
 
+    // первоначальное заполнение поля животными (и растением)
     private void createEntity(int x, int y, IslantEntityFactory factory) {
         for (IslandEntityType type : IslandEntityType.values()) {
             int amountOfOneTypeOfEntity = ThreadLocalRandom.current().nextInt(0, type.getMaxAmount() + 1);
@@ -70,60 +62,18 @@ public class IslandField {
             }
         }
     }
- /*
-    private void createEntity(int x, int y, AnimalFactory factory) {
-        for (IslandEntityType type : IslandEntityType.values()) {
-            int amountOfOneAnimal = ThreadLocalRandom.current().nextInt(0, type.getMaxAmount() + 1);
-            while (amountOfOneAnimal > 0) {
-                IslandEntity entity = factory.createEntity(x, y, type);
-                // установить новой сущности поля X и Y
-                entity.setX(x);
-                entity.setY(y);
-                gameField[x][y].add(entity);
-                amountOfOneAnimal--;
-            }
-        }
-    }
-
-    private void createPlants(int x, int y, PlantFactory factory) {
-        //TODO поменять magic digit
-        int amountOfPlants = ThreadLocalRandom.current().nextInt(0, 10);
-        while (amountOfPlants > 0) {
-            IslandEntity entity = factory.createEntity(x, y, IslandEntityType.PLANT);
-            // по аналогии с созданием животных
-            entity.setX(x);
-            entity.setY(y);
-            gameField[x][y].add(entity);
-            amountOfPlants--;
-        }
-    }*/
 
     // TODO перенести в другой класс, здесь не должно быть этого метода
     public int countOfEntityResolver(int x, int y, Class<?> targetClass) {
         List<IslandEntity> entitiesInCell = gameField[x][y];
-        int count = 0;
-        for (IslandEntity entity: entitiesInCell) {
-            if (targetClass.isInstance(entity)) {
-                count++;
-            }
-        }
-        return count;
-//        return (int) entitiesInCell.stream().filter(islandEntities.get()::isInstance).count();
-    }
-
-    public boolean areAllPredatorsDead() {
-        for (int i = 0; i < numColumns; i++) {
-            for (int j = 0; j < numRows; j++) {
-                List<IslandEntity> entities = gameField[i][j];
-                for (IslandEntity entity : entities) {
-                    if (entity instanceof Predators) {
-                        // Если найден живой хищник, вернуть false
-                        return false;
-                    }
-                }
-            }
-        }
-        // Вернуть true, если все хищники мертвы
-        return true;
+        return (int) entitiesInCell.stream().filter(targetClass::isInstance).count();
+        // закоментированная запись работала на 10.11. Попробовала переписать через стримы.
+//        int count = 0;
+//        for (IslandEntity entity: entitiesInCell) {
+//            if (targetClass.isInstance(entity)) {
+//                count++;
+//            }
+//        }
+//        return count;
     }
 }

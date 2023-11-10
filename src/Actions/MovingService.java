@@ -1,6 +1,7 @@
 package src.Actions;
 
 import src.Island.IslandField;
+import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 
@@ -13,14 +14,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MovingService {
     IslandField islandField = IslandField.getInstance();
-    private IslandEntity islandEntity;
+    private AbstractAnimal abstractAnimal;
 
-    public MovingService(IslandEntity entity) {
-        this.islandEntity = islandEntity;
+    public MovingService(AbstractAnimal abstractAnimal) {
+        this.abstractAnimal = (AbstractAnimal) abstractAnimal;
     }
 
-    public void move(IslandEntity islandEntity) {
-        int steps = islandEntity.getType().getMaxMove();
+    public void move(AbstractAnimal abstractAnimal) {
+        int steps = abstractAnimal.getType().getMaxMove();
 
         while (steps > 0) {
             // Генерируем случайное направление
@@ -28,19 +29,19 @@ public class MovingService {
 
             // Вычисляем новые координаты в соответствии с направлением
             // 0 - восток, 1 - запад
-            int new_X = islandEntity.getX() + (direction == 0 ? 1 : (direction == 1 ? -1 : 0));
+            int new_X = abstractAnimal.getX() + (direction == 0 ? 1 : (direction == 1 ? -1 : 0));
             // 2 - юг, 3 - север
-            int new_Y = islandEntity.getY() + (direction == 2 ? 1 : (direction == 3 ? -1 : 0));
+            int new_Y = abstractAnimal.getY() + (direction == 2 ? 1 : (direction == 3 ? -1 : 0));
 
             // Проверяем, остаемся ли в пределах игрового поля
             if (isValidPosition(new_X, new_Y)) {
-                moveEntity(islandEntity, new_X, new_Y);
+                moveEntity(abstractAnimal, new_X, new_Y);
             }
 
             //снова можно 18+
-            islandEntity.setReproduced(false);
+            abstractAnimal.setReproduced(false);
             //убавляем сытость на 25%
-            setStarvation(islandEntity);
+            doStarvation(abstractAnimal);
 
             // уменьшаем счетчик шагов
             steps--;
@@ -67,17 +68,17 @@ public class MovingService {
         }
     }
 
-    private void setStarvation(IslandEntity islandEntity) {
+    private void doStarvation(AbstractAnimal abstractAnimal) {
         //отнимаем по 25% от максимальной вместимости желудка
-        if (islandEntity.getSaturation() > 0) {
-            islandEntity.setSaturation(islandEntity.getSaturation() - islandEntity.getSaturation() / 4);
+        if (abstractAnimal.getSaturation() > 0) {
+            abstractAnimal.setSaturation(abstractAnimal.getSaturation() - abstractAnimal.getSaturation() / 4);
         } else {
             //удаляем объект с игрового поля, если животное голодает в начале хода
-            die(islandEntity);
+            die(abstractAnimal);
         }
     }
 
-    public void die(IslandEntity islandEntity) {
-        islandField.getGameField()[islandEntity.getX()][islandEntity.getY()].remove(islandEntity);
+    public void die(AbstractAnimal abstractAnimal) {
+        islandField.getGameField()[abstractAnimal.getX()][abstractAnimal.getY()].remove(abstractAnimal);
     }
 }

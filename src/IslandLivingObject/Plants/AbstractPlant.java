@@ -16,18 +16,22 @@ public abstract class AbstractPlant implements IslandEntity {
         this.y = y;
     }
 
+    @Override
     public int getX() {
         return x;
     }
 
+    @Override
     public void setX(int x) {
         x = x;
     }
 
+    @Override
     public int getY() {
         return y;
     }
 
+    @Override
     public void setY(int y) {
         y = y;
     }

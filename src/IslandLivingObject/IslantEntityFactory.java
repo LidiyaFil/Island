@@ -23,7 +23,6 @@ public class IslantEntityFactory {
     }
 
     public IslandEntity mapAnimalTypeToIslandEntityType(IslandEntityType entityType) {
-
         return switch (entityType) {
             case WOLF -> new Wolf();
             case PYTHON -> new Python();

@@ -1,19 +1,20 @@
 package src.Actions;
 
 import src.Island.IslandField;
+import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslantEntityFactory;
 import src.IslandLivingObject.IslandEntity;
 
 import java.util.List;
 
 public class ReproductionService {
-    private final IslandEntity islandEntity;
+    private AbstractAnimal abstractAnimal;
 
-    public ReproductionService(IslandEntity islandEntity) {
-        this.islandEntity = islandEntity;
+    public ReproductionService(List<AbstractAnimal> abstractAnimals) {
+        this.abstractAnimal = abstractAnimal;
     }
 
-    public void reproduce(List<IslandEntity> entities) {
+    public void reproduce(List<AbstractAnimal> entities) {
         IslandField islandField = IslandField.getInstance();
         IslantEntityFactory islantEntityFactory = new IslantEntityFactory();
         // пробегаемся по списку всех животных поля
@@ -34,10 +35,10 @@ public class ReproductionService {
                             if (chanceToReproduce > 0.5) {
                                 IslandEntity newBornEntity = islantEntityFactory.createEntity(entity.getX(), entity.getY(), entity.getType());
                                 //запрещаем всем участникам процесса трогать друг друга
-                                newBornEntity.setReproduced(true);
+//                                newBornEntity.setReproduced(true);
                                 entity.setReproduced(true);
                                 reproducingAnimal.setReproduced(true);
-                                entities.add(newBornEntity);
+                                entities.add((AbstractAnimal) newBornEntity);
                             }
                         }));
     }

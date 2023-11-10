@@ -4,7 +4,8 @@ import src.IslandLivingObject.IslandEntityType;
 import java.util.Map;
 
 public class WildBoar extends Predators {
-    public WildBoar() {
+    public WildBoar(int x, int y) {
+        super(x, y);
         Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.MOUSE, 50);
         edibleSpecies.put(IslandEntityType.CATERPILLAR, 90);

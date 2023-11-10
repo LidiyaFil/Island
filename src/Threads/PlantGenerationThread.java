@@ -35,7 +35,7 @@ public class PlantGenerationThread extends Thread {
             }
             // Задержка между генерациями
             try {
-                Thread.sleep(3000); // например, 1000 миллисекунд (1 секунда)
+                Thread.sleep(1000); // например, 1000 миллисекунд (1 секунда)
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

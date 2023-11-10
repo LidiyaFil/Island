@@ -73,7 +73,7 @@ public class MovingService {
             islandEntity.setY(y);
             // Удаляем животное из текущей клетки
             currentCellEntities.remove(islandEntity);
-            System.out.println(" переместили животное на клетку " + islandEntity.getX() + " " + islandEntity.getY());
+//            System.out.println(" переместили животное на клетку " + islandEntity.getX() + " " + islandEntity.getY());
         }
     }
 

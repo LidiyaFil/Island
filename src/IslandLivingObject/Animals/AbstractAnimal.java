@@ -4,16 +4,11 @@ import src.Actions.Eateble;
 import src.Actions.Moveable;
 import src.Actions.Reproducible;
 import src.Island.IslandField;
-import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
-import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
-import src.IslandLivingObject.Plants.AbstractPlant;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproducible, Moveable {
     IslandField islandField = IslandField.getInstance();
@@ -23,8 +18,10 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
     private double saturation;
     private Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
 
-    public AbstractAnimal() {
+    public AbstractAnimal(int x, int y) {
         //инициализируем заполненность желудка 50% от максимально вместимости
+        this.x = x;
+        this.y = y;
         this.saturation = this.getType().getFullSaturation() / 2;
     }
 

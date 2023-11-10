@@ -20,7 +20,7 @@ public enum IslandEntityType {
     DUCK(4, 2, 0.45, 1.0),
     CATERPILLAR(0, 2, 0.05, 0.1),
 
-    PLANT(0, 200, 0, 1);
+    PLANT(0, 1, 0, 1);
 
     private final int maxMove;
     private final int maxAmount;

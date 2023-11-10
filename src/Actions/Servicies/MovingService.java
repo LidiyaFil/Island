@@ -1,23 +1,18 @@
-package src.Actions;
+package src.Actions.Servicies;
 
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslandEntity;
-import src.IslandLivingObject.IslandEntityType;
 
-import java.util.stream.IntStream;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MovingService {
     IslandField islandField = IslandField.getInstance();
     private AbstractAnimal abstractAnimal;
 
-    public MovingService(AbstractAnimal abstractAnimal) {
-        this.abstractAnimal = (AbstractAnimal) abstractAnimal;
+    public MovingService(IslandEntity islandEntity) {
+        this.abstractAnimal = (AbstractAnimal) islandEntity;
     }
 
     public void move(AbstractAnimal abstractAnimal) {

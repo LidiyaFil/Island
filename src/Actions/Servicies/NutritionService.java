@@ -1,5 +1,6 @@
-package src.Actions;
+package src.Actions.Servicies;
 
+import src.Actions.Eateble;
 import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.Animals.Predators.Predators;
@@ -12,17 +13,17 @@ import java.util.concurrent.ThreadLocalRandom;
 public class NutritionService {
     private AbstractAnimal abstractAnimal;
 
-    public NutritionService(List<AbstractAnimal> abstractAnimal) {
-        this.abstractAnimal = (AbstractAnimal) abstractAnimal;
+    public NutritionService(Eateble eateble) {
+        this.abstractAnimal = (AbstractAnimal) eateble;
     }
 
     public void eat(List<IslandEntity> entities) {
         entities.stream()
                 .filter(entity -> entity instanceof AbstractAnimal)
                 .forEach(eating -> {
-                    if (eating instanceof Predators && ((Predators) eating).getSaturation() < eating.getSaturation()) {
+                    if (eating instanceof Predators && ((Predators) eating).getSaturation() < ((Predators) eating).getSaturation()) {
                         feedPredator((Predators) eating, entities);
-                    } else if (eating instanceof Herbivorous && ((Herbivorous) eating).getSaturation() < eating.getSaturation()) {
+                    } else if (eating instanceof Herbivorous && ((Herbivorous) eating).getSaturation() < ((Herbivorous) eating).getSaturation()) {
                         feedHerbivorous((Herbivorous) eating, entities);
                     }
                 });

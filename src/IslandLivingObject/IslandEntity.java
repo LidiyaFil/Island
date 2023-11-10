@@ -1,12 +1,12 @@
 package src.IslandLivingObject;
 
-import src.Actions.MoveableReproducibleEatable;
-
 import java.util.Map;
 
 public interface IslandEntity {
 
     IslandEntityType getType();
+
+    void die();
 
     int getX();
 
@@ -15,8 +15,4 @@ public interface IslandEntity {
     void setX(int x);
 
     void setY(int y);
-
-    void die();
-
-    double getSaturation();
 }

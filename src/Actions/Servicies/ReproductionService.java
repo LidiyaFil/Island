@@ -1,5 +1,6 @@
-package src.Actions;
+package src.Actions.Servicies;
 
+import src.Actions.Reproducible;
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslantEntityFactory;
@@ -10,8 +11,8 @@ import java.util.List;
 public class ReproductionService {
     private AbstractAnimal abstractAnimal;
 
-    public ReproductionService(List<AbstractAnimal> abstractAnimals) {
-        this.abstractAnimal = abstractAnimal;
+    public ReproductionService(Reproducible islandEntity) {
+        this.abstractAnimal = (AbstractAnimal) islandEntity;
     }
 
     public void reproduce(List<AbstractAnimal> entities) {

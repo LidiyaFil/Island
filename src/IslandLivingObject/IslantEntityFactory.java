@@ -13,16 +13,16 @@ public class IslantEntityFactory {
     public IslandEntity createEntity(int x, int y, IslandEntityType entityType) {
         this.x = x;
         this.y = y;
-        return mapAnimalTypeToIslandEntityType(entityType);
+        return mapIslandEntityType(entityType);
     }
 
     public IslandEntityType getRandomEntityType() {
         int index = ThreadLocalRandom.current().nextInt(IslandEntityType.values().length);
         IslandEntityType randomType = IslandEntityType.values()[index];
-        return mapAnimalTypeToIslandEntityType(randomType).getType();
+        return mapIslandEntityType(randomType).getType();
     }
 
-    public IslandEntity mapAnimalTypeToIslandEntityType(IslandEntityType entityType) {
+    public IslandEntity mapIslandEntityType(IslandEntityType entityType) {
         return switch (entityType) {
             case WOLF -> new Wolf();
             case PYTHON -> new Python();

@@ -1,8 +1,10 @@
 package src.Threads;
 
-import src.Actions.MovingService;
-import src.Actions.NutritionService;
-import src.Actions.ReproductionService;
+import src.Actions.Eateble;
+import src.Actions.Reproducible;
+import src.Actions.Servicies.MovingService;
+import src.Actions.Servicies.NutritionService;
+import src.Actions.Servicies.ReproductionService;
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.Animals.Predators.Predators;
@@ -34,19 +36,19 @@ public class GameSimulationThread extends Thread {
                 for (List list : lists) {
                     // cначала все питаются
                     System.out.println("пытаемся поесть");
-                    list.forEach(entity -> new NutritionService((AbstractAnimal)entity.eat(list)));
+                    list.forEach(entity -> new NutritionService((Eateble) entity).eat(list));
                     System.out.println("успешно поели");
 
                     Coordinator coordinator = new Coordinator();
                     // coordinator.start();
 
                     System.out.println("пытаемся размножиться");
-                    list.forEach(entity -> new ReproductionService(AbstractAnimal.reproduce(list)));
+                    list.forEach(entity -> new ReproductionService((Reproducible) entity).reproduce(list));
                     System.out.println("успешно размножились");
                     // coordinator.start();
 
-                    System.out.println("пытаемся пойти");
-                    list.forEach(entity -> new MovingService(AbstractAnimal.move((AbstractAnimal) entity)));
+                   /* System.out.println("пытаемся пойти");*/
+                    list.forEach(entity -> new MovingService((AbstractAnimal) entity).move((AbstractAnimal) entity));
                     System.out.println("успешно сделали ход");
                 }
             }

@@ -1,6 +1,8 @@
 package src.IslandLivingObject.Animals;
 
-import src.Actions.MoveableReproducibleEatable;
+import src.Actions.Eateble;
+import src.Actions.Moveable;
+import src.Actions.Reproducible;
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.Animals.Predators.Predators;
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class AbstractAnimal implements IslandEntity, MoveableReproducibleEatable {
+public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproducible, Moveable {
     IslandField islandField = IslandField.getInstance();
     private int x;
     private int y;
@@ -74,8 +76,6 @@ public abstract class AbstractAnimal implements IslandEntity, MoveableReproducib
     public Map<IslandEntityType, Integer> getEdibleSpecies() {
         return this.edibleSpecies = edibleSpecies;
     }
-
-
 
     @Override
     public void die() {

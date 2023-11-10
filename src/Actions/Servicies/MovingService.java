@@ -20,15 +20,23 @@ public class MovingService {
     public void move(AbstractAnimal abstractAnimal) {
         int steps = abstractAnimal.getType().getMaxMove();
 
+        int new_X = abstractAnimal.getX();
+        int new_Y = abstractAnimal.getY();
         while (steps > 0) {
             // Генерируем случайное направление
             int direction = ThreadLocalRandom.current().nextInt(4);
 
             // Вычисляем новые координаты в соответствии с направлением
-            // 0 - восток, 1 - запад
-            int new_X = abstractAnimal.getX() + (direction == 0 ? 1 : (direction == 1 ? -1 : 0));
-            // 2 - юг, 3 - север
-            int new_Y = abstractAnimal.getY() + (direction == 2 ? 1 : (direction == 3 ? -1 : 0));
+
+            if (direction == 0) {
+                new_X++; // Восток
+            } else if (direction == 1) {
+                new_X--; // Запад
+            } else if (direction == 2) {
+                new_Y++; // Юг
+            } else {
+                new_Y--; // Север
+            }
 
             // Проверяем, остаемся ли в пределах игрового поля
             if (isValidPosition(new_X, new_Y)) {
@@ -46,22 +54,26 @@ public class MovingService {
     }
 
     private boolean isValidPosition(int x, int y) {
-        return x >= 0 && x < IslandField.getInstance().getNumRows() && y >= 0 && y < IslandField.getInstance().getNumColumns();
+        return x >= 0
+                && x < IslandField.getInstance().getNumRows()
+                && y >= 0
+                && y < IslandField.getInstance().getNumColumns();
     }
 
     private void moveEntity(IslandEntity islandEntity, int x, int y) {
+        //лист где сейчас животное
         List currentCellEntities = islandField.getGameField()[islandEntity.getX()][islandEntity.getY()];
         List newCellEntities = islandField.getGameField()[x][y];
-
-        if (islandField.countOfEntityResolver(islandEntity.getX(), islandEntity.getY(), islandEntity.getClass()) < islandEntity.getType().getMaxAmount()) {
-            // Удаляем животное из текущей клетки
-            currentCellEntities.remove(islandEntity);
-
+        //если макс количество в клетке не превышено
+        if (islandField.countOfEntityResolver(x, y, islandEntity.getClass()) < islandEntity.getType().getMaxAmount()) {
+            // Добавляем животное в новую клетку
+            newCellEntities.add(islandEntity);
             // Обновляем текущие координаты
             islandEntity.setX(x);
             islandEntity.setY(y);
-            // Добавляем животное в новую клетку
-            newCellEntities.add(islandEntity);
+            // Удаляем животное из текущей клетки
+            currentCellEntities.remove(islandEntity);
+            System.out.println(" переместили животное на клетку " + islandEntity.getX() + " " + islandEntity.getY());
         }
     }
 

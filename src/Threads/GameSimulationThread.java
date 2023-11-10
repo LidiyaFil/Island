@@ -87,6 +87,7 @@ public class GameSimulationThread extends Thread {
                 System.out.println("успешно сделали ход");
             }
         }
+        System.out.println("close method actios");
     }
 
     //    одно из возможных условий выхода из симуляции

@@ -21,12 +21,12 @@ public class Runner {
        /* PlantGenerationThread plantThread = new PlantGenerationThread(islandField);
         plantThread.start();*/
 
-        try {
+        /*try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
-        for (List[] lists : IslandField.getInstance().getGameField()) {
+        }*/
+        /*for (List[] lists : IslandField.getInstance().getGameField()) {
 
             HashMap<IslandEntity, Integer> islandEntityIntegerHashMap = new HashMap<>();
 
@@ -41,7 +41,6 @@ public class Runner {
                 }
             }
             System.out.println(islandEntityIntegerHashMap);
-        }
-        thread.notifyAll();
+        }*/
     }
 }

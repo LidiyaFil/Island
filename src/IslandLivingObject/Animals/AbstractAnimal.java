@@ -33,7 +33,7 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
 
     @Override
     public void setX(int x) {
-        x = x;
+        this.x = x;
     }
 
     @Override
@@ -43,7 +43,7 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
 
     @Override
     public void setY(int y) {
-        y = y;
+        this.y = y;
     }
 
     @Override
@@ -53,7 +53,7 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
 
     @Override
     public void setReproduced(boolean b) {
-        this.reprodused = reprodused;
+        this.reprodused = b;
     }
 
     @Override

@@ -53,10 +53,11 @@ public class GameSimulationThread extends Thread {
         thread.start();
         try {
             Thread.sleep(2000);
+            System.out.println("Симуляция завершена, хищников или травоядных не осталось на карте");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Симуляция завершена, хищников или травоядных не осталось на карте");
+
     }
 
     private void actEntity() {

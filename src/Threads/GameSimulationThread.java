@@ -49,6 +49,13 @@ public class GameSimulationThread extends Thread {
                 stopSimulation();
             }
         }
+        StatisticThread thread = new StatisticThread();
+        thread.start();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("Симуляция завершена, хищников или травоядных не осталось на карте");
     }
 

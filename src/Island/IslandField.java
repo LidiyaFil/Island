@@ -63,7 +63,7 @@ public class IslandField {
                 entity.setX(x);
                 entity.setY(y);
                 if (entity instanceof AbstractAnimal) {
-                    ((AbstractAnimal) entity).setSaturation(entity.getType().getFullSaturation() / 0.75);
+                    ((AbstractAnimal) entity).setSaturation(entity.getType().getFullSaturation() * 0.5);
                 }
                 gameField[x][y].add(entity);
                 amountOfOneTypeOfEntity--;

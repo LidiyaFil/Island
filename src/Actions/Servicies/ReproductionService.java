@@ -31,7 +31,7 @@ public class ReproductionService {
         if (!(entity instanceof AbstractAnimal)) {
             return false;
         }
-        //приводим к жтвотному
+        //приводим к животному
         AbstractAnimal animal = (AbstractAnimal) entity;
         // если уже размножалось
         if (animal.isReproduced()) {

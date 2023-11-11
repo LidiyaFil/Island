@@ -10,8 +10,12 @@ public class StatisticThread extends Thread {
     IslandField islandField = IslandField.getInstance();
     IslandEntityType array[] = IslandEntityType.values();
     private boolean isGameFieldExsist;
+    private boolean running;
 
-    // TODO добавить статистику животных по всему острову
+    public StatisticThread() {
+        this.running = true;
+    }
+
     public void run() {
         List[][] gameField = islandField.getGameField();
 
@@ -21,17 +25,21 @@ public class StatisticThread extends Thread {
                 Thread.sleep(2000);
                 isGameFieldExsist = true;
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
-// TODO убрать бесконечный цикл (когда все растения или хищники мертвы
-        while (true) {
+
+        while (running) {
             System.out.println(countEntitiesInGameField(islandField));
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
+            }
+
+            if (GameSimulationThread.running == false) {
+                stopStatisticThread();
             }
         }
     }
@@ -59,5 +67,9 @@ public class StatisticThread extends Thread {
             }
         }
         return countOfEntityInGameField;
+    }
+
+    public void stopStatisticThread() {
+        running = false;
     }
 }

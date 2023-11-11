@@ -76,7 +76,7 @@ public class MovingService {
         }
     }
 
-    public int countOfEntityResolver(int x, int y, Class<?> targetClass) {
+    private int countOfEntityResolver(int x, int y, Class<?> targetClass) {
         List<IslandEntity> entitiesInCell = islandField.getGameField()[x][y];
         return (int) entitiesInCell.stream().filter(targetClass::isInstance).count();
     }

@@ -19,10 +19,10 @@ public class Runner {
         Thread thread = new GameSimulationThread();
         thread.start();
 
-        PlantGenerationThread plantThread = new PlantGenerationThread(islandField);
+        PlantGenerationThread plantThread = new PlantGenerationThread();
         plantThread.start();
 
-        StatisticThread coordinator = new StatisticThread();
-        coordinator.start();
+        StatisticThread statisticThread = new StatisticThread();
+        statisticThread.start();
     }
 }

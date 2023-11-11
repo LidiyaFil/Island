@@ -1,16 +1,13 @@
 package src.Threads;
 
-import src.Actions.Eateble;
-import src.Actions.Reproducible;
-import src.Actions.Servicies.MovingService;
-import src.Actions.Servicies.NutritionService;
-import src.Actions.Servicies.ReproductionService;
+import src.Actions.*;
+import src.Actions.Servicies.*;
 import src.Island.IslandField;
-import src.IslandLivingObject.Animals.AbstractAnimal;
+import src.IslandLivingObject.Animals.*;
+import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
-import src.IslandLivingObject.Plants.AbstractPlant;
-import src.IslandLivingObject.Plants.Plant;
+import src.IslandLivingObject.Plants.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,15 +20,19 @@ public class GameSimulationThread extends Thread {
     NutritionService nutrition;
     ReproductionService reproduction;
     MovingService moving;
-    private boolean running;
-    private int coreCount;
+    protected static boolean running;
+//    private int coreCount;
 
-    public boolean isRunning() {
+    private boolean isRunning() {
         return running;
     }
 
-    public void setRunning(boolean running) {
+    private void setRunning(boolean running) {
         this.running = running;
+    }
+
+    private void stopSimulation() {
+        running = false;
     }
 
     public GameSimulationThread() {
@@ -44,28 +45,16 @@ public class GameSimulationThread extends Thread {
     public void run() {
         while (running) {
             actEntity();
-//            System.out.println("проверяем живы ли хищники");
-            if (checkEndCondition()) {
-                System.out.println("Все хищники мертвы");
-                this.setRunning(false);
+            if (areAllPredatorsDead() || areAllHerbivorousDead()) {
+                stopSimulation();
             }
         }
-        System.out.println("Игра закончена, все хищники погибли");
-    }
-
-    public void stopSimulation() {
-        running = false;
-    }
-
-    private boolean checkEndCondition() {
-        return areAllPredatorsDead();
+        System.out.println("Симуляция завершена, хищников или травоядных не осталось на карте");
     }
 
     private void actEntity() {
-
         for (List[] lists : islandField.getGameField()) {
             for (List list : lists) {
-//                System.out.println("пытаемся поесть");
                 for (Object entity : list) {
                     if (entity instanceof AbstractPlant) {
                         continue;
@@ -73,8 +62,6 @@ public class GameSimulationThread extends Thread {
                         new NutritionService((Eateble) entity).eat(list);
                     }
                 }
-//                System.out.println("успешно поели");
-//                System.out.println("пытаемся размножиться");
                 for (Object entity : list) {
                     if (entity instanceof AbstractPlant) {
                         continue;
@@ -82,8 +69,6 @@ public class GameSimulationThread extends Thread {
                         new ReproductionService((AbstractAnimal) entity).reproduce(list);
                     }
                 }
-//                System.out.println("успешно размножились");
-//                System.out.println("пытаемся пойти");
                 for (Object entity : list) {
                     if (!(entity instanceof AbstractPlant)) {
                         new MovingService((AbstractAnimal) entity).move((AbstractAnimal) entity);
@@ -91,28 +76,37 @@ public class GameSimulationThread extends Thread {
                         continue;
                     }
                 }
-//                System.out.println("успешно сделали ход");
             }
         }
-//        System.out.println("close method actios");
     }
 
-    //    одно из возможных условий выхода из симуляции
-    public boolean areAllPredatorsDead() {
+    // условие выхода из симуляции - все хищники мертвы
+    private boolean areAllPredatorsDead() {
         for (int i = 0; i < islandField.getNumRows(); i++) {
             for (int j = 0; j < islandField.getNumColumns(); j++) {
                 List<IslandEntity> entities = islandField.getGameField()[i][j];
                 for (IslandEntity entity : entities) {
-//                    System.out.println("Хищники живы?");
                     if (entity instanceof Predators) {
-                        // Если найден живой хищник, вернуть false
-//                        System.out.println("хищники мертвы");
                         return false;
                     }
                 }
             }
         }
-        // Вернуть true, если все хищники мертвы
+        return true;
+    }
+
+    // условие выхода из симуляции - все травоядные мертвы
+    private boolean areAllHerbivorousDead() {
+        for (int i = 0; i < islandField.getNumRows(); i++) {
+            for (int j = 0; j < islandField.getNumColumns(); j++) {
+                List<IslandEntity> entities = islandField.getGameField()[i][j];
+                for (IslandEntity entity : entities) {
+                    if (entity instanceof Herbivorous) {
+                        return false;
+                    }
+                }
+            }
+        }
         return true;
     }
 }

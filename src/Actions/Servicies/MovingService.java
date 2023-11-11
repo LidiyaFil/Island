@@ -4,6 +4,7 @@ import src.Actions.Moveable;
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslandEntity;
+
 import java.util.stream.IntStream;
 
 import java.util.List;
@@ -19,15 +20,14 @@ public class MovingService {
 
     public void move(AbstractAnimal abstractAnimal) {
         int steps = abstractAnimal.getType().getMaxMove();
-
         int new_X = abstractAnimal.getX();
         int new_Y = abstractAnimal.getY();
+
         while (steps > 0) {
             // Генерируем случайное направление
             int direction = ThreadLocalRandom.current().nextInt(4);
 
             // Вычисляем новые координаты в соответствии с направлением
-
             if (direction == 0) {
                 new_X++; // Восток
             } else if (direction == 1) {
@@ -43,12 +43,10 @@ public class MovingService {
                 moveEntity(abstractAnimal, new_X, new_Y);
             }
 
-            //снова можно 18+
+            //снова можно размножаться
             abstractAnimal.setReproduced(false);
-
-            //убавляем сытость на 25%
+            //убавляем сытость
             abstractAnimal.doStarvation();
-
             // уменьшаем счетчик шагов
             steps--;
         }
@@ -62,20 +60,24 @@ public class MovingService {
     }
 
     private void moveEntity(IslandEntity islandEntity, int x, int y) {
-        //лист где сейчас животное
+        // лист где сейчас животное
         List currentCellEntities = islandField.getGameField()[islandEntity.getX()][islandEntity.getY()];
+        // лист, куда планирует переместиться
         List newCellEntities = islandField.getGameField()[x][y];
-        //если макс количество в клетке не превышено
-        if (islandField.countOfEntityResolver(x, y, islandEntity.getClass()) < islandEntity.getType().getMaxAmount()) {
+        // если макс количество в клетке не превышено
+        if (countOfEntityResolver(x, y, islandEntity.getClass()) < islandEntity.getType().getMaxAmount()) {
             // Добавляем животное в новую клетку
             newCellEntities.add(islandEntity);
             // Обновляем текущие координаты
             islandEntity.setX(x);
             islandEntity.setY(y);
             // Удаляем животное из текущей клетки
-//            System.out.println("удалили " + islandEntity.toString());
             currentCellEntities.remove(islandEntity);
-//            System.out.println(" переместили животное на клетку " + islandEntity.getX() + " " + islandEntity.getY());
         }
+    }
+
+    public int countOfEntityResolver(int x, int y, Class<?> targetClass) {
+        List<IslandEntity> entitiesInCell = islandField.getGameField()[x][y];
+        return (int) entitiesInCell.stream().filter(targetClass::isInstance).count();
     }
 }

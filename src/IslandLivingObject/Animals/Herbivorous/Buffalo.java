@@ -2,6 +2,7 @@ package src.IslandLivingObject.Animals.Herbivorous;
 
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntityType;
+
 import java.util.Map;
 
 public class Buffalo extends Predators {

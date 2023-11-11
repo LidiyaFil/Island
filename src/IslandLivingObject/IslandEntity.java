@@ -6,8 +6,6 @@ public interface IslandEntity {
 
     IslandEntityType getType();
 
-    void die();
-
     int getX();
 
     int getY();

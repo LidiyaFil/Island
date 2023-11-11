@@ -61,8 +61,34 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
         return saturation;
     }
 
+    @Override
     public void setSaturation(double newSaturation) {
         this.saturation = newSaturation;
+    }
+
+    @Override
+    public Map<IslandEntityType, Integer> getEdibleSpecies() {
+        return this.edibleSpecies = edibleSpecies;
+    }
+
+    public void doStarvation() {
+        //отнимаем по 25% от максимальной вместимости желудка
+        if (this.getSaturation() > 0) {
+            this.setSaturation(this.getSaturation() - this.getType().getFullSaturation() / 2);
+        } else {
+            //удаляем объект с игрового поля, если животное голодает в начале хода
+            this.die();
+        }
+    }
+
+    public void die() {
+        IslandField.getInstance().getGameField()[this.getX()][this.getY()].remove(this);
+    }
+
+    @Override
+    public String toString() {
+        String builder = String.valueOf(this.getType());
+        return builder;
     }
 
     @Override
@@ -81,32 +107,5 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
     @Override
     public int hashCode() {
         return Objects.hash(islandField, x, y, reprodused, saturation, edibleSpecies);
-    }
-
-    @Override
-    public Map<IslandEntityType, Integer> getEdibleSpecies() {
-        return this.edibleSpecies = edibleSpecies;
-    }
-
-    @Override
-    public void die() {
-//            System.out.println("умер бедный " + this.toString());
-        IslandField.getInstance().getGameField()[this.getX()][this.getY()].remove(this);
-    }
-
-    @Override
-    public String toString() {
-        String builder = String.valueOf(this.getType());
-        return builder;
-    }
-
-    public void doStarvation() {
-        //отнимаем по 25% от максимальной вместимости желудка
-        if (this.getSaturation() > 0) {
-            this.setSaturation(this.getSaturation() - this.getType().getFullSaturation() / 2);
-        } else {
-            //удаляем объект с игрового поля, если животное голодает в начале хода
-            this.die();
-        }
     }
 }

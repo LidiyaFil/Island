@@ -3,12 +3,10 @@ package src.Threads;
 import src.Island.IslandField;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
-import src.Threads.PlantGenerationThread;
 
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Coordinator extends Thread {
+public class StatisticThread extends Thread {
     IslandField islandField = IslandField.getInstance();
     IslandEntityType array[] = IslandEntityType.values();
     private boolean isGameFieldExsist;
@@ -20,7 +18,7 @@ public class Coordinator extends Thread {
         //даем проинициализироваться всем обектам
         if (!isGameFieldExsist) {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(2000);
                 isGameFieldExsist = true;
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -31,7 +29,7 @@ public class Coordinator extends Thread {
             System.out.println(countEntitiesInGameField(islandField));
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

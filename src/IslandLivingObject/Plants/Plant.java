@@ -11,5 +11,4 @@ public class Plant extends AbstractPlant {
     public IslandEntityType getType() {
         return IslandEntityType.PLANT;
     }
-
 }

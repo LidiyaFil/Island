@@ -1,7 +1,6 @@
 package src.IslandLivingObject;
 
 public enum IslandEntityType {
-    // TODO изменить максимальное количество животных на клетке в соответствии с заданием
     WOLF(3, 30, 8, 50, "\uD83D\uDC3A"),
     PYTHON(1, 30, 3, 15, "\uD83D\uDC0D"),
     FOX(2, 30, 2, 8, "\uD83E\uDD8A"),
@@ -33,10 +32,6 @@ public enum IslandEntityType {
         this.icon = icon;
     }
 
-    public String getIcon() {
-        return icon;
-    }
-
     public int getMaxMove() {
         return this.maxMove;
     }
@@ -51,5 +46,9 @@ public enum IslandEntityType {
 
     public double getWeight() {
         return this.weight;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 }

@@ -12,7 +12,6 @@ public abstract class AbstractPlant implements IslandEntity {
     private int x;
     private int y;
 
-    // зачем нам этот конструктор?
     public AbstractPlant(int x, int y) {
         this.x = x;
         this.y = y;
@@ -26,19 +25,6 @@ public abstract class AbstractPlant implements IslandEntity {
     @Override
     public void setX(int x) {
         x = x;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AbstractPlant that = (AbstractPlant) o;
-        return x == that.x && y == that.y && Objects.equals(islandField, that.islandField);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(islandField, x, y);
     }
 
     @Override
@@ -60,7 +46,15 @@ public abstract class AbstractPlant implements IslandEntity {
     }
 
     @Override
-    public void die() {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractPlant that = (AbstractPlant) o;
+        return x == that.x && y == that.y && Objects.equals(islandField, that.islandField);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(islandField, x, y);
     }
 }

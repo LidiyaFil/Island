@@ -15,12 +15,16 @@ import src.IslandLivingObject.Plants.Plant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class GameSimulationThread extends Thread {
     IslandField islandField = IslandField.getInstance();
     NutritionService nutrition;
     ReproductionService reproduction;
     MovingService moving;
+    private boolean running;
+    private int coreCount;
 
     public boolean isRunning() {
         return running;
@@ -30,22 +34,15 @@ public class GameSimulationThread extends Thread {
         this.running = running;
     }
 
-    private boolean running;
-
-    private int coreCount;
-
     public GameSimulationThread() {
         this.running = true;
         // подсчет количества процессоров, для задания необходимого пула потоков
-        this.coreCount = Runtime.getRuntime().availableProcessors();
+        // this.coreCount = Runtime.getRuntime().availableProcessors();
     }
 
-    // TODO надо сделать таски, которые будут делаться посписочно, взависимоти от того, сколько процессоров в системе
     @Override
     public void run() {
-
         while (running) {
-
             actEntity();
 //            System.out.println("проверяем живы ли хищники");
             if (checkEndCondition()) {

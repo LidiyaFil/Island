@@ -11,8 +11,8 @@ public class MovingService {
 
     public void move(AbstractAnimal abstractAnimal) {
         int steps = abstractAnimal.getType().getMaxMove();
-        int new_X = abstractAnimal.getX();
-        int new_Y = abstractAnimal.getY();
+        int newX = abstractAnimal.getX();
+        int newY = abstractAnimal.getY();
 
         while (steps > 0) {
             // Генерируем случайное направление
@@ -20,18 +20,18 @@ public class MovingService {
 
             // Вычисляем новые координаты в соответствии с направлением
             if (direction == 0) {
-                new_X++; // Восток
+                newX++; // Восток
             } else if (direction == 1) {
-                new_X--; // Запад
+                newX--; // Запад
             } else if (direction == 2) {
-                new_Y++; // Юг
+                newY++; // Юг
             } else {
-                new_Y--; // Север
+                newY--; // Север
             }
 
             // Проверяем, остаемся ли в пределах игрового поля
-            if (isValidPosition(new_X, new_Y)) {
-                moveEntity(abstractAnimal, new_X, new_Y);
+            if (isValidPosition(newX, newY)) {
+                moveEntity(abstractAnimal, newX, newY);
             }
 
             //снова можно размножаться

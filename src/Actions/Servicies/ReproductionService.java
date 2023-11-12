@@ -13,13 +13,10 @@ public class ReproductionService {
         this.islantEntityFactory = islantEntityFactory;
     }
 
-    public void reproduce(List<IslandEntity> entities) {
-
-        for (IslandEntity entity : entities) {
+    public void reproduce(List<IslandEntity> entities, IslandEntity entity) {
             if (canReproduce(entity, entities)) {
                 reproduceAnimal(entity, entities);
             }
-        }
     }
 
     private boolean canReproduce(IslandEntity entity, List<IslandEntity> entities) {
@@ -27,9 +24,9 @@ public class ReproductionService {
         if (!(entity instanceof AbstractAnimal animal)) {
             return false;
         }
-        //приводим к животному
         // если уже размножалось
         if (animal.isReproduced()) {
+//            System.out.println(animal + " отказано в размножении");
             return false;
         }
 
@@ -62,7 +59,7 @@ public class ReproductionService {
                     animal.setReproduced(true);
                     ((AbstractAnimal) reproducingAnimal).setReproduced(true);
                     //добавляем новенького
-                    System.out.println("added new Animal" + newBornEntity);
+//                    System.out.println("added new Animal" + newBornEntity);
                     entities.add(newBornEntity);
                 });
     }

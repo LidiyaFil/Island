@@ -30,7 +30,7 @@ public class StatisticThread extends Thread {
         }
 
         while (running) {
-            System.out.println(countEntitiesInGameField(islandField));
+            System.out.println(countEntitiesInGameField());
 
             try {
                 Thread.sleep(500);
@@ -44,13 +44,13 @@ public class StatisticThread extends Thread {
         }
     }
 
-    private long countEntitiesInCell(List<IslandEntity> entities, IslandEntityType type) {
+    public long countEntitiesInCell(List<IslandEntity> entities, IslandEntityType type) {
         return entities.stream()
                 .filter(entity -> entity.getType() == type)
                 .count();
     }
 
-    private Map<String, Integer> countEntitiesInGameField(IslandField field) {
+    public Map<String, Integer> countEntitiesInGameField() {
         HashMap<String, Integer> countOfEntityInGameField = new HashMap<>();
 
         for (IslandEntityType type : array) {

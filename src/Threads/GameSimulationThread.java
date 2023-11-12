@@ -1,19 +1,18 @@
 package src.Threads;
 
-import src.Actions.*;
+
 import src.Actions.Servicies.*;
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.*;
+import src.IslandLivingObject.Animals.Herbivorous.Caterpillar;
 import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
+import src.IslandLivingObject.IslandEntityType;
 import src.IslandLivingObject.Plants.*;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 public class GameSimulationThread extends Thread {
     private final IslandField islandField = IslandField.getInstance();
@@ -21,6 +20,8 @@ public class GameSimulationThread extends Thread {
     private final ReproductionService reproduction;
     private  MovingService moving;
     protected boolean running;
+    private final StatisticThread thread = new StatisticThread();
+
 //    private int coreCount;
 
     public GameSimulationThread(NutritionService nutrition, ReproductionService reproduction, MovingService moving) {
@@ -46,37 +47,59 @@ public class GameSimulationThread extends Thread {
 
     @Override
     public void run() {
-        while (running) {
-            actEntity();
-            if (areAllPredatorsDead() || areAllHerbivorousDead()) {
-                stopSimulation();
-            }
-        }
-        StatisticThread thread = new StatisticThread();
-        thread.start();
         try {
             //TODO wait -> notify
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
+        while (running) {
+            actEntity();
+            if (areAllPredatorsDead() || areAllHerbivorousDead()) {
+                setRunning(false);
+            }
+        }
+        //todo final showing statistic
     }
 
     private void actEntity() {
+
         for (List<IslandEntity>[] lists : islandField.getGameField()) {
             for (List<IslandEntity> list : lists) {
+               /* //тест на то, что приходит в клетку
+                IslandEntityType[] values = IslandEntityType.values();
+                for (IslandEntityType type : values) {
+
+                    System.out.println("всего " + type + " в клетке " + thread.countEntitiesInCell(list, type));
+                }*/
+                System.out.println(thread.countEntitiesInGameField());
                 for (IslandEntity entity : list) {
-                    if (!(entity instanceof AbstractPlant)) {
-                        nutrition.eat(list, (AbstractAnimal) entity);
+                    if (entity instanceof AbstractPlant) {
+//                        System.out.println("это растение" + entity);
+                        continue;
+                    }
+                    nutrition.eat(list, (AbstractAnimal) entity);
+                    if (entity instanceof Predators) {
+//                        System.out.println("питается хищник");
+                    } else {
+
+//                        System.out.println("питается травоядное");
                     }
                 }
-                for (Object entity : list) {
-                    if (!(entity instanceof AbstractPlant)) {
-                        reproduction.reproduce(list);
+                for (IslandEntity entity : list) {
+                    if (entity instanceof AbstractPlant) {
+                        continue;
                     }
+                    if (entity instanceof Predators) {
+//                        System.out.println("размножается хищник");
+                    } else {
+
+//                        System.out.println("размножается травоядное" + entity);
+                    }
+//                    System.out.println(entity.getClass());
+                    reproduction.reproduce(list, entity);
                 }
-                for (Object entity : list) {
+                for (IslandEntity entity : list) {
                     if (!(entity instanceof AbstractPlant)) {
                         this.moving = new MovingService();
                         moving.move((AbstractAnimal) entity);
@@ -109,6 +132,9 @@ public class GameSimulationThread extends Thread {
                 List<IslandEntity> entities = islandField.getGameField()[i][j];
                 for (IslandEntity entity : entities) {
                     if (entity instanceof Herbivorous) {
+                        if ((entity instanceof Caterpillar)) {
+                            continue;
+                        }
                         return false;
                     }
                 }

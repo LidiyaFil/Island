@@ -41,6 +41,7 @@ public class NutritionService {
                         double eaterSaturation = predator.getSaturation();
                         double lunchWeight = lunch.getType().getWeight();
                         abstractAnimal.setSaturation(abstractAnimal.getSaturation() + Math.min(eaterSaturation, lunchWeight));
+//                        System.out.println("съели" + lunch);
                         entities.remove(lunch);
                     }
                 });

@@ -22,7 +22,7 @@ public class Runner {
         PlantGenerationThread plantThread = new PlantGenerationThread();
         plantThread.start();
 
-        StatisticThread statisticThread = new StatisticThread();
-        statisticThread.start();
+      /*  StatisticThread statisticThread = new StatisticThread();
+        statisticThread.start();*/
     }
 }

@@ -52,18 +52,31 @@ public class MovingService {
 
     private void moveEntity(IslandEntity islandEntity, int x, int y) {
         // лист где сейчас животное
-        List currentCellEntities = IslandField.getInstance().getGameField()[islandEntity.getX()][islandEntity.getY()];
-        // лист, куда планирует переместиться
-        List newCellEntities =  IslandField.getInstance().getGameField()[x][y];
-        // если макс количество в клетке не превышено
+        int oldIslandEntityX = islandEntity.getX();
+        int oldIslandEntityY = islandEntity.getY();
+
+        // проверяем, есть ли свободные места для движения в новой клетке
         if (countOfEntityResolver(x, y, islandEntity.getClass()) < islandEntity.getType().getMaxAmount()) {
-            // Добавляем животное в новую клетку
-            newCellEntities.add(islandEntity);
+
+
+            // Удаляем животное из текущей клетки
+            IslandField.getInstance().getGameField()[oldIslandEntityX][oldIslandEntityY].remove(islandEntity);
+//            System.out.println("вот этого удалили из списка");
+//            System.out.println(islandEntity);
             // Обновляем текущие координаты
+//            System.out.println("сейчас добавим вот его");
             islandEntity.setX(x);
             islandEntity.setY(y);
-            // Удаляем животное из текущей клетки
-            currentCellEntities.remove(islandEntity);
+            System.out.println(islandEntity + " " + islandEntity.getX() + " " + islandEntity.getY());
+//            System.out.println("с новыми координатами " + x + " " + y);
+
+
+            // Добавляем животное в новую клетку
+//            System.out.println("try add");
+//            System.out.println(IslandField.getInstance().getGameField()[x][y]);
+            IslandField.getInstance().getGameField()[x][y].add(islandEntity);
+//            System.out.println("added");
+            System.out.println(IslandField.getInstance().getGameField()[x][y]);
         }
     }
 

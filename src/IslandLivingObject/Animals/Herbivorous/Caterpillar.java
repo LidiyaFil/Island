@@ -7,7 +7,7 @@ public class Caterpillar extends Herbivorous {
     public Caterpillar(int x, int y) {
         super(x, y);
         Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
-        edibleSpecies.put(IslandEntityType.PLANT, 100);
+        edibleSpecies.put(IslandEntityType.PLANT, 99);
     }
 
     @Override

@@ -12,9 +12,9 @@ public abstract class AbstractAnimal implements IslandEntity {
     IslandField islandField = IslandField.getInstance();
     private int x;
     private int y;
-    private boolean reprodused = false;
+    private boolean reproduced = false;
     private double saturation;
-    private Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
+    private final Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
 
     public AbstractAnimal(int x, int y) {
         this.x = x;
@@ -44,11 +44,11 @@ public abstract class AbstractAnimal implements IslandEntity {
     }
 
     public boolean isReproduced() {
-        return reprodused;
+        return reproduced;
     }
 
     public void setReproduced(boolean b) {
-        this.reprodused = b;
+        this.reproduced = b;
     }
 
     public double getSaturation() {
@@ -60,12 +60,13 @@ public abstract class AbstractAnimal implements IslandEntity {
     }
 
     public Map<IslandEntityType, Integer> getEdibleSpecies() {
-        return this.edibleSpecies = edibleSpecies;
+        return this.edibleSpecies;
     }
 
     public void doStarvation() {
-        //отнимаем по 25% от максимальной вместимости желудка
+        //отнимаем по 50% от максимальной вместимости желудка
         if (this.getSaturation() > 0) {
+//            System.out.println("голодает " + this);
             this.setSaturation(this.getSaturation() - this.getType().getFullSaturation() / 2);
         } else {
             //удаляем объект с игрового поля, если животное голодает в начале хода
@@ -74,13 +75,15 @@ public abstract class AbstractAnimal implements IslandEntity {
     }
 
     public void die() {
+//        System.out.println("method die" + this);
         IslandField.getInstance().getGameField()[this.getX()][this.getY()].remove(this);
     }
 
     @Override
     public String toString() {
-        String builder = String.valueOf(this.getType());
-        return builder;
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.getType()).append("(" + this.getX() + ", "+ this.getY() + ")");
+        return String.valueOf(builder);
     }
 
     @Override
@@ -90,7 +93,7 @@ public abstract class AbstractAnimal implements IslandEntity {
         AbstractAnimal that = (AbstractAnimal) o;
         return x == that.x
                 && y == that.y
-                && reprodused == that.reprodused
+                && reproduced == that.reproduced
                 && Double.compare(saturation, that.saturation) == 0
                 && Objects.equals(islandField, that.islandField)
                 && Objects.equals(edibleSpecies, that.edibleSpecies);
@@ -98,6 +101,6 @@ public abstract class AbstractAnimal implements IslandEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(islandField, x, y, reprodused, saturation, edibleSpecies);
+        return Objects.hash(islandField, x, y, reproduced, saturation, edibleSpecies);
     }
 }

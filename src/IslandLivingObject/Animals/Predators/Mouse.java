@@ -8,7 +8,7 @@ public class Mouse extends Predators {
         super(x, y);
         Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
         edibleSpecies.put(IslandEntityType.CATERPILLAR, 90);
-        edibleSpecies.put(IslandEntityType.PLANT, 100);
+        edibleSpecies.put(IslandEntityType.PLANT, 99);
     }
 
     @Override

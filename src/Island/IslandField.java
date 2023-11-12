@@ -54,7 +54,7 @@ public class IslandField {
     // первоначальное заполнение поля животными и растениями
     private void firstGenerateEntities(int x, int y, IslantEntityFactory factory) {
         for (IslandEntityType type : IslandEntityType.values()) {
-            int amountOfOneTypeOfEntity = ThreadLocalRandom.current().nextInt(5, type.getMaxAmount() + 1);
+            int amountOfOneTypeOfEntity = ThreadLocalRandom.current().nextInt(1, type.getMaxAmount() + 1);
             while (amountOfOneTypeOfEntity > 0) {
                 IslandEntity entity = factory.createEntity(x, y, type);
                 entity.setX(x);

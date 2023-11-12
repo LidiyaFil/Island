@@ -28,7 +28,7 @@ public class PlantGenerationThread extends Thread {
             for (int x = 0; x < islandField.getNumRows(); x++) {
                 for (int y = 0; y < islandField.getNumColumns(); y++) {
                     if (countOfPlantOnCellResolver(x, y, IslandEntityType.PLANT) < IslandEntityType.PLANT.getMaxAmount()) {
-                        int countOfNewPlants = ThreadLocalRandom.current().nextInt(0, 50);
+                        int countOfNewPlants = ThreadLocalRandom.current().nextInt(0, 199);
                         while (countOfNewPlants > 0) {
                             abstractFactory.createEntity(x, y, IslandEntityType.PLANT);
                             countOfNewPlants--;
@@ -36,7 +36,7 @@ public class PlantGenerationThread extends Thread {
                     }
                 }
             }
-            if (countOfPlantOnFieldResolver(IslandEntityType.PLANT) <= 100) {
+            if (countOfPlantOnFieldResolver(IslandEntityType.PLANT) <= 200) {
                 stopPlantGeneration();
 //                System.out.println("Генерация растений остановлена");
             }

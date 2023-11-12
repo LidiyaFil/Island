@@ -16,12 +16,21 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GameSimulationThread extends Thread {
-    IslandField islandField = IslandField.getInstance();
-    NutritionService nutrition;
-    ReproductionService reproduction;
-    MovingService moving;
-    protected static boolean running;
+    private final IslandField islandField = IslandField.getInstance();
+    private final NutritionService nutrition;
+    private final ReproductionService reproduction;
+    private  MovingService moving;
+    protected boolean running;
 //    private int coreCount;
+
+    public GameSimulationThread(NutritionService nutrition, ReproductionService reproduction, MovingService moving) {
+        this.nutrition = nutrition;
+        this.reproduction = reproduction;
+        this.moving = moving;
+        this.running = true;
+        // подсчет количества процессоров, для задания необходимого пула потоков
+        // this.coreCount = Runtime.getRuntime().availableProcessors();
+    }
 
     private boolean isRunning() {
         return running;
@@ -35,12 +44,6 @@ public class GameSimulationThread extends Thread {
         running = false;
     }
 
-    public GameSimulationThread() {
-        this.running = true;
-        // подсчет количества процессоров, для задания необходимого пула потоков
-        // this.coreCount = Runtime.getRuntime().availableProcessors();
-    }
-
     @Override
     public void run() {
         while (running) {
@@ -52,8 +55,8 @@ public class GameSimulationThread extends Thread {
         StatisticThread thread = new StatisticThread();
         thread.start();
         try {
+            //TODO wait -> notify
             Thread.sleep(2000);
-            System.out.println("Симуляция завершена, хищников или травоядных не осталось на карте");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -61,27 +64,22 @@ public class GameSimulationThread extends Thread {
     }
 
     private void actEntity() {
-        for (List[] lists : islandField.getGameField()) {
-            for (List list : lists) {
-                for (Object entity : list) {
-                    if (entity instanceof AbstractPlant) {
-                        continue;
-                    } else {
-                        new NutritionService((Eateble) entity).eat(list);
-                    }
-                }
-                for (Object entity : list) {
-                    if (entity instanceof AbstractPlant) {
-                        continue;
-                    } else {
-                        new ReproductionService((AbstractAnimal) entity).reproduce(list);
+        for (List<IslandEntity>[] lists : islandField.getGameField()) {
+            for (List<IslandEntity> list : lists) {
+                for (IslandEntity entity : list) {
+                    if (!(entity instanceof AbstractPlant)) {
+                        nutrition.eat(list, (AbstractAnimal) entity);
                     }
                 }
                 for (Object entity : list) {
                     if (!(entity instanceof AbstractPlant)) {
-                        new MovingService((AbstractAnimal) entity).move((AbstractAnimal) entity);
-                    } else {
-                        continue;
+                        reproduction.reproduce(list);
+                    }
+                }
+                for (Object entity : list) {
+                    if (!(entity instanceof AbstractPlant)) {
+                        this.moving = new MovingService();
+                        moving.move((AbstractAnimal) entity);
                     }
                 }
             }
@@ -100,6 +98,7 @@ public class GameSimulationThread extends Thread {
                 }
             }
         }
+        System.out.println("Симуляция завершена, хищников не осталось на карте");
         return true;
     }
 
@@ -115,6 +114,7 @@ public class GameSimulationThread extends Thread {
                 }
             }
         }
+        System.out.println("Симуляция завершена, травоядных не осталось на карте");
         return true;
     }
 }

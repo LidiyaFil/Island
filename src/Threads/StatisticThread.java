@@ -8,8 +8,8 @@ import java.util.*;
 
 public class StatisticThread extends Thread {
     IslandField islandField = IslandField.getInstance();
-    IslandEntityType array[] = IslandEntityType.values();
-    private boolean isGameFieldExsist;
+    IslandEntityType[] array = IslandEntityType.values();
+    private boolean isGameFieldExist;
     private boolean running;
 
     public StatisticThread() {
@@ -20,10 +20,10 @@ public class StatisticThread extends Thread {
         List[][] gameField = islandField.getGameField();
 
         //даем проинициализироваться всем обектам
-        if (!isGameFieldExsist) {
+        if (!isGameFieldExist) {
             try {
                 Thread.sleep(2000);
-                isGameFieldExsist = true;
+                isGameFieldExist = true;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -38,7 +38,7 @@ public class StatisticThread extends Thread {
                 throw new RuntimeException(e);
             }
 
-            if (GameSimulationThread.running == false) {
+            if (!running) {
                 stopStatisticThread();
             }
         }
@@ -50,7 +50,7 @@ public class StatisticThread extends Thread {
                 .count();
     }
 
-    private HashMap countEntitiesInGameField(IslandField field) {
+    private Map<String, Integer> countEntitiesInGameField(IslandField field) {
         HashMap<String, Integer> countOfEntityInGameField = new HashMap<>();
 
         for (IslandEntityType type : array) {

@@ -4,22 +4,18 @@ import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslantEntityFactory;
 import src.IslandLivingObject.IslandEntity;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class ReproductionService {
-    private AbstractAnimal abstractAnimal;
+    private final IslantEntityFactory islantEntityFactory;
 
-    public ReproductionService(AbstractAnimal abstractAnimal) {
-        this.abstractAnimal = abstractAnimal;
+    public ReproductionService(IslantEntityFactory islantEntityFactory) {
+        this.islantEntityFactory = islantEntityFactory;
     }
 
     public void reproduce(List<IslandEntity> entities) {
-        Iterator<IslandEntity> iterator = entities.iterator();
 
-        while (iterator.hasNext()) {
-            IslandEntity entity = iterator.next();
-
+        for (IslandEntity entity : entities) {
             if (canReproduce(entity, entities)) {
                 reproduceAnimal(entity, entities);
             }
@@ -28,11 +24,10 @@ public class ReproductionService {
 
     private boolean canReproduce(IslandEntity entity, List<IslandEntity> entities) {
         //растения мимо
-        if (!(entity instanceof AbstractAnimal)) {
+        if (!(entity instanceof AbstractAnimal animal)) {
             return false;
         }
         //приводим к животному
-        AbstractAnimal animal = (AbstractAnimal) entity;
         // если уже размножалось
         if (animal.isReproduced()) {
             return false;
@@ -52,7 +47,7 @@ public class ReproductionService {
 
     private void reproduceAnimal(IslandEntity entity, List<IslandEntity> entities) {
         AbstractAnimal animal = (AbstractAnimal) entity;
-        IslantEntityFactory animalFactory = new IslantEntityFactory();
+
 
         entities.stream()
                 .filter(reproducingAnimal -> reproducingAnimal != entity
@@ -62,11 +57,12 @@ public class ReproductionService {
                 .findFirst()
                 .ifPresent(reproducingAnimal -> {
                     AbstractAnimal newBornEntity =
-                            (AbstractAnimal) animalFactory.createEntity(animal.getX(), animal.getY(), animal.getType());
+                            (AbstractAnimal) islantEntityFactory.createEntity(animal.getX(), animal.getY(), animal.getType());
                     newBornEntity.setReproduced(true);
                     animal.setReproduced(true);
                     ((AbstractAnimal) reproducingAnimal).setReproduced(true);
                     //добавляем новенького
+                    System.out.println("added new Animal" + newBornEntity);
                     entities.add(newBornEntity);
                 });
     }

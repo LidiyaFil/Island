@@ -1,6 +1,5 @@
 package src.Actions.Servicies;
 
-import src.Actions.Eateble;
 import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.Animals.Predators.Predators;
@@ -11,18 +10,12 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class NutritionService {
-    private AbstractAnimal abstractAnimal;
 
-    public NutritionService(Eateble eateble) {
-        this.abstractAnimal = (AbstractAnimal) eateble;
-    }
-
-    public void eat(List<IslandEntity> entities) {
+    public void eat(List<IslandEntity> entities, AbstractAnimal abstractAnimal) {
         // пробегаемся по списку и проверяем животное на принадлежность к классу хищник
         for (IslandEntity eating : entities) {
 
-            if (eating instanceof AbstractAnimal) {
-                AbstractAnimal animal = (AbstractAnimal) eating;
+            if (eating instanceof AbstractAnimal animal) {
                 if (animal.getSaturation() <= 0) {
                     entities.remove(eating);
                     break;
@@ -30,7 +23,7 @@ public class NutritionService {
                 if (eating instanceof Predators) {
                     // если хищник, пробегаемся по списку ещё раз и пробуем скушать кого-то из списка getEdibleSpecies,
                     // определенного в классе животного
-                    feedPredator((Predators) eating, entities);
+                    feedPredator((Predators) eating, entities, abstractAnimal);
 
                 } else if (eating instanceof Herbivorous) {
                     feedHerbivorous((Herbivorous) eating, entities);
@@ -39,7 +32,7 @@ public class NutritionService {
         }
     }
 
-    private void feedPredator(Predators predator, List<IslandEntity> entities) {
+    private void feedPredator(Predators predator, List<IslandEntity> entities, AbstractAnimal abstractAnimal) {
         entities.stream()
                 .filter(lunch -> lunch instanceof AbstractAnimal && predator.getEdibleSpecies().containsKey(lunch.getType()))
                 .forEach(lunch -> {

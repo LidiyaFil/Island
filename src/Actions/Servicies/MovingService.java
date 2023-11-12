@@ -1,22 +1,13 @@
 package src.Actions.Servicies;
 
-import src.Actions.Moveable;
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslandEntity;
-
-import java.util.stream.IntStream;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MovingService {
-    IslandField islandField = IslandField.getInstance();
-    private AbstractAnimal abstractAnimal;
-
-    public MovingService(Moveable moveable) {
-        this.abstractAnimal = (AbstractAnimal) moveable;
-    }
 
     public void move(AbstractAnimal abstractAnimal) {
         int steps = abstractAnimal.getType().getMaxMove();
@@ -61,9 +52,9 @@ public class MovingService {
 
     private void moveEntity(IslandEntity islandEntity, int x, int y) {
         // лист где сейчас животное
-        List currentCellEntities = islandField.getGameField()[islandEntity.getX()][islandEntity.getY()];
+        List currentCellEntities = IslandField.getInstance().getGameField()[islandEntity.getX()][islandEntity.getY()];
         // лист, куда планирует переместиться
-        List newCellEntities = islandField.getGameField()[x][y];
+        List newCellEntities =  IslandField.getInstance().getGameField()[x][y];
         // если макс количество в клетке не превышено
         if (countOfEntityResolver(x, y, islandEntity.getClass()) < islandEntity.getType().getMaxAmount()) {
             // Добавляем животное в новую клетку
@@ -77,7 +68,7 @@ public class MovingService {
     }
 
     private int countOfEntityResolver(int x, int y, Class<?> targetClass) {
-        List<IslandEntity> entitiesInCell = islandField.getGameField()[x][y];
+        List<IslandEntity> entitiesInCell = IslandField.getInstance().getGameField()[x][y];
         return (int) entitiesInCell.stream().filter(targetClass::isInstance).count();
     }
 }

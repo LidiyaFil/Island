@@ -1,8 +1,5 @@
 package src.IslandLivingObject.Animals;
 
-import src.Actions.Eateble;
-import src.Actions.Moveable;
-import src.Actions.Reproducible;
 import src.Island.IslandField;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
@@ -11,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproducible, Moveable {
+public abstract class AbstractAnimal implements IslandEntity {
     IslandField islandField = IslandField.getInstance();
     private int x;
     private int y;
@@ -46,27 +43,22 @@ public abstract class AbstractAnimal implements IslandEntity, Eateble, Reproduci
         this.y = y;
     }
 
-    @Override
     public boolean isReproduced() {
         return reprodused;
     }
 
-    @Override
     public void setReproduced(boolean b) {
         this.reprodused = b;
     }
 
-    @Override
     public double getSaturation() {
         return saturation;
     }
 
-    @Override
     public void setSaturation(double newSaturation) {
         this.saturation = newSaturation;
     }
 
-    @Override
     public Map<IslandEntityType, Integer> getEdibleSpecies() {
         return this.edibleSpecies = edibleSpecies;
     }

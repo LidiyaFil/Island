@@ -36,7 +36,8 @@ public class PlantGenerationThread extends Thread {
                     }
                 }
             }
-            if (countOfPlantOnFieldResolver(IslandEntityType.PLANT) <= 200) {
+            //todo
+            if (countOfPlantOnFieldResolver(IslandEntityType.PLANT) <= IslandEntityType.PLANT.getMaxAmount()) {
                 stopPlantGeneration();
 //                System.out.println("Генерация растений остановлена");
             }

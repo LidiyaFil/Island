@@ -21,16 +21,19 @@ public class NutritionService {
         for (IslandEntity lunch : entities) {
 
             double lunchWeight = lunch.getType().getWeight();
-            if (abstractAnimal != lunch) {
+            if (abstractAnimal != lunch
+                    && abstractAnimal.getSaturation() != abstractAnimal.getType().getFullSaturation()) {
 
                 if (tryToEat(abstractAnimal, lunch)) {
-                    abstractAnimal.setSaturation(abstractAnimal.getSaturation() + Math.min(eaterSaturation, lunchWeight));
+                    abstractAnimal.setSaturation(
+                            Math.min(abstractAnimal.getSaturation()
+                                    + lunchWeight, abstractAnimal.getType().getFullSaturation()));
                     entities.remove(lunch);
                 }
             }
         }
     }
-
+        //TODO saturation!! check saturation
     public boolean tryToEat(AbstractAnimal eating, IslandEntity lunch) {
         int chance = ThreadLocalRandom.current().nextInt(100);
         if (eating.getEdibleSpecies().containsKey(lunch.getType())) {

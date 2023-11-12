@@ -49,7 +49,7 @@ public class GameSimulationThread extends Thread {
     public void run() {
         try {
             //TODO wait -> notify
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

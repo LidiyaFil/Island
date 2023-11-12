@@ -6,8 +6,7 @@ import java.util.Map;
 public class Goat extends Herbivorous {
     public Goat(int x, int y) {
         super(x, y);
-        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
-        edibleSpecies.put(IslandEntityType.PLANT, 99);
+        this.getEdibleSpecies().put(IslandEntityType.PLANT, 99);
     }
 
     @Override

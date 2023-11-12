@@ -6,16 +6,15 @@ import java.util.Map;
 public class Wolf extends Predators {
     public Wolf(int x, int y) {
         super(x, y);
-        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
-        edibleSpecies.put(IslandEntityType.HORSE, 10);
-        edibleSpecies.put(IslandEntityType.DEER, 15);
-        edibleSpecies.put(IslandEntityType.RABBIT, 60);
-        edibleSpecies.put(IslandEntityType.MOUSE, 80);
-        edibleSpecies.put(IslandEntityType.GOAT, 60);
-        edibleSpecies.put(IslandEntityType.SHEEP, 70);
-        edibleSpecies.put(IslandEntityType.WILD_BOAR, 15);
-        edibleSpecies.put(IslandEntityType.BUFFALO, 10);
-        edibleSpecies.put(IslandEntityType.DUCK, 40);
+        this.getEdibleSpecies().put(IslandEntityType.HORSE, 10);
+        this.getEdibleSpecies().put(IslandEntityType.DEER, 15);
+        this.getEdibleSpecies().put(IslandEntityType.RABBIT, 60);
+        this.getEdibleSpecies().put(IslandEntityType.MOUSE, 80);
+        this.getEdibleSpecies().put(IslandEntityType.GOAT, 60);
+        this.getEdibleSpecies().put(IslandEntityType.SHEEP, 70);
+        this.getEdibleSpecies().put(IslandEntityType.WILD_BOAR, 15);
+        this.getEdibleSpecies().put(IslandEntityType.BUFFALO, 10);
+        this.getEdibleSpecies().put(IslandEntityType.DUCK, 40);
     }
 
     @Override

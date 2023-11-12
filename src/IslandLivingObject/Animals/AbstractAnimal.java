@@ -14,6 +14,7 @@ public abstract class AbstractAnimal implements IslandEntity {
     private int y;
     private boolean reproduced = false;
     private double saturation;
+
     private final Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
 
     public AbstractAnimal(int x, int y) {
@@ -58,6 +59,7 @@ public abstract class AbstractAnimal implements IslandEntity {
     public void setSaturation(double newSaturation) {
         this.saturation = newSaturation;
     }
+
 
     public Map<IslandEntityType, Integer> getEdibleSpecies() {
         return this.edibleSpecies;

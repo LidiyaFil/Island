@@ -67,7 +67,7 @@ public class MovingService {
 //            System.out.println("сейчас добавим вот его");
             islandEntity.setX(x);
             islandEntity.setY(y);
-            System.out.println(islandEntity + " " + islandEntity.getX() + " " + islandEntity.getY());
+//            System.out.println(islandEntity + " " + islandEntity.getX() + " " + islandEntity.getY());
 //            System.out.println("с новыми координатами " + x + " " + y);
 
 
@@ -76,7 +76,7 @@ public class MovingService {
 //            System.out.println(IslandField.getInstance().getGameField()[x][y]);
             IslandField.getInstance().getGameField()[x][y].add(islandEntity);
 //            System.out.println("added");
-            System.out.println(IslandField.getInstance().getGameField()[x][y]);
+//            System.out.println(IslandField.getInstance().getGameField()[x][y]);
         }
     }
 

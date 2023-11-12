@@ -13,26 +13,29 @@ public class NutritionService {
 
     public void eat(List<IslandEntity> entities, AbstractAnimal abstractAnimal) {
         // пробегаемся по списку и проверяем животное на принадлежность к классу хищник
-        for (IslandEntity eating : entities) {
 
-            if (eating instanceof AbstractAnimal animal) {
-                if (animal.getSaturation() <= 0) {
-                    entities.remove(eating);
-                    break;
-                }
-                if (eating instanceof Predators) {
-                    // если хищник, пробегаемся по списку ещё раз и пробуем скушать кого-то из списка getEdibleSpecies,
-                    // определенного в классе животного
-                    feedPredator((Predators) eating, entities, abstractAnimal);
+        double eaterSaturation = abstractAnimal.getSaturation();
+        //хищники и травоядные могут есть друг друга!!!
+        for (IslandEntity lunch : entities) {
 
-                } else if (eating instanceof Herbivorous) {
-                    feedHerbivorous((Herbivorous) eating, entities);
+            double lunchWeight = lunch.getType().getWeight();
+            if (abstractAnimal != lunch) {
+
+                if (tryToEat(abstractAnimal, lunch)) {
+                    abstractAnimal.setSaturation(abstractAnimal.getSaturation() + Math.min(eaterSaturation, lunchWeight));
+                    entities.remove(lunch);
                 }
             }
         }
     }
 
-    private void feedPredator(Predators predator, List<IslandEntity> entities, AbstractAnimal abstractAnimal) {
+    public boolean tryToEat(AbstractAnimal eating, IslandEntity lunch) {
+        int chance = ThreadLocalRandom.current().nextInt(100);
+        return chance >= eating.getEdibleSpecies().get(lunch.getType());
+    }
+}
+
+   /* private void feedPredator(Predators predator, List<IslandEntity> entities, AbstractAnimal abstractAnimal) {
         entities.stream()
                 .filter(lunch -> lunch instanceof AbstractAnimal && predator.getEdibleSpecies().containsKey(lunch.getType()))
                 .forEach(lunch -> {
@@ -54,10 +57,4 @@ public class NutritionService {
                     herbivorous.setSaturation(lunch.getType().getWeight());
                     entities.remove(lunch);
                 });
-    }
-
-    public boolean tryToEat(AbstractAnimal eating, IslandEntity lunch) {
-        int chance = ThreadLocalRandom.current().nextInt(100);
-        return chance >= eating.getEdibleSpecies().get(lunch.getType());
-    }
-}
+    }*/

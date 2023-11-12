@@ -8,9 +8,8 @@ import java.util.Map;
 public class Duck extends Herbivorous {
     public Duck(int x, int y) {
         super(x, y);
-        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
-        edibleSpecies.put(IslandEntityType.CATERPILLAR, 90);
-        edibleSpecies.put(IslandEntityType.PLANT, 40);
+        this.getEdibleSpecies().put(IslandEntityType.CATERPILLAR, 90);
+        this.getEdibleSpecies().put(IslandEntityType.PLANT, 40);
     }
 
     @Override

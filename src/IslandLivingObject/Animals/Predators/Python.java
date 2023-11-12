@@ -7,11 +7,10 @@ import java.util.Map;
 public class Python extends Predators {
     public Python(int x, int y) {
         super(x, y);
-        Map<IslandEntityType, Integer> edibleSpecies = this.getEdibleSpecies();
-        edibleSpecies.put(IslandEntityType.FOX, 14);
-        edibleSpecies.put(IslandEntityType.RABBIT, 20);
-        edibleSpecies.put(IslandEntityType.MOUSE, 40);
-        edibleSpecies.put(IslandEntityType.DUCK, 10);
+        this.getEdibleSpecies().put(IslandEntityType.FOX, 14);
+        this.getEdibleSpecies().put(IslandEntityType.RABBIT, 20);
+        this.getEdibleSpecies().put(IslandEntityType.MOUSE, 40);
+        this.getEdibleSpecies().put(IslandEntityType.DUCK, 10);
     }
 
     @Override

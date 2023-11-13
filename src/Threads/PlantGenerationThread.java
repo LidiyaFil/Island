@@ -27,14 +27,14 @@ public class PlantGenerationThread extends Thread {
         while (running) {
             // Генерируем новые растения на каждой клетке
             try {
-                Thread.sleep(3000);
+                Thread.sleep(20000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             for (int x = 0; x < islandField.getNumRows(); x++) {
                 for (int y = 0; y < islandField.getNumColumns(); y++) {
                     if (countOfPlantOnCellResolver(x, y, IslandEntityType.PLANT) < IslandEntityType.PLANT.getMaxAmount()) {
-                        int countOfNewPlants = ThreadLocalRandom.current().nextInt(0, IslandEntityType.PLANT.getMaxAmount() - 1);
+                        int countOfNewPlants = ThreadLocalRandom.current().nextInt(0, (IslandEntityType.PLANT.getMaxAmount() - 1) / 2);
 //                        System.out.println("добавляем вот столько деревьев на клетку " + countOfNewPlants);
                         while (countOfNewPlants > 0) {
                             IslandEntity plant = abstractFactory.createEntity(x, y, IslandEntityType.PLANT);

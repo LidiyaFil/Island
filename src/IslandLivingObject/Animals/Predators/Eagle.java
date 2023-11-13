@@ -10,6 +10,7 @@ public class Eagle extends Predators {
         this.getEdibleSpecies().put(IslandEntityType.RABBIT, 90);
         this.getEdibleSpecies().put(IslandEntityType.MOUSE, 90);
         this.getEdibleSpecies().put(IslandEntityType.DUCK, 80);
+        this.getEdibleSpecies().put(IslandEntityType.PYTHON, 30);
     }
 
     @Override

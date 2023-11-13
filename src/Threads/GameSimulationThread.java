@@ -49,15 +49,15 @@ public class GameSimulationThread extends Thread {
     public void run() {
         try {
             //TODO wait -> notify
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         while (running) {
             actEntity();
-            if (areAllPredatorsDead() || areAllHerbivorousDead()) {
+            /*if (areAllPredatorsDead() || areAllHerbivorousDead()) {
                 setRunning(false);
-            }
+            }*/
         }
         //todo final showing statistic
     }
@@ -65,7 +65,7 @@ public class GameSimulationThread extends Thread {
     private void actEntity() {
 
         for (List<IslandEntity>[] lists : islandField.getGameField()) {
-            System.out.println(thread.countEntitiesInGameField());
+//            System.out.println(thread.countEntitiesInGameField()); //вывод статистики
             for (List<IslandEntity> list : lists) {
                /* //тест на то, что приходит в клетку
                 IslandEntityType[] values = IslandEntityType.values();

@@ -11,6 +11,8 @@ public class Python extends Predators {
         this.getEdibleSpecies().put(IslandEntityType.RABBIT, 20);
         this.getEdibleSpecies().put(IslandEntityType.MOUSE, 40);
         this.getEdibleSpecies().put(IslandEntityType.DUCK, 10);
+        this.getEdibleSpecies().put(IslandEntityType.WOLF, 10);
+        this.getEdibleSpecies().put(IslandEntityType.EAGLE, 5);
     }
 
     @Override

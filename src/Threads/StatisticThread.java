@@ -33,7 +33,7 @@ public class StatisticThread extends Thread {
             System.out.println(countEntitiesInGameField());
 
             try {
-                Thread.sleep(500);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

@@ -7,6 +7,7 @@ public class Wolf extends Predators {
     public Wolf(int x, int y) {
         super(x, y);
         this.getEdibleSpecies().put(IslandEntityType.HORSE, 10);
+        this.getEdibleSpecies().put(IslandEntityType.PYTHON, 10);
         this.getEdibleSpecies().put(IslandEntityType.DEER, 15);
         this.getEdibleSpecies().put(IslandEntityType.RABBIT, 60);
         this.getEdibleSpecies().put(IslandEntityType.MOUSE, 80);

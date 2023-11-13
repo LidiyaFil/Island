@@ -9,7 +9,7 @@ public enum IslandEntityType {
     HORSE(4, 20, 60, 400, "\uD83D\uDC0E"),
     DEER(4, 20, 50, 300, "\uD83E\uDD8C"),
     RABBIT(2, 150, 0.45, 2, "\uD83D\uDC07"),
-    MOUSE(1, 500, 0.01, 0.05, "\uD83D\uDC01"),
+    MOUSE(1, 500, 0.02, 0.05, "\uD83D\uDC01"),
     GOAT(3, 140, 10, 60, "\uD83D\uDC10"),
     SHEEP(3, 140, 15, 70, " \uD83D\uDC11"),
     WILD_BOAR(2, 50, 50, 400, "\uD83D\uDC17"),

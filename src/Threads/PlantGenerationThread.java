@@ -23,15 +23,24 @@ public class PlantGenerationThread extends Thread {
 
     @Override
     public void run() {
+//        long counter = 0;
         while (running) {
             // Генерируем новые растения на каждой клетке
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             for (int x = 0; x < islandField.getNumRows(); x++) {
                 for (int y = 0; y < islandField.getNumColumns(); y++) {
                     if (countOfPlantOnCellResolver(x, y, IslandEntityType.PLANT) < IslandEntityType.PLANT.getMaxAmount()) {
-                        int countOfNewPlants = ThreadLocalRandom.current().nextInt(0, 199);
+                        int countOfNewPlants = ThreadLocalRandom.current().nextInt(0, IslandEntityType.PLANT.getMaxAmount() - 1);
+//                        System.out.println("добавляем вот столько деревьев на клетку " + countOfNewPlants);
                         while (countOfNewPlants > 0) {
-                            abstractFactory.createEntity(x, y, IslandEntityType.PLANT);
+                            IslandEntity plant = abstractFactory.createEntity(x, y, IslandEntityType.PLANT);
+                            IslandField.getInstance().getGameField()[x][y].add(plant);
                             countOfNewPlants--;
+//                            System.out.println("add plant" + counter++);
                         }
                     }
                 }
@@ -39,7 +48,7 @@ public class PlantGenerationThread extends Thread {
             //todo
             if (countOfPlantOnFieldResolver(IslandEntityType.PLANT) <= IslandEntityType.PLANT.getMaxAmount()) {
                 stopPlantGeneration();
-//                System.out.println("Генерация растений остановлена");
+                System.out.println("Генерация растений остановлена");
             }
         }
     }
@@ -56,11 +65,10 @@ public class PlantGenerationThread extends Thread {
     }
 
     private int countOfPlantOnFieldResolver(IslandEntityType islandEntityType) {
-        return Arrays.stream(islandField.getGameField())
+        return (int) Arrays.stream(islandField.getGameField())
                 .flatMap(Arrays::stream)  // объединяем все списки в один поток
                 .flatMap(List::stream)    // объединяем все элементы в один поток
-                .filter(entity -> ((IslandEntity) entity).getType() == islandEntityType)  // фильтруем по типу
-                .mapToInt(entity -> 1)  // преобразуем каждый элемент в 1
-                .sum();  // суммируем результаты
+                .filter(entity -> (entity).getType() == islandEntityType)  // фильтруем по типу
+                .count();
     }
 }

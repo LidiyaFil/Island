@@ -65,6 +65,7 @@ public class GameSimulationThread extends Thread {
     private void actEntity() {
 
         for (List<IslandEntity>[] lists : islandField.getGameField()) {
+            System.out.println(thread.countEntitiesInGameField());
             for (List<IslandEntity> list : lists) {
                /* //тест на то, что приходит в клетку
                 IslandEntityType[] values = IslandEntityType.values();
@@ -72,7 +73,6 @@ public class GameSimulationThread extends Thread {
 
                     System.out.println("всего " + type + " в клетке " + thread.countEntitiesInCell(list, type));
                 }*/
-                System.out.println(thread.countEntitiesInGameField());
                 for (IslandEntity entity : list) {
                     if (entity instanceof AbstractPlant) {
 //                        System.out.println("это растение" + entity);

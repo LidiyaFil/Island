@@ -21,11 +21,11 @@ public class ReproductionService {
 
     private boolean canReproduce(IslandEntity entity, List<IslandEntity> entities) {
         //растения мимо
-        if (!(entity instanceof AbstractAnimal animal)) {
+        if (!(entity instanceof AbstractAnimal)) {
             return false;
         }
         // если уже размножалось
-        if (animal.isReproduced()) {
+        if (((AbstractAnimal) entity).isReproduced()) {
 //            System.out.println(animal + " отказано в размножении");
             return false;
         }
@@ -38,7 +38,7 @@ public class ReproductionService {
     // находим общее количество вида на клетке
     private int countSameTypeAnimals(IslandEntity entity, List<IslandEntity> entities) {
         return (int) entities.stream()
-                .filter(e -> e.getClass() == entity.getClass())
+                .filter(e -> e.getType() == entity.getType())
                 .count();
     }
 
@@ -46,21 +46,22 @@ public class ReproductionService {
         AbstractAnimal animal = (AbstractAnimal) entity;
 
 
-        entities.stream()
-                .filter(reproducingAnimal -> reproducingAnimal != entity
-                        && reproducingAnimal.getClass() == entity.getClass()
-                        && !((AbstractAnimal) reproducingAnimal).isReproduced()
-                        && Math.random() > 0.5)
-                .findFirst()
-                .ifPresent(reproducingAnimal -> {
-                    AbstractAnimal newBornEntity =
-                            (AbstractAnimal) islantEntityFactory.createEntity(animal.getX(), animal.getY(), animal.getType());
-                    newBornEntity.setReproduced(true);
-                    animal.setReproduced(true);
-                    ((AbstractAnimal) reproducingAnimal).setReproduced(true);
-                    //добавляем новенького
-//                    System.out.println("added new Animal" + newBornEntity);
-                    entities.add(newBornEntity);
-                });
+        //добавляем новенького
+        for (IslandEntity islandEntity : entities) {
+            if (islandEntity != entity
+                    && islandEntity.getType() == entity.getType()
+                    && !((AbstractAnimal) islandEntity).isReproduced()
+                    && Math.random() > 0.5) {
+                AbstractAnimal newBornEntity =
+                        (AbstractAnimal) islantEntityFactory.createEntity(animal.getX(), animal.getY(), animal.getType());
+                newBornEntity.setReproduced(true);
+                animal.setReproduced(true);
+                ((AbstractAnimal) islandEntity).setReproduced(true);
+                //добавляем новенького
+//                System.out.println("added new Animal" + newBornEntity);
+                entities.add(newBornEntity);
+                break;
+            }
+        }
     }
 }

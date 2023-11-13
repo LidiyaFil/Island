@@ -12,6 +12,7 @@ import src.Threads.PlantGenerationThread;
 public class Runner {
 
     public static void main(String[] args) {
+
         //todo симуляция продолжает работать после того, как все умерли
         Thread thread = new GameSimulationThread(
                 new NutritionService(),

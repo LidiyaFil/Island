@@ -16,7 +16,6 @@ public class NutritionService {
     public void eat(List<IslandEntity> entities, AbstractAnimal abstractAnimal) {
         // пробегаемся по списку и проверяем животное на принадлежность к классу хищник
 
-        double eaterSaturation = abstractAnimal.getSaturation();
         //хищники и травоядные могут есть друг друга!!!
         for (IslandEntity lunch : entities) {
 

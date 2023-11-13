@@ -14,7 +14,7 @@ public class MovingService {
         int newX = abstractAnimal.getX();
         int newY = abstractAnimal.getY();
 
-        while (steps > 0) {
+        while (steps-- > 0) {
             // Генерируем случайное направление
             int direction = ThreadLocalRandom.current().nextInt(4);
 
@@ -38,8 +38,6 @@ public class MovingService {
             abstractAnimal.setReproduced(false);
             //убавляем сытость
             abstractAnimal.doStarvation();
-            // уменьшаем счетчик шагов
-            steps--;
         }
     }
 
@@ -58,7 +56,6 @@ public class MovingService {
         // проверяем, есть ли свободные места для движения в новой клетке
         if (countOfEntityResolver(x, y, islandEntity.getClass()) < islandEntity.getType().getMaxAmount()) {
 
-
             // Удаляем животное из текущей клетки
             IslandField.getInstance().getGameField()[oldIslandEntityX][oldIslandEntityY].remove(islandEntity);
 //            System.out.println("вот этого удалили из списка");
@@ -69,10 +66,8 @@ public class MovingService {
             islandEntity.setY(y);
 //            System.out.println(islandEntity + " " + islandEntity.getX() + " " + islandEntity.getY());
 //            System.out.println("с новыми координатами " + x + " " + y);
-
-
             // Добавляем животное в новую клетку
-//            System.out.println("try add");
+//            System.out.println("try add " + islandEntity);
 //            System.out.println(IslandField.getInstance().getGameField()[x][y]);
             IslandField.getInstance().getGameField()[x][y].add(islandEntity);
 //            System.out.println("added");

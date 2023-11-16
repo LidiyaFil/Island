@@ -48,8 +48,6 @@
 //https://github.com/Defenx/island
 
 
-
-
 Классы MovingService NutritionService не изменяй
 Поправь класс размножение
 

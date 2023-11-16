@@ -1,8 +1,21 @@
 package src;
 
+import src.Island.IslandField;
+import src.IslandLivingObject.Animals.AbstractAnimal;
+import src.IslandLivingObject.IslandEntity;
+import src.IslandLivingObject.IslandEntityType;
+import src.IslandLivingObject.IslantEntityFactory;
+
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Initializer {
+    private final IslantEntityFactory islantEntityFactory;
+    private final IslandField islandField = IslandField.getInstance();
+    public Initializer(IslantEntityFactory islantEntityFactory) {
+        this.islantEntityFactory = islantEntityFactory;
+    }
+
     public static int initSizeOfField() {
         Scanner scanner = new Scanner(System.in);
         int sizeOfField;

@@ -1,4 +1,4 @@
-package src.Actions.Servicies;
+package src.Actions;
 
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.AbstractAnimal;

@@ -27,7 +27,7 @@ public class PlantGenerationThread extends Thread {
         while (running) {
             // Генерируем новые растения на каждой клетке
             try {
-                Thread.sleep(20000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

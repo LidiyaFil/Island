@@ -9,21 +9,21 @@ import java.util.*;
 public class StatisticThread extends Thread {
     IslandField islandField = IslandField.getInstance();
     IslandEntityType[] array = IslandEntityType.values();
-    private boolean isGameFieldExist;
     private boolean running;
 
     public StatisticThread() {
         this.running = true;
     }
 
-    public void run() {
-        List[][] gameField = islandField.getGameField();
+    public void stopStatisticThread() {
+        running = false;
+    }
 
+    public void run() {
         //даем проинициализироваться всем обектам
-        if (!isGameFieldExist) {
+        while (islandField == null) {
             try {
                 Thread.sleep(2000);
-                isGameFieldExist = true;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -67,9 +67,5 @@ public class StatisticThread extends Thread {
             }
         }
         return countOfEntityInGameField;
-    }
-
-    public void stopStatisticThread() {
-        running = false;
     }
 }

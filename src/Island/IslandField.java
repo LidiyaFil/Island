@@ -2,9 +2,9 @@ package src.Island;
 
 import src.Initializer;
 import src.IslandLivingObject.Animals.AbstractAnimal;
+import src.IslandLivingObject.IslandEntityType;
 import src.IslandLivingObject.IslantEntityFactory;
 import src.IslandLivingObject.IslandEntity;
-import src.IslandLivingObject.IslandEntityType;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -12,17 +12,18 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class IslandField {
     private static final int sizeOfField = Initializer.initSizeOfField();
-    private static final IslandField instance = new IslandField(sizeOfField, sizeOfField);
-    private final IslantEntityFactory factory = new IslantEntityFactory();
+    private static final IslandField instance = new IslandField(sizeOfField, new IslantEntityFactory());
+    private final IslantEntityFactory islantEntityFactory;
     private final List<IslandEntity>[][] gameField;
     private final int numRows;
     private final int numColumns;
 
     @SuppressWarnings("unchecked")
-    private IslandField(int x, int y) {
+    private IslandField(int x, IslantEntityFactory islantEntityFactory) {
         numRows = x;
-        numColumns = y;
+        numColumns = x;
         gameField = new CopyOnWriteArrayList[numRows][numColumns];
+        this.islantEntityFactory = islantEntityFactory;
         createField();
     }
 
@@ -46,17 +47,16 @@ public class IslandField {
         for (int x = 0; x < numRows; x++) {
             for (int y = 0; y < numColumns; y++) {
                 gameField[x][y] = new CopyOnWriteArrayList<>();
-                firstGenerateEntities(x, y, factory);
+                firstInitEntities(x, y);
             }
         }
     }
 
-    // первоначальное заполнение поля животными и растениями
-    private void firstGenerateEntities(int x, int y, IslantEntityFactory factory) {
+    public void firstInitEntities(int x, int y) {
         for (IslandEntityType type : IslandEntityType.values()) {
             int amountOfOneTypeOfEntity = ThreadLocalRandom.current().nextInt(1, type.getMaxAmount() + 1);
             while (amountOfOneTypeOfEntity > 0) {
-                IslandEntity entity = factory.createEntity(x, y, type);
+                IslandEntity entity = islantEntityFactory.createEntity(x, y, type);
                 entity.setX(x);
                 entity.setY(y);
                 if (entity instanceof AbstractAnimal) {

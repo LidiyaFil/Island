@@ -1,14 +1,15 @@
 package src.Threads;
 
 
-import src.Actions.Servicies.*;
+import src.Actions.MovingService;
+import src.Actions.NutritionService;
+import src.Actions.ReproductionService;
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.*;
 import src.IslandLivingObject.Animals.Herbivorous.Caterpillar;
 import src.IslandLivingObject.Animals.Herbivorous.Herbivorous;
 import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
-import src.IslandLivingObject.IslandEntityType;
 import src.IslandLivingObject.Plants.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class GameSimulationThread extends Thread {
     private final IslandField islandField = IslandField.getInstance();
     private final NutritionService nutrition;
     private final ReproductionService reproduction;
-    private  MovingService moving;
+    private final MovingService moving;
     protected boolean running;
     private final StatisticThread thread = new StatisticThread();
 
@@ -97,11 +98,11 @@ public class GameSimulationThread extends Thread {
 //                        System.out.println("размножается травоядное" + entity);
                     }
 //                    System.out.println(entity.getClass());
-                    reproduction.reproduce(list, entity);
+                    reproduction.reproduceAllAnimalOnCell(list, entity);
                 }
                 for (IslandEntity entity : list) {
                     if (!(entity instanceof AbstractPlant)) {
-                        this.moving = new MovingService();
+//                        this.moving = new MovingService();
                         moving.move((AbstractAnimal) entity);
                     }
                 }

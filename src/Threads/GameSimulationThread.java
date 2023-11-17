@@ -67,6 +67,7 @@ public class GameSimulationThread extends Thread {
 
         for (List<IslandEntity>[] lists : islandField.getGameField()) {
 //            System.out.println(thread.countEntitiesInGameField()); //вывод статистики
+            //todo stream parralel
             for (List<IslandEntity> list : lists) {
                /* //тест на то, что приходит в клетку
                 IslandEntityType[] values = IslandEntityType.values();
@@ -87,6 +88,7 @@ public class GameSimulationThread extends Thread {
 //                        System.out.println("питается травоядное");
                     }
                 }
+
                 for (IslandEntity entity : list) {
                     if (entity instanceof AbstractPlant) {
                         continue;
@@ -94,7 +96,6 @@ public class GameSimulationThread extends Thread {
                     if (entity instanceof Predators) {
 //                        System.out.println("размножается хищник");
                     } else {
-
 //                        System.out.println("размножается травоядное" + entity);
                     }
 //                    System.out.println(entity.getClass());

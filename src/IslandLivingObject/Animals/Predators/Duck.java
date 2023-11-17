@@ -5,7 +5,7 @@ import src.IslandLivingObject.IslandEntityType;
 
 import java.util.Map;
 
-public class Duck extends Herbivorous {
+public class Duck extends Predators {
     public Duck(int x, int y) {
         super(x, y);
         this.getEdibleSpecies().put(IslandEntityType.CATERPILLAR, 90);

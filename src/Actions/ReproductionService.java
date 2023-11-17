@@ -5,7 +5,9 @@ import src.IslandLivingObject.IslandEntityType;
 import src.IslandLivingObject.IslantEntityFactory;
 import src.IslandLivingObject.IslandEntity;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReproductionService {
     private final IslantEntityFactory islantEntityFactory;
@@ -27,6 +29,7 @@ public class ReproductionService {
         return count > 1 && count < entity.getType().getMaxAmount();
     }
 
+    //todo create one class for all counter
     private int countSameTypeAnimals(IslandEntity entity, List<IslandEntity> entities) {
         return (int) entities.stream()
                 .filter(e -> e.getType() == entity.getType())
@@ -35,6 +38,8 @@ public class ReproductionService {
 
     private void reproduceOneAnimal(IslandEntity entity, List<IslandEntity> entities) {
         AbstractAnimal firstParent = (AbstractAnimal) entity;
+//        Map<IslandEntityType, Integer> countNewBornEntities = new HashMap<>();
+
         for (IslandEntity islandEntity : entities) {
             if (islandEntity.getType() == IslandEntityType.PLANT) {
                 break;
@@ -51,7 +56,16 @@ public class ReproductionService {
                 secondParent.setReproduced(true);
 //                System.out.println("added new Animal" + newBornEntity);
                 entities.add(newBornEntity);
+
+                IslandEntityType type = newBornEntity.getType();
+//                if (!countNewBornEntities.containsKey(type)) {
+//                    countNewBornEntities.put(type, 1);
+//                } else {
+//                    Integer current = countNewBornEntities.get(type);
+//                    countNewBornEntities.put(type, (current + 1));
+//                }
             }
         }
+//        System.out.println("from parent " + entity.getType() + " added " + countNewBornEntities);
     }
 }

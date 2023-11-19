@@ -3,7 +3,7 @@ package src;
 import src.Actions.MovingService;
 import src.Actions.NutritionService;
 import src.Actions.ReproductionService;
-import src.IslandLivingObject.IslantEntityFactory;
+import src.IslandLivingObject.IslandEntityFactory;
 import src.Threads.StatisticThread;
 import src.Threads.GameSimulationThread;
 import src.Threads.PlantGenerationThread;
@@ -16,7 +16,7 @@ public class Runner {
         // ну да, потому что ты удалил условие остановки runnera - когда все животные умерли
         Thread thread = new GameSimulationThread(
                 new NutritionService(),
-                new ReproductionService(new IslantEntityFactory()),
+                new ReproductionService(new IslandEntityFactory()),
                 new MovingService());
         thread.start();
 

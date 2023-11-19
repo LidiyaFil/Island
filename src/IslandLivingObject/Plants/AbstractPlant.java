@@ -9,40 +9,32 @@ import java.util.Objects;
 
 public abstract class AbstractPlant implements IslandEntity {
     IslandField islandField = IslandField.getInstance();
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public AbstractPlant(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    @Override
     public int getX() {
         return x;
     }
 
-    @Override
     public void setX(int x) {
         x = x;
     }
 
-    @Override
     public int getY() {
         return y;
     }
 
-    @Override
     public void setY(int y) {
         y = y;
     }
 
-    @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(String.valueOf(this.getType()));
-        builder.append(" (").append(getX()).append(", ").append(getY()).append(")");
-        return builder.toString();
+        return this.getType() + " (" + getX() + ", " + getY() + ")";
     }
 
     @Override

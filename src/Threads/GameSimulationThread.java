@@ -12,6 +12,7 @@ import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.Plants.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -66,48 +67,19 @@ public class GameSimulationThread extends Thread {
     private void actEntity() {
 
         for (List<IslandEntity>[] lists : islandField.getGameField()) {
-//            System.out.println(thread.countEntitiesInGameField()); //вывод статистики
             //todo stream parralel
-            for (List<IslandEntity> list : lists) {
-               /* //тест на то, что приходит в клетку
-                IslandEntityType[] values = IslandEntityType.values();
-                for (IslandEntityType type : values) {
-
-                    System.out.println("всего " + type + " в клетке " + thread.countEntitiesInCell(list, type));
-                }*/
-                for (IslandEntity entity : list) {
-                    if (entity instanceof AbstractPlant) {
-//                        System.out.println("это растение" + entity);
-                        continue;
-                    }
-                    nutrition.eat(list, (AbstractAnimal) entity);
-                    if (entity instanceof Predators) {
-//                        System.out.println("питается хищник");
-                    } else {
-
-//                        System.out.println("питается травоядное");
-                    }
-                }
-
-                for (IslandEntity entity : list) {
-                    if (entity instanceof AbstractPlant) {
-                        continue;
-                    }
-                    if (entity instanceof Predators) {
-//                        System.out.println("размножается хищник");
-                    } else {
-//                        System.out.println("размножается травоядное" + entity);
-                    }
-//                    System.out.println(entity.getClass());
-                    reproduction.reproduceAllAnimalOnCell(list, entity);
-                }
-                for (IslandEntity entity : list) {
-                    if (!(entity instanceof AbstractPlant)) {
-//                        this.moving = new MovingService();
-                        moving.move((AbstractAnimal) entity);
-                    }
-                }
-            }
+            Arrays.stream(islandField.getGameField())
+                    .parallel()
+                    .flatMap(Arrays::stream)
+                    .forEach(list -> {
+                        list.parallelStream()
+                                .filter(entity -> !(entity instanceof AbstractPlant))
+                                .forEach(entity -> {
+                                    nutrition.eat(list, (AbstractAnimal) entity);
+                                    reproduction.reproduceAllAnimalOnCell(list, entity);
+                                    moving.move((AbstractAnimal) entity);
+                                });
+                    });
         }
     }
 

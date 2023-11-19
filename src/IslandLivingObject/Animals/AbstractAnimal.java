@@ -25,22 +25,19 @@ public abstract class AbstractAnimal implements IslandEntity {
         this.saturation = this.getType().getFullSaturation() * 0.61;
     }
 
-    @Override
+
     public int getX() {
         return x;
     }
 
-    @Override
     public void setX(int x) {
         this.x = x;
     }
 
-    @Override
     public int getY() {
         return y;
     }
 
-    @Override
     public void setY(int y) {
         this.y = y;
     }
@@ -69,24 +66,13 @@ public abstract class AbstractAnimal implements IslandEntity {
     public void doStarvation() {
         //отнимаем по 50% от максимальной вместимости желудка
         if (this.getSaturation() > 0) {
-//            System.out.println("голодает " + this + "его сатурация была " + this.getSaturation());
-           /* if (this instanceof Predators) {
-                if (this.getEdibleSpecies().containsKey(IslandEntityType.PLANT)) {
-                    this.setSaturation(this.getSaturation() - this.getType().getFullSaturation() * 0.4);
-                } else {
-                    this.setSaturation(this.getSaturation() - this.getType().getFullSaturation() * 0.53);
-                }
-            } else {
-                this.setSaturation(this.getSaturation() - this.getType().getFullSaturation() * 0.6);
-            }*/
+
             this.setSaturation(this.getSaturation() - this.getType().getFullSaturation() * 0.53);
-            if (this.getSaturation() <= 0)
-//            System.out.println("стала " + this.getSaturation());
+
             if (this.getSaturation() <= 0) {
                 this.die();
             }
         } else {
-            //удаляем объект с игрового поля, если животное голодает в начале хода
             this.die();
         }
     }
@@ -94,18 +80,13 @@ public abstract class AbstractAnimal implements IslandEntity {
     public void die() {
         int oldIslandEntityX = this.getX();
         int oldIslandEntityY = this.getY();
-//        System.out.println("method die" + this);
-//        System.out.println("удаляем" + this);
+
         IslandField.getInstance().getGameField()[oldIslandEntityX][oldIslandEntityY].remove(this);
-//        System.out.println("клетка содержит удаленное животное? - "
-//                + IslandField.getInstance().getGameField()[oldIslandEntityX][oldIslandEntityY].contains(this));
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(this.getType()).append("(" + this.getX() + ", " + this.getY() + ")");
-        return String.valueOf(builder);
+        return this.getType() + "(" + this.getX() + ", " + this.getY() + ")";
     }
 
     @Override
@@ -113,12 +94,7 @@ public abstract class AbstractAnimal implements IslandEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AbstractAnimal that = (AbstractAnimal) o;
-        return x == that.x
-                && y == that.y
-                && reproduced == that.reproduced
-                && Double.compare(saturation, that.saturation) == 0
-                && Objects.equals(islandField, that.islandField)
-                && Objects.equals(edibleSpecies, that.edibleSpecies);
+        return x == that.x && y == that.y && reproduced == that.reproduced && Double.compare(saturation, that.saturation) == 0 && Objects.equals(islandField, that.islandField) && Objects.equals(edibleSpecies, that.edibleSpecies);
     }
 
     @Override

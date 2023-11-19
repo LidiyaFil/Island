@@ -2,7 +2,6 @@
 //todo create new scrumboard under the project in GitHub repo!
 
 
-//убрать дублирование кода++
 
 //вероятность поедания сделать в конфиг и передавать в сервис поедания
 

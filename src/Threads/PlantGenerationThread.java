@@ -2,20 +2,17 @@ package src.Threads;
 
 import src.Island.IslandField;
 import src.IslandLivingObject.IslandEntity;
-import src.IslandLivingObject.IslantEntityFactory;
+import src.IslandLivingObject.IslandEntityFactory;
 import src.IslandLivingObject.IslandEntityType;
-import src.IslandLivingObject.Plants.AbstractPlant;
-import src.IslandLivingObject.Plants.Plant;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PlantGenerationThread extends Thread {
     IslandField islandField = IslandField.getInstance();
     private boolean running;
-    private IslantEntityFactory abstractFactory = new IslantEntityFactory();
+    private IslandEntityFactory abstractFactory = new IslandEntityFactory();
 
     public PlantGenerationThread() {
         this.running = true;

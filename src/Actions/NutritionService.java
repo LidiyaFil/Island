@@ -14,9 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class NutritionService {
 
     public void eat(List<IslandEntity> entities, AbstractAnimal abstractAnimal) {
-        // пробегаемся по списку и проверяем животное на принадлежность к классу хищник
 
-        //хищники и травоядные могут есть друг друга!!!
         for (IslandEntity lunch : entities) {
 
             double lunchWeight = lunch.getType().getWeight();
@@ -28,6 +26,9 @@ public class NutritionService {
                             Math.min(abstractAnimal.getSaturation()
                                     + lunchWeight, abstractAnimal.getType().getFullSaturation()));
                     entities.remove(lunch);
+                    if (abstractAnimal instanceof Predators) {
+//                        System.out.println(abstractAnimal.toString() + " " + abstractAnimal.getSaturation() );
+                    }
                 }
             }
         }

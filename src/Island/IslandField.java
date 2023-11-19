@@ -3,7 +3,7 @@ package src.Island;
 import src.Initializer;
 import src.IslandLivingObject.Animals.AbstractAnimal;
 import src.IslandLivingObject.IslandEntityType;
-import src.IslandLivingObject.IslantEntityFactory;
+import src.IslandLivingObject.IslandEntityFactory;
 import src.IslandLivingObject.IslandEntity;
 
 import java.util.List;
@@ -12,18 +12,18 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class IslandField {
     private static final int sizeOfField = Initializer.initSizeOfField();
-    private static final IslandField instance = new IslandField(sizeOfField, new IslantEntityFactory());
-    private final IslantEntityFactory islantEntityFactory;
+    private static final IslandField instance = new IslandField(sizeOfField, new IslandEntityFactory());
+    private final IslandEntityFactory islantEntityFactory;
     private final List<IslandEntity>[][] gameField;
     private final int numRows;
     private final int numColumns;
 
     @SuppressWarnings("unchecked")
-    private IslandField(int x, IslantEntityFactory islantEntityFactory) {
+    private IslandField(int x, IslandEntityFactory islandEntityFactory) {
         numRows = x;
         numColumns = x;
         gameField = new CopyOnWriteArrayList[numRows][numColumns];
-        this.islantEntityFactory = islantEntityFactory;
+        this.islantEntityFactory = islandEntityFactory;
         createField();
     }
 
@@ -57,8 +57,6 @@ public class IslandField {
             int amountOfOneTypeOfEntity = ThreadLocalRandom.current().nextInt(1, type.getMaxAmount() + 1);
             while (amountOfOneTypeOfEntity > 0) {
                 IslandEntity entity = islantEntityFactory.createEntity(x, y, type);
-                entity.setX(x);
-                entity.setY(y);
                 if (entity instanceof AbstractAnimal) {
                     ((AbstractAnimal) entity).setSaturation(entity.getType().getFullSaturation() * 0.5);
                 }

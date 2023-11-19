@@ -4,19 +4,15 @@ import src.IslandLivingObject.Animals.Herbivorous.*;
 import src.IslandLivingObject.Animals.Predators.*;
 import src.IslandLivingObject.Plants.Plant;
 
-import java.util.concurrent.ThreadLocalRandom;
+public class IslandEntityFactory {
 
-public class IslantEntityFactory {
-    private int x;
-    private int y;
 
     public IslandEntity createEntity(int x, int y, IslandEntityType entityType) {
-        this.x = x;
-        this.y = y;
-        return mapIslandEntityType(entityType);
+
+        return mapIslandEntityType(x, y, entityType);
     }
 
-    public IslandEntity mapIslandEntityType(IslandEntityType entityType) {
+    public IslandEntity mapIslandEntityType(int x, int y, IslandEntityType entityType) {
         return switch (entityType) {
             case WOLF -> new Wolf(x, y);
             case PYTHON -> new Python(x, y);

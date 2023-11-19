@@ -1,18 +1,14 @@
 package src;
 
 import src.Island.IslandField;
-import src.IslandLivingObject.Animals.AbstractAnimal;
-import src.IslandLivingObject.IslandEntity;
-import src.IslandLivingObject.IslandEntityType;
-import src.IslandLivingObject.IslantEntityFactory;
+import src.IslandLivingObject.IslandEntityFactory;
 
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Initializer {
-    private final IslantEntityFactory islantEntityFactory;
+    private final IslandEntityFactory islantEntityFactory;
     private final IslandField islandField = IslandField.getInstance();
-    public Initializer(IslantEntityFactory islantEntityFactory) {
+    public Initializer(IslandEntityFactory islantEntityFactory) {
         this.islantEntityFactory = islantEntityFactory;
     }
 

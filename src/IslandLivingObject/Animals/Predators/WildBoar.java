@@ -8,7 +8,7 @@ public class WildBoar extends Predators {
         super(x, y);
         this.getEdibleSpecies().put(IslandEntityType.MOUSE, 50);
         this.getEdibleSpecies().put(IslandEntityType.CATERPILLAR, 90);
-        this.getEdibleSpecies().put(IslandEntityType.PLANT, 99);
+        this.getEdibleSpecies().put(IslandEntityType.PLANT, 100);
     }
 
     @Override

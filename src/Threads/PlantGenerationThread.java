@@ -24,7 +24,7 @@ public class PlantGenerationThread extends Thread {
         while (running) {
             // Генерируем новые растения на каждой клетке
             try {
-                Thread.sleep(2000);
+                Thread.sleep(4000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -42,7 +42,6 @@ public class PlantGenerationThread extends Thread {
                     }
                 }
             }
-            //todo
             if (countOfPlantOnFieldResolver(IslandEntityType.PLANT) <= IslandEntityType.PLANT.getMaxAmount()) {
                 stopPlantGeneration();
                 System.out.println("Генерация растений остановлена");

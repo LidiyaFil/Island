@@ -1,30 +1,48 @@
 package src.IslandLivingObject.Animals;
 
 import src.Island.IslandField;
-import src.IslandLivingObject.Animals.Predators.Predators;
 import src.IslandLivingObject.IslandEntity;
 import src.IslandLivingObject.IslandEntityType;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 public abstract class AbstractAnimal implements IslandEntity {
+    private int reproduceTrying;
+    private Gender gender;
     IslandField islandField = IslandField.getInstance();
     private int x;
     private int y;
     private boolean reproduced = false;
     private double saturation;
-
     private final Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
-
-    public AbstractAnimal(int x, int y) {
+    public AbstractAnimal( int x, int y) {
         this.x = x;
         this.y = y;
+        this.reproduceTrying = 3;
         //инициализируем заполненность желудка 61% от максимально вместимости
         this.saturation = this.getType().getFullSaturation() * 0.61;
+        Random random = new Random();
+        this.gender = random.nextBoolean() ? Gender.MALE : Gender.FEMALE;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public int getReproduceTrying() {
+        return reproduceTrying;
+    }
+
+    public void setReproduceTrying(int reproduceTrying) {
+        this.reproduceTrying = reproduceTrying;
+    }
 
     public int getX() {
         return x;
@@ -64,10 +82,10 @@ public abstract class AbstractAnimal implements IslandEntity {
     }
 
     public void doStarvation() {
-        //отнимаем по 50% от максимальной вместимости желудка
+
         if (this.getSaturation() > 0) {
 
-            this.setSaturation(this.getSaturation() - this.getType().getFullSaturation() * 0.53);
+            this.setSaturation(this.getSaturation() - this.getType().getFullSaturation() * 0.55);
 
             if (this.getSaturation() <= 0) {
                 this.die();

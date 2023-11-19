@@ -6,7 +6,7 @@ import java.util.Map;
 public class Horse extends Herbivorous {
     public Horse(int x, int y) {
         super(x, y);
-        this.getEdibleSpecies().put(IslandEntityType.PLANT, 99);
+        this.getEdibleSpecies().put(IslandEntityType.PLANT, 100);
     }
 
     @Override

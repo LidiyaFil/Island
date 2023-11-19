@@ -8,7 +8,7 @@ import java.util.Map;
 public class Buffalo extends Herbivorous {
     public Buffalo(int x, int y) {
         super(x, y);
-        this.getEdibleSpecies().put(IslandEntityType.PLANT, 99);
+        this.getEdibleSpecies().put(IslandEntityType.PLANT, 100);
     }
 
     @Override

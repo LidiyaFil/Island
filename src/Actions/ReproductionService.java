@@ -43,9 +43,12 @@ public class ReproductionService {
             AbstractAnimal firstParent = (AbstractAnimal) entity;
             AbstractAnimal secondParent = (AbstractAnimal) islandEntity;
 
-            if (secondParent != firstParent
-                    && secondParent.getType() == firstParent.getType()
+            if (firstParent != secondParent
+                    && firstParent.getType() == secondParent.getType()
+                    && firstParent.getGender() != secondParent.getGender()
                     && !(secondParent.isReproduced())
+                    && firstParent.getReproduceTrying() > 0
+                    && secondParent.getReproduceTrying() > 0
                     && Math.random() > 0.5) {
 
                 AbstractAnimal newBornEntity =
@@ -54,6 +57,9 @@ public class ReproductionService {
                 firstParent.setReproduced(true);
                 secondParent.setReproduced(true);
                 entities.add(newBornEntity);
+            } else {
+                firstParent.setReproduceTrying(firstParent.getReproduceTrying() - 1);
+                secondParent.setReproduceTrying(secondParent.getReproduceTrying() - 1);
             }
         }
     }

@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class IslandField {
     private static final int sizeOfField = Initializer.initSizeOfField();
     private static final IslandField instance = new IslandField(sizeOfField, new IslandEntityFactory());
-    private final IslandEntityFactory islantEntityFactory;
+    private final IslandEntityFactory islandEntityFactory;
     private final List<IslandEntity>[][] gameField;
     private final int numRows;
     private final int numColumns;
@@ -23,7 +23,7 @@ public class IslandField {
         numRows = x;
         numColumns = x;
         gameField = new CopyOnWriteArrayList[numRows][numColumns];
-        this.islantEntityFactory = islandEntityFactory;
+        this.islandEntityFactory = islandEntityFactory;
         createField();
     }
 
@@ -56,7 +56,7 @@ public class IslandField {
         for (IslandEntityType type : IslandEntityType.values()) {
             int amountOfOneTypeOfEntity = ThreadLocalRandom.current().nextInt(1, type.getMaxAmount() + 1);
             while (amountOfOneTypeOfEntity > 0) {
-                IslandEntity entity = islantEntityFactory.createEntity(x, y, type);
+                IslandEntity entity = islandEntityFactory.createEntity(x, y, type);
                 if (entity instanceof AbstractAnimal) {
                     ((AbstractAnimal) entity).setSaturation(entity.getType().getFullSaturation() * 0.5);
                 }

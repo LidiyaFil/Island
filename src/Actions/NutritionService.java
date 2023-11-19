@@ -18,12 +18,10 @@ public class NutritionService {
         for (IslandEntity lunch : entities) {
 
             double lunchWeight = lunch.getType().getWeight();
-            if (abstractAnimal != lunch
-                    && abstractAnimal.getSaturation() != abstractAnimal.getType().getFullSaturation()) {
+            if (abstractAnimal != lunch && abstractAnimal.getSaturation() < abstractAnimal.getType().getFullSaturation()) {
 
                 if (tryToEat(abstractAnimal, lunch)) {
-                    abstractAnimal.setSaturation(
-                            Math.min(abstractAnimal.getSaturation()
+                    abstractAnimal.setSaturation(Math.min(abstractAnimal.getSaturation()
                                     + lunchWeight, abstractAnimal.getType().getFullSaturation()));
                     entities.remove(lunch);
                     if (abstractAnimal instanceof Predators) {
@@ -37,6 +35,10 @@ public class NutritionService {
     public boolean tryToEat(AbstractAnimal eating, IslandEntity lunch) {
         int chance = ThreadLocalRandom.current().nextInt(100);
         if (eating.getEdibleSpecies().containsKey(lunch.getType())) {
+
+
+
+            //TODO
             return chance >= eating.getEdibleSpecies().get(lunch.getType());
         } else {
             return false;

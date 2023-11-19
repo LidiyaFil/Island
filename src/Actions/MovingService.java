@@ -31,9 +31,10 @@ public class MovingService {
                 moveEntity(abstractAnimal, newX, newY);
             }
 
-            abstractAnimal.setReproduced(false);
-            abstractAnimal.doStarvation();
         }
+        abstractAnimal.setReproduced(false);
+        abstractAnimal.setReproduceTrying(3);
+        abstractAnimal.doStarvation();
     }
 
     private boolean isValidPosition(int x, int y) {

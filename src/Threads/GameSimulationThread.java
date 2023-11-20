@@ -1,9 +1,7 @@
 package src.Threads;
 
 
-import src.Actions.MovingService;
-import src.Actions.NutritionService;
-import src.Actions.ReproductionService;
+import src.Actions.*;
 import src.Island.IslandField;
 import src.IslandLivingObject.Animals.*;
 import src.IslandLivingObject.Animals.Herbivorous.Caterpillar;
@@ -22,17 +20,18 @@ public class GameSimulationThread extends Thread {
     private final ReproductionService reproduction;
     private final MovingService moving;
     protected boolean running;
-    private final StatisticThread thread = new StatisticThread();
+    private EntityRemover remover;
 
-//    private int coreCount;
 
-    public GameSimulationThread(NutritionService nutrition, ReproductionService reproduction, MovingService moving) {
+    public GameSimulationThread(NutritionService nutrition,
+                                ReproductionService reproduction,
+                                MovingService moving,
+                                EntityRemover remover) {
         this.nutrition = nutrition;
         this.reproduction = reproduction;
         this.moving = moving;
         this.running = true;
-        // подсчет количества процессоров, для задания необходимого пула потоков
-        // this.coreCount = Runtime.getRuntime().availableProcessors();
+        this.remover = remover;
     }
 
     private boolean isRunning() {
@@ -49,16 +48,18 @@ public class GameSimulationThread extends Thread {
 
     @Override
     public void run() {
-        try {
-            //TODO wait -> notify
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        int counter = 0;
+
+        //todo чтото тут не так
         while (running) {
             actEntity();
+            System.out.println("цикл " + counter++);
+            try {
+                this.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
-        //todo final showing statistic
     }
 
     private void actEntity() {
@@ -69,7 +70,7 @@ public class GameSimulationThread extends Thread {
                 .forEach(list -> {
                     list.parallelStream()
                             .filter(entity -> !(entity instanceof AbstractPlant))
-                            .forEach(entity -> {
+                            .forEachOrdered(entity -> {
                                 nutrition.eat(list, (AbstractAnimal) entity);
                                 reproduction.reproduceAllAnimalOnCell(list, entity);
                                 moving.move((AbstractAnimal) entity);

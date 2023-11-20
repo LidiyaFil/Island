@@ -8,6 +8,8 @@ import src.IslandLivingObject.IslandEntity;
 import java.util.List;
 
 public class ReproductionService {
+    private final LiveAbilityValidator liveAbilityValidator = new LiveAbilityValidator();
+    private final EntityRemover remover = new EntityRemover(liveAbilityValidator);
     private final IslandEntityFactory islandEntityFactory;
 
     public ReproductionService(IslandEntityFactory islandEntityFactory) {

@@ -12,8 +12,16 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class NutritionService {
+    private final LiveAbilityValidator liveAbilityValidator = new LiveAbilityValidator();
+    private final EntityRemover remover = new EntityRemover(liveAbilityValidator);
 
     public void eat(List<IslandEntity> entities, AbstractAnimal abstractAnimal) {
+
+        if (!liveAbilityValidator.checkLiveAbility(abstractAnimal)) {
+            remover.removeOrStayAnimal(abstractAnimal);
+            return;
+        }
+
         if (abstractAnimal.getSaturation() < 0) {
             abstractAnimal.die();
             return;
@@ -31,14 +39,9 @@ public class NutritionService {
             }
         }
     }
-        //TODO saturation!! check saturation
     public boolean tryToEat(AbstractAnimal eating, IslandEntity lunch) {
         int chance = ThreadLocalRandom.current().nextInt(100);
         if (eating.getEdibleSpecies().containsKey(lunch.getType())) {
-
-
-
-            //TODO
             return chance >= eating.getEdibleSpecies().get(lunch.getType());
         } else {
             return false;

@@ -8,8 +8,19 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MovingService {
+    private final LiveAbilityValidator liveAbilityValidator = new LiveAbilityValidator();
+    private final EntityRemover remover = new EntityRemover(liveAbilityValidator);
+
+
+
+
 
     public void move(AbstractAnimal abstractAnimal) {
+        if (!liveAbilityValidator.checkLiveAbility(abstractAnimal)) {
+            remover.removeOrStayAnimal(abstractAnimal);
+            return;
+        }
+
         if (abstractAnimal.getSaturation() < 0) {
             abstractAnimal.die();
             return;
@@ -68,5 +79,9 @@ public class MovingService {
     private int countOfEntityResolver(int x, int y, Class<?> targetClass) {
         List<IslandEntity> entitiesInCell = IslandField.getInstance().getGameField()[x][y];
         return (int) entitiesInCell.stream().filter(targetClass::isInstance).count();
+    }
+
+    public EntityRemover getRemover() {
+        return remover;
     }
 }

@@ -14,7 +14,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class NutritionService {
 
     public void eat(List<IslandEntity> entities, AbstractAnimal abstractAnimal) {
-
+        if (abstractAnimal.getSaturation() < 0) {
+            abstractAnimal.die();
+            return;
+        }
         for (IslandEntity lunch : entities) {
 
             double lunchWeight = lunch.getType().getWeight();
@@ -24,9 +27,6 @@ public class NutritionService {
                     abstractAnimal.setSaturation(Math.min(abstractAnimal.getSaturation()
                                     + lunchWeight, abstractAnimal.getType().getFullSaturation()));
                     entities.remove(lunch);
-                    if (abstractAnimal instanceof Predators) {
-//                        System.out.println(abstractAnimal.toString() + " " + abstractAnimal.getSaturation() );
-                    }
                 }
             }
         }

@@ -10,6 +10,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MovingService {
 
     public void move(AbstractAnimal abstractAnimal) {
+        if (abstractAnimal.getSaturation() < 0) {
+            abstractAnimal.die();
+            return;
+        }
+
         int steps = abstractAnimal.getType().getMaxMove();
         int newX = abstractAnimal.getX();
         int newY = abstractAnimal.getY();

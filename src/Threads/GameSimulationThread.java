@@ -57,30 +57,24 @@ public class GameSimulationThread extends Thread {
         }
         while (running) {
             actEntity();
-            /*if (areAllPredatorsDead() || areAllHerbivorousDead()) {
-                setRunning(false);
-            }*/
         }
         //todo final showing statistic
     }
 
     private void actEntity() {
 
-        for (List<IslandEntity>[] lists : islandField.getGameField()) {
-            //todo stream parralel
-            Arrays.stream(islandField.getGameField())
-                    .parallel()
-                    .flatMap(Arrays::stream)
-                    .forEach(list -> {
-                        list.parallelStream()
-                                .filter(entity -> !(entity instanceof AbstractPlant))
-                                .forEach(entity -> {
-                                    nutrition.eat(list, (AbstractAnimal) entity);
-                                    reproduction.reproduceAllAnimalOnCell(list, entity);
-                                    moving.move((AbstractAnimal) entity);
-                                });
-                    });
-        }
+        Arrays.stream(islandField.getGameField())
+                .parallel()
+                .flatMap(Arrays::stream)
+                .forEach(list -> {
+                    list.parallelStream()
+                            .filter(entity -> !(entity instanceof AbstractPlant))
+                            .forEach(entity -> {
+                                nutrition.eat(list, (AbstractAnimal) entity);
+                                reproduction.reproduceAllAnimalOnCell(list, entity);
+                                moving.move((AbstractAnimal) entity);
+                            });
+                });
     }
 
     // условие выхода из симуляции - все хищники мертвы

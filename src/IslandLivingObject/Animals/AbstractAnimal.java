@@ -11,29 +11,27 @@ import java.util.Random;
 
 public abstract class AbstractAnimal implements IslandEntity {
     private int reproduceTrying;
-    private Gender gender;
+    private final Gender gender;
     IslandField islandField = IslandField.getInstance();
     private int x;
     private int y;
     private boolean reproduced = false;
     private double saturation;
     private final Map<IslandEntityType, Integer> edibleSpecies = new HashMap<>();
-    public AbstractAnimal( int x, int y) {
+
+    public AbstractAnimal(int x, int y) {
         this.x = x;
         this.y = y;
         this.reproduceTrying = 3;
         //инициализируем заполненность желудка 61% от максимально вместимости
         this.saturation = this.getType().getFullSaturation() * 0.61;
         Random random = new Random();
-        this.gender = random.nextBoolean() ? Gender.MALE : Gender.FEMALE;
+        int randomValue = random.nextInt(100);
+        this.gender = randomValue < 60 ? Gender.MALE : Gender.FEMALE;
     }
 
     public Gender getGender() {
         return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     public int getReproduceTrying() {

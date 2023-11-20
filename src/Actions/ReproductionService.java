@@ -10,8 +10,8 @@ import java.util.List;
 public class ReproductionService {
     private final IslandEntityFactory islandEntityFactory;
 
-    public ReproductionService(IslandEntityFactory islantEntityFactory) {
-        this.islandEntityFactory = islantEntityFactory;
+    public ReproductionService(IslandEntityFactory islandEntityFactory) {
+        this.islandEntityFactory = islandEntityFactory;
     }
 
     public void reproduceAllAnimalOnCell(List<IslandEntity> entities, IslandEntity entity) {
@@ -47,8 +47,6 @@ public class ReproductionService {
                     && firstParent.getType() == secondParent.getType()
                     && firstParent.getGender() != secondParent.getGender()
                     && !(secondParent.isReproduced())
-                    && firstParent.getReproduceTrying() > 0
-                    && secondParent.getReproduceTrying() > 0
                     && Math.random() > 0.5) {
 
                 AbstractAnimal newBornEntity =
@@ -57,9 +55,6 @@ public class ReproductionService {
                 firstParent.setReproduced(true);
                 secondParent.setReproduced(true);
                 entities.add(newBornEntity);
-            } else {
-                firstParent.setReproduceTrying(firstParent.getReproduceTrying() - 1);
-                secondParent.setReproduceTrying(secondParent.getReproduceTrying() - 1);
             }
         }
     }

@@ -15,14 +15,13 @@ public class Runner {
         Thread thread = new GameSimulationThread(
                 new NutritionService(),
                 new ReproductionService(new IslandEntityFactory()),
-                new MovingService(),
-                new EntityRemover(new LiveAbilityValidator()));
+                new MovingService());
         thread.start();
 
         PlantGenerationThread plantThread = new PlantGenerationThread();
         plantThread.start();
-
+/*
         StatisticThread statisticThread = new StatisticThread();
-        statisticThread.start();
+        statisticThread.start();*/
     }
 }

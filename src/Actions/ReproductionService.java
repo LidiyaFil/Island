@@ -17,6 +17,7 @@ public class ReproductionService {
     }
 
     public void reproduceAllAnimalOnCell(List<IslandEntity> entities, IslandEntity entity) {
+
         if (canReproduce(entity, entities))
             reproduceOneAnimal(entity, entities);
     }
@@ -25,6 +26,10 @@ public class ReproductionService {
         if (!(entity instanceof AbstractAnimal)) return false;
         if (((AbstractAnimal) entity).isReproduced()) return false;
 
+        if (!liveAbilityValidator.checkLiveAbility((AbstractAnimal) entity)) {
+           ((AbstractAnimal) entity).die();
+            return false;
+        }
         int count = countSameTypeAnimals(entity, entities);
         return count > 1 && count < entity.getType().getMaxAmount();
     }

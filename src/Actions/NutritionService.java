@@ -18,7 +18,7 @@ public class NutritionService {
     public void eat(List<IslandEntity> entities, AbstractAnimal abstractAnimal) {
 
         if (!liveAbilityValidator.checkLiveAbility(abstractAnimal)) {
-            remover.removeOrStayAnimal(abstractAnimal);
+          abstractAnimal.die();
             return;
         }
 

@@ -11,13 +11,9 @@ public class MovingService {
     private final LiveAbilityValidator liveAbilityValidator = new LiveAbilityValidator();
     private final EntityRemover remover = new EntityRemover(liveAbilityValidator);
 
-
-
-
-
     public void move(AbstractAnimal abstractAnimal) {
         if (!liveAbilityValidator.checkLiveAbility(abstractAnimal)) {
-            remover.removeOrStayAnimal(abstractAnimal);
+            abstractAnimal.die();
             return;
         }
 
